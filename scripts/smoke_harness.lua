@@ -1,7 +1,7 @@
 --[[
 煙霧測試骨架：用假的 PZ 全域載入**真正的** MOD Lua，跑行為情境並斷言結果。
 
-    lua scripts/smoke_harness.lua        （repo 根目錄執行；標準 Lua 5.x 即可）
+    lua scripts/smoke_harness.lua        （repo 根目錄執行；標準 Lua 5.2 以上：參數名斷言用 debug.getlocal(函式, n)）
 
 為什麼需要（兩類 luac -p 抓不到的錯誤，皆為正式服實際事故）：
 - 改函式簽章漏改呼叫點：語法完全合法，要等該路徑真的執行才炸

@@ -31,7 +31,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [list]
 [*] [b]Confirmation[/b]: if the trunk, glove box or seats still hold items, the mod shows how many first.
 [*] [b]After you confirm[/b]: the items are destroyed with the vehicle. They do not drop on the ground, so take out what you want to keep.
-[*] [b]If someone adds items after you confirm[/b]: when the vehicle holds more items than you confirmed, the dismantle stops and the vehicle and items stay. Right-click and choose "Dismantle Vehicle" again to confirm the new count.
+[*] [b]If the item count goes up after you confirm[/b]: when the vehicle holds more items than you confirmed, the dismantle stops and the vehicle and items stay. Right-click and choose "Dismantle Vehicle" again to confirm the new count.
 [*] [b]Installed parts[/b]: tires, battery, seats and other parts still on the vehicle are destroyed too. Uninstall them first if you want them.
 [/list]
 === 🌐 Multiplayer Servers
@@ -50,6 +50,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [list]
 [*] [b]Stay close[/b]: you can move while dismantling, but the action stops if you go more than about 6 tiles away.
 [*] [b]Passengers and animals[/b]: a vehicle with someone inside, or a trailer with animals, cannot be dismantled. Get them out first.
+[*] [b]Only the item count is compared[/b]: if someone takes one item out and puts another in after you confirm, or fills a bag that was already inside, the count does not go up, the dismantle does not stop, and those items are destroyed with the vehicle.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod.
 [*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
 [/list]
@@ -65,7 +66,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [/list]
 [h3]The action stops halfway?[/h3]
 [list]
-[*] It stops if the torch leaves your hand, you move too far away, someone enters the vehicle, or someone puts items into it after you started.
+[*] It stops if the torch leaves your hand, you move too far away, someone enters the vehicle, or the vehicle ends up holding more items than you confirmed.
 [/list]
 [h3]I used Dismantle Any Car before. How do I switch?[/h3]
 [list]

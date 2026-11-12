@@ -21,7 +21,7 @@ local function predicateBlowTorch(item)
     return (item:hasTag(ItemTag.BLOW_TORCH) or item:getType() == "BlowTorch") and item:getCurrentUses() >= 10
 end
 
--- 照 ISVehicleMenu.onRemoveBurntVehicle（:883-892），多帶玩家看到的車內物品數：之後變多，動作就中止
+-- 照 ISVehicleMenu.onRemoveBurntVehicle（:883-892），多帶玩家看到的車內物品數：之後數量比它多，動作就中止
 local function start(playerObj, vehicle, items)
     if vehicle:isRemovedFromWorld() then return end
     if luautils.walkAdj(playerObj, vehicle:getSquare()) then
@@ -34,8 +34,11 @@ local function start(playerObj, vehicle, items)
     end
 end
 
-local function onConfirm(items, button, playerObj, vehicle)
-    if button.internal == "YES" then start(playerObj, vehicle, items) end
+local function onConfirm(shown, button, playerObj, vehicle)
+    if button.internal ~= "YES" or vehicle:isRemovedFromWorld() then return end
+    -- 確認框開著時物品被拿走：用比較小的數當基準，之後再有人放東西進去才擋得到
+    local _, now = D.count(vehicle)
+    start(playerObj, vehicle, math.min(shown, now))
 end
 
 function D.onDismantle(playerObj, vehicle)
