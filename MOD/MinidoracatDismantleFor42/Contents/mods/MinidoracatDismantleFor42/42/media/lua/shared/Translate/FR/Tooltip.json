@@ -1,0 +1,5 @@
+{
+    "Tooltip_MinidoracatDismantle_Dismantle": "Transforme ce véhicule en matériel de métallurgie. Le véhicule disparaît définitivement. <LINE> Un niveau plus élevé en travail des métaux permettra de récupérer davantage de matériel.",
+    "Tooltip_MinidoracatDismantle_Occupied": "Quelqu'un se trouve dans le véhicule",
+    "Tooltip_MinidoracatDismantle_Animals": "Il y a des animaux dans la remorque"
+}

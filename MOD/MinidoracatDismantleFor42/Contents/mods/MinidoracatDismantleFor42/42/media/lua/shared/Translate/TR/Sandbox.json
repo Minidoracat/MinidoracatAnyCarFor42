@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatDismantle": "Araç Sökümü",
+    "Sandbox_MinidoracatDismantle_LootMult": "Söküm ganimet çarpanı",
+    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "Bir aracı veya hurdayı sökünce elde edilen malzemeleri çarpar. 1.0 = orijinal. Çok oyunculuda sunucu uygular."
+}

@@ -68,9 +68,57 @@ function require(name)
     error("require 找不到: " .. name)
 end
 
--- TODO: require 你的 MOD 模組（shared 先於 server/client）
--- require "MyMod_Core"
--- require "MyMod_Server"
+-- 假的原版動作：只保留本 MOD 會包到的行為（ISRemoveBurntVehicle.lua:60-203）
+local rolls, randFloat = 0, 0.99
+function ZombRandFloat() return randFloat end
+SandboxVars = { MinidoracatDismantle = { LootMult = 1.0 } }
+ISRemoveBurntVehicle = {}
+ISRemoveBurntVehicle.__index = ISRemoveBurntVehicle
+function ISRemoveBurntVehicle:new(character, vehicle)
+    local o = setmetatable({ character = character }, self)
+    local name = vehicle and vehicle:getScript():getName() or ""
+    if name:match("Burnt") or name:match("Smashed") then o.vehicle = vehicle end
+    o.maxTime = o:getDuration()
+    return o
+end
+function ISRemoveBurntVehicle:getDuration() return self.vehicle and 800 or 0 end
+function ISRemoveBurntVehicle:isValid() return self.vehicle ~= nil and not self.vehicle:isRemovedFromWorld() end
+function ISRemoveBurntVehicle:checkAddItem() rolls = rolls + 1; return true end
+function ISRemoveBurntVehicle:complete()
+    if not self.vehicle then return false end
+    self:checkAddItem("ScrapMetal", 12)
+    self.vehicle.removed = true
+    return true
+end
+loaded["Vehicles/TimedActions/ISRemoveBurntVehicle"] = true
+
+require "MinidoracatDismantle/Action"
+
+local function fakeVehicle(script, opts)
+    opts = opts or {}
+    local v = { removed = false, x = 100.5, y = 200.5, z = 0, passengers = opts.passengers or 0, animals = opts.animals or {} }
+    function v:getScript() return { getName = function() return script end } end
+    function v:getScriptName() return "Base." .. script end
+    function v:isRemovedFromWorld() return self.removed end
+    function v:getX() return self.x end
+    function v:getY() return self.y end
+    function v:getZ() return self.z end
+    function v:getSqlId() return 48213 end
+    function v:hasPassenger() return self.passengers > 0 end
+    function v:getAnimals() return javaList(self.animals) end
+    local parts = {
+        { getInventoryItem = function() return {} end, getItemContainer = function() return { getItems = function() return javaList({ 1, 2, 3 }) end } end },
+        { getInventoryItem = function() return nil end, getItemContainer = function() return nil end },
+    }
+    function v:getPartCount() return #parts end
+    function v:getPartByIndex(i) return parts[i + 1] end
+    return v
+end
+
+local function fakePlayer(x, y, z)
+    return { getX = function() return x end, getY = function() return y end, getZ = function() return z or 0 end,
+        getUsername = function() return "tester" end }
+end
 
 -- ===== 測試工具 =====
 local failures = 0
@@ -86,23 +134,55 @@ local function runTicks(count)
 end
 
 -- ===== 情境 =====
--- TODO: 依 MOD 功能撰寫。範例形狀（來自 Cleaner 的實戰情境，見該 repo scripts/smoke_scanner.lua）：
---   情境一：主流程 happy path（建世界 → 觸發 → 跨 tick 推進 → 斷言結果）
---   情境二：安全邊界反面斷言（範圍外／受保護對象必須存活）
---   情境三：效能不變式（提早退出真的沒碰不該碰的東西——用計數器證明）
---
--- print("情境一：…")
--- check(condition, "描述")
--- nowMs = nowMs + 61000   -- 推進時間跨過掃描間隔／節流窗
--- runTicks(600)
+local near = fakePlayer(101.5, 201.5)
 
-print("（骨架自檢）")
-check(type(javaList({}).size) == "function", "javaList 形狀正確")
-check(#logLines == 0 and #clientCommandHandlers >= 0, "假全域就緒")
+print("情境一：完好車也能建立動作，殘骸照原版")
+local intact = fakeVehicle("CarNormal")
+local action = ISRemoveBurntVehicle:new(near, intact)
+check(action.vehicle == intact and action.maxTime == 800, "完好車：vehicle 補上、maxTime 重算")
+check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormalBurnt")).maxTime == 800, "燒毀車：照原版")
+check(ISRemoveBurntVehicle:new(near, nil).vehicle == nil, "沒有車：不補")
+
+print("情境二：伺服器通過檢查，拆掉並記一行")
+rolls = 0
+check(action:complete() == true and intact.removed, "完好車移除")
+check(#logLines == 1 and logLines[1] == "SCRAP player=tester vehicle=Base.CarNormal id=48213 at=100,200,0 parts=1 items=3",
+    "log 一行：" .. tostring(logLines[1]))
+check(action:complete() == false and #logLines == 1, "同一台再拆：已移除，不產出不記錄")
+
+print("情境三：檢查不過就不產出、不刪車、不記錄")
+local function refused(label, player, vehicle)
+    rolls = 0
+    local n = #logLines
+    local a = ISRemoveBurntVehicle:new(player, vehicle)
+    check(a:complete() == false and not vehicle.removed and rolls == 0 and #logLines == n, label)
+end
+refused("距離太遠", fakePlayer(108, 200.5), fakeVehicle("CarNormal"))
+refused("不同樓層", fakePlayer(101.5, 201.5, 1), fakeVehicle("CarNormal"))
+refused("車上有人", near, fakeVehicle("CarNormal", { passengers = 1 }))
+refused("拖車上有動物", near, fakeVehicle("TrailerAnimal", { animals = { {} } }))
+refused("燒毀車也檢查距離", fakePlayer(108, 200.5), fakeVehicle("CarNormalBurnt"))
+check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal", { passengers = 1 })):isValid() == false, "客戶端 isValid 同步中止")
+
+print("情境四：LootMult 決定擲骰次數")
+local function rollsAt(mult, rand)
+    SandboxVars.MinidoracatDismantle.LootMult = mult
+    randFloat = rand
+    rolls = 0
+    local got = ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("ScrapMetal", 12)
+    return rolls, got
+end
+check(rollsAt(1.0, 0) == 1, "1.0：一次（原版）")
+check(rollsAt(3.0, 0) == 3, "3.0：三次")
+local n0, got0 = rollsAt(0.0, 0)
+check(n0 == 0 and got0 == false, "0.0：不擲、不給經驗")
+check(rollsAt(1.5, 0.4) == 2 and rollsAt(1.5, 0.6) == 1, "1.5：一半機率多擲一次")
+SandboxVars.MinidoracatDismantle = nil
+check(pcall(function() return ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("x", 1) end), "沒有沙盒值：當成 1.0")
 
 print()
 if failures > 0 then
     print(failures .. " 項失敗")
     os.exit(1)
 end
-print("全部通過（記得補上真正的情境）")
+print("全部通過")

@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatDismantle": "Rozmontowanie pojazdów",
+    "Sandbox_MinidoracatDismantle_LootMult": "Mnożnik łupów z rozmontowania",
+    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "Mnoży materiały uzyskiwane z rozmontowania pojazdu lub wraku. 1.0 = jak w oryginale. W grze wieloosobowej stosuje go serwer."
+}
