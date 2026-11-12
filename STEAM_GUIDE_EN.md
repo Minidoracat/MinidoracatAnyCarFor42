@@ -12,7 +12,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Add/remove mid-save[/b]: safe either way. After removal, intact vehicles go back to vanilla and cannot be dismantled.
 [/list]
 [olist]
-[*] [b]Get the tools[/b]: a welding mask and a propane torch with at least 10 uses left.
+[*] [b]Get the tools[/b]: a welding mask and a full propane torch (10 uses left).
 [*] [b]Right-click[/b]: right-click a vehicle and choose "Dismantle Vehicle".
 [*] [b]Confirm[/b]: if items are still inside, you are asked first.
 [*] [b]Done[/b]: the vehicle is gone for good and the materials drop where it stood.
@@ -21,8 +21,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 {{img:01-menu-en.jpg}}
 [list]
 [*] [b]Which vehicles[/b]: all of them. Intact cars and trailers show "Dismantle Vehicle". Burnt and smashed vehicles show the vanilla "Dismantle Car Wreck".
-[*] [b]Tools[/b]: the same as dismantling a wreck in vanilla. One welding mask and 10 uses of a propane torch. The tooltip lists what you are missing.
-[*] [b]Cost[/b]: 10 uses of the propane torch each time.
+[*] [b]Tools[/b]: the same as dismantling a wreck in vanilla. One welding mask and 10 uses of a propane torch, which is one full torch. The tooltip lists what you are missing.
+[*] [b]Cost[/b]: each vehicle uses 10 torch uses, a whole torch.
 [*] [b]Time[/b]: the same as dismantling a wreck in vanilla. Higher Welding is faster.
 [*] [b]Materials[/b]: the same metal materials and Welding XP as a vanilla wreck. Higher Welding gives more.
 [/list]
@@ -31,11 +31,12 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [list]
 [*] [b]Confirmation[/b]: if the trunk, glove box or seats still hold items, the mod shows how many first.
 [*] [b]After you confirm[/b]: the items are destroyed with the vehicle. They do not drop on the ground, so take out what you want to keep.
+[*] [b]If someone adds items after you confirm[/b]: when the vehicle holds more items than you confirmed, the dismantle stops and the vehicle and items stay. Right-click and choose "Dismantle Vehicle" again to confirm the new count.
 [*] [b]Installed parts[/b]: tires, battery, seats and other parts still on the vehicle are destroyed too. Uninstall them first if you want them.
 [/list]
 === 🌐 Multiplayer Servers
 [list]
-[*] [b]Server re-check[/b]: removing the vehicle and giving materials both happen on the server. It checks that the vehicle still exists, that you are next to it, that nobody is inside and that no animals are in the trailer.
+[*] [b]Server re-check[/b]: the server re-checks every dismantle before it removes the vehicle and gives materials.
 [*] [b]If a check fails[/b]: the vehicle stays and no materials drop.
 [*] [b]Vehicle protection mods[/b]: this mod reuses the vanilla dismantle action. With Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin.
 [*] [b]Dismantle log[/b]: for every dismantled vehicle the server writes one line to the MinidoracatDismantle log file in the Logs folder: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
@@ -50,7 +51,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Stay close[/b]: you can move while dismantling, but the action stops if you go more than about 6 tiles away.
 [*] [b]Passengers and animals[/b]: a vehicle with someone inside, or a trailer with animals, cannot be dismantled. Get them out first.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod.
-[*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the checks may stop working.
+[*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
 [/list]
 === ❓ FAQ
 [h3]There is no "Dismantle Vehicle" option?[/h3]
@@ -64,7 +65,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [/list]
 [h3]The action stops halfway?[/h3]
 [list]
-[*] It stops if the torch leaves your hand, you move too far away, or someone enters the vehicle.
+[*] It stops if the torch leaves your hand, you move too far away, someone enters the vehicle, or someone puts items into it after you started.
 [/list]
 [h3]I used Dismantle Any Car before. How do I switch?[/h3]
 [list]

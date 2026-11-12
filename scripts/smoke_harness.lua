@@ -115,9 +115,9 @@ local function fakeVehicle(script, opts)
     return v
 end
 
-local function fakePlayer(x, y, z)
+local function fakePlayer(x, y, z, name)
     return { getX = function() return x end, getY = function() return y end, getZ = function() return z or 0 end,
-        getUsername = function() return "tester" end }
+        getUsername = function() return name or "tester" end }
 end
 
 -- ===== 測試工具 =====
@@ -150,6 +150,11 @@ check(#logLines == 1 and logLines[1] == "SCRAP player=tester vehicle=Base.CarNor
     "log 一行：" .. tostring(logLines[1]))
 check(action:complete() == false and #logLines == 1, "同一台再拆：已移除，不產出不記錄")
 
+local spoof = ISRemoveBurntVehicle:new(fakePlayer(101.5, 201.5, 0, "a player=admin\nid=1"), fakeVehicle("CarNormal"), nil)
+spoof:complete()
+check(logLines[#logLines]:match("^SCRAP player=a_player_admin_id_1 vehicle=") ~= nil, "帳號名稱的空白、等號、換行不會變成假欄位")
+table.remove(logLines)
+
 print("情境三：檢查不過就不產出、不刪車、不記錄")
 local function refused(label, player, vehicle, confirmed)
     rolls = 0
@@ -163,6 +168,8 @@ refused("車上有人", near, fakeVehicle("CarNormal", { passengers = 1 }))
 refused("拖車上有動物", near, fakeVehicle("TrailerAnimal", { animals = { {} } }))
 refused("燒毀車也檢查距離", fakePlayer(108, 200.5), fakeVehicle("CarNormalBurnt"))
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal", { passengers = 1 })):isValid() == false, "客戶端 isValid 同步中止")
+check(MinidoracatDismantle.blocked(fakePlayer(120, 200), fakeVehicle("CarNormal", { passengers = 1 }), nil) == "occupied", "從遠處看：先回車上有人，選單才顯示得出原因")
+check(debug.getlocal(ISRemoveBurntVehicle.new, 2) == "character" and debug.getlocal(ISRemoveBurntVehicle.new, 3) == "vehicle" and debug.getlocal(ISRemoveBurntVehicle.new, 4) == "confirmed", "new 的參數名和動作欄位同名（多人靠它送參數）")
 
 print("情境三之二：確認後車內物品變多就不拆")
 local function withItems(n) return ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal"), n and { dismantleItems = n }) end
@@ -183,7 +190,7 @@ end
 check(rollsAt(1.0, 0) == 1, "1.0：一次（原版）")
 check(rollsAt(3.0, 0) == 3, "3.0：三次")
 local n0, got0 = rollsAt(0.0, 0)
-check(n0 == 0 and got0 == false, "0.0：不擲、不給經驗")
+check(n0 == 0 and got0 == false, "0.0：不擲、不加額外經驗")
 check(rollsAt(1.5, 0.4) == 2 and rollsAt(1.5, 0.6) == 1, "1.5：一半機率多擲一次")
 SandboxVars.MinidoracatDismantle = nil
 rolls = 0
