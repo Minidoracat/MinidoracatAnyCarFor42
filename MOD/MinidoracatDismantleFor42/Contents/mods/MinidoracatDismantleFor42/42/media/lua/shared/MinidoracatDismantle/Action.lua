@@ -1,5 +1,5 @@
 -- 讓原版的拆殘骸動作也能拆完好的車，並由伺服器重新檢查。
--- 放在 shared：多人時 complete 只在伺服器執行（LuaTimedActionNew.java:169-174、NetTimedAction.java:132-134）。
+-- 放在 shared：多人時 complete 在伺服器執行。
 require "Vehicles/TimedActions/ISRemoveBurntVehicle"
 
 MinidoracatDismantle = MinidoracatDismantle or {}
@@ -26,8 +26,9 @@ function D.count(vehicle)
     return parts, items
 end
 
--- 不能拆的原因；可以拆回 nil。"occupied"、"animals" 也給選單顯示用
-function D.blocked(character, vehicle)
+-- 不能拆的原因；可以拆回 nil。"occupied"、"animals" 也給選單顯示用。
+-- confirmedItems：玩家在確認框看到的車內物品數（沒經過本 MOD 選單的動作是 nil，不檢查）
+function D.blocked(character, vehicle, confirmedItems)
     if vehicle:isRemovedFromWorld() then return "gone" end
     local dx, dy = character:getX() - vehicle:getX(), character:getY() - vehicle:getY()
     if dx * dx + dy * dy > D.MAX_DIST * D.MAX_DIST or math.abs(character:getZ() - vehicle:getZ()) >= 1 then
@@ -35,31 +36,37 @@ function D.blocked(character, vehicle)
     end
     if vehicle:hasPassenger() then return "occupied" end -- BaseVehicle.java:1848
     if vehicle:getAnimals():size() > 0 then return "animals" end -- BaseVehicle.java:10713
+    if confirmedItems ~= nil then
+        local _, items = D.count(vehicle)
+        if items > confirmedItems then return "items" end
+    end
     return nil
 end
 
+-- 參數名要和動作表的欄位同名：引擎照 new 的參數名從動作表取值送到伺服器，再用它們重建動作
 local vanillaNew = ISRemoveBurntVehicle.new
-function ISRemoveBurntVehicle:new(character, vehicle)
+function ISRemoveBurntVehicle:new(character, vehicle, confirmedItems)
     local o = vanillaNew(self, character, vehicle)
     if vehicle ~= nil and o.vehicle == nil then
         o.vehicle = vehicle
         o.maxTime = o:getDuration()
     end
+    if type(confirmedItems) == "number" then o.confirmedItems = confirmedItems end
     return o
 end
 
--- 客戶端：條件不符時動作直接中止，玩家看得到；伺服器不呼叫 isValid（NetTimedAction.java:118-120），由 complete 把關
+-- 客戶端：條件不符時動作直接中止，玩家看得到；伺服器在 complete 重新檢查
 local vanillaIsValid = ISRemoveBurntVehicle.isValid
 function ISRemoveBurntVehicle:isValid()
     if not vanillaIsValid(self) then return false end
-    return D.blocked(self.character, self.vehicle) == nil
+    return D.blocked(self.character, self.vehicle, self.confirmedItems) == nil
 end
 
 local vanillaComplete = ISRemoveBurntVehicle.complete
 function ISRemoveBurntVehicle:complete()
     local character, vehicle = self.character, self.vehicle
     if not character or not vehicle then return false end
-    local why = D.blocked(character, vehicle)
+    local why = D.blocked(character, vehicle, self.confirmedItems)
     if why then
         print(LOG .. "refused (" .. why .. "): " .. tostring(character:getUsername()))
         return false

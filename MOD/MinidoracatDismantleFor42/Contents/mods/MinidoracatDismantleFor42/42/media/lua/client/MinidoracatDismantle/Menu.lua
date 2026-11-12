@@ -4,7 +4,7 @@ require "MinidoracatDismantle/Action"
 
 local D = MinidoracatDismantle
 
--- 以下三個照抄原版的 local 函式（ISVehicleMenu.lua:5、:592、:879）
+-- 以下兩個照抄原版的 local 函式（ISVehicleMenu.lua:5、:592）
 local function predicateWeldingMask(item)
     return item:hasTag(ItemTag.WELDING_MASK) or item:getType() == "WeldingMask"
 end
@@ -17,20 +17,37 @@ local function requirementLine(ok, text)
     return " <LINE> <RGB:1," .. (ok and "1,1" or "0,0") .. "> " .. text
 end
 
-local function onConfirm(_, button, playerObj, vehicle)
-    if button.internal == "YES" then ISVehicleMenu.onRemoveBurntVehicle(playerObj, vehicle) end
+local function predicateBlowTorch(item)
+    return (item:hasTag(ItemTag.BLOW_TORCH) or item:getType() == "BlowTorch") and item:getCurrentUses() >= 10
+end
+
+-- 照 ISVehicleMenu.onRemoveBurntVehicle（:883-892），多帶玩家看到的車內物品數：之後變多，動作就中止
+local function start(playerObj, vehicle, items)
+    if vehicle:isRemovedFromWorld() then return end
+    if luautils.walkAdj(playerObj, vehicle:getSquare()) then
+        ISWorldObjectContextMenu.equip(playerObj, playerObj:getPrimaryHandItem(), predicateBlowTorch, true)
+        local mask = playerObj:getInventory():getFirstEvalRecurse(predicateWeldingMask)
+        if mask then
+            ISInventoryPaneContextMenu.wearItem(mask, playerObj:getPlayerNum())
+        end
+        ISTimedActionQueue.add(ISRemoveBurntVehicle:new(playerObj, vehicle, items))
+    end
+end
+
+local function onConfirm(items, button, playerObj, vehicle)
+    if button.internal == "YES" then start(playerObj, vehicle, items) end
 end
 
 function D.onDismantle(playerObj, vehicle)
     local _, items = D.count(vehicle)
     if items == 0 then
-        ISVehicleMenu.onRemoveBurntVehicle(playerObj, vehicle)
+        start(playerObj, vehicle, 0)
         return
     end
     -- 寫法照 ISVehicleMechanics.onCheatRemove（ISVehicleMechanics.lua:607-618）
     local playerNum = playerObj:getPlayerNum()
     local modal = ISModalDialog:new(0, 0, 350, 150, getText("IGUI_MinidoracatDismantle_ConfirmItems", items),
-        true, nil, onConfirm, playerNum, playerObj, vehicle)
+        true, items, onConfirm, playerNum, playerObj, vehicle)
     modal:initialise()
     modal.moveWithMouse = true
     modal:addToUIManager()
