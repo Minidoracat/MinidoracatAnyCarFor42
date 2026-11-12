@@ -1,40 +1,52 @@
 [h1]🔧 Minidoracat Dismantle Any Car MP[/h1]
 [h3]By Minidoracat[/h3]
 
+[b]42.22 Ready[/b]
+
 [hr][/hr]
 
-用噴燈拆解任何車輛，單人與多人伺服器皆可用，由伺服器重新檢查。
+プロパントーチでどんな車両も金属資材に解体できます。壊れていない車も対象です。シングルでもマルチサーバーでも使え、マルチではサーバーが解体を再チェックします。
 
-[h2]📦 需要安裝[/h2]
+[h2]📦 必要なもの[/h2]
 [list]
-[*] 單人與多人皆可用；多人遊戲需要伺服器啟用本 MOD
-[*] [b]中途加入／移除：[/b]XXXX（依 pz-family-docs/release.md 第 5 步判定）
-[*] [b]介面語言：[/b]繁體中文、简体中文、English、日本語、한국어、Русский、Español、Português、Türkçe、Français、Polski、Deutsch（翻譯有問題請回報）
+[*] シングル・マルチ両対応。マルチではサーバー側で本 MOD を有効にしてください
+[*] 他の MOD は不要です
+[*] 他の車両解体 MOD と同時に有効にしないでください
+[*] [b]途中追加・削除：[/b]どちらも可能
+[*] [b]対応言語：[/b]繁體中文、简体中文、English、日本語、한국어、Русский、Español、Português、Türkçe、Français、Polski、Deutsch（翻訳の問題はお知らせください）
 [/list]
 
-[h2]🚀 快速上手[/h2]
+[h2]🚀 クイックスタート[/h2]
 [olist]
-[*] XXXX
+[*] 溶接マスクと、残量が十分なプロパントーチを用意します
+[*] 車両を右クリックして「車両を解体する」を選びます
+[*] 車内にアイテムが残っている場合は、先に確認が表示されます
+[*] 解体が終わると車両は消え、金属資材が地面に落ちます
 [/olist]
 
-[h2]✨ 主要功能[/h2]
+[h2]✨ 主な機能[/h2]
 [list]
-[*] [b]功能名[/b]：說明
+[*] [b]どんな車両も解体[/b]：壊れていない車やトレーラーにも「車両を解体する」が出ます
+[*] [b]残骸はバニラのまま[/b]：焼けた車と大破した車はバニラの解体を使います
+[*] [b]マルチサーバー対応[/b]：サーバーが再チェックしてから車両を消し、資材を出します
+[*] [b]車内アイテムの警告[/b]：車内にアイテムが残っていると確認が表示されます
+[*] [b]入手量倍率[/b]：サンドボックス設定で解体時の資材量を調整できます
+[*] [b]解体ログ[/b]：誰がどこでどの車両を解体したかをサーバーが記録します
 [/list]
-📖 [b]完整說明與常見問題：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Dismantle Any Car MP 完整說明[/url]
+📖 [b]詳しい説明とよくある質問：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Dismantle Any Car MP Mod Guide（英語）[/url]
 
-[h2]🔗 Minidoracat 全系列[/h2]
-其他作品都在[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat 全系列收藏[/url]，依需求自選訂閱。
+[h2]🔗 Minidoracat シリーズ[/h2]
+他の作品は[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat コレクション[/url]にまとめています。必要なものだけサブスクライブしてください。
 
-[h2]💬 回報與交流[/h2]
+[h2]💬 報告・交流[/h2]
 [list]
 [*] GitHub Issues：https://github.com/Minidoracat/MinidoracatDismantleFor42/issues
 [*] Discord：https://discord.gg/Gur2V67
 [/list]
 
-[h2]☕ 支持作者[/h2]
-覺得有幫助的話，請在這頁按個 👍 讚、到 GitHub 給個 ⭐ 星星，讓更多玩家找得到它。
-MOD 永遠免費。喜歡的話可以請我喝杯咖啡，贊助會用在伺服器與 MOD 開發上；原始碼公開在 GitHub。
+[h2]☕ 作者を支援[/h2]
+役に立ったら、このページで 👍 を、GitHub で ⭐ をお願いします。より多くのプレイヤーに届きます。
+MOD はずっと無料です。気に入ったらコーヒーをおごってください。支援はサーバーと MOD の開発に使います。ソースコードは GitHub で公開しています。
 [url=https://ko-fi.com/minidoracat][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_kofi.png[/img][/url] [url=https://github.com/Minidoracat/MinidoracatDismantleFor42][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_github.png[/img][/url]
 
 [b]#Minidoracat[/b]
