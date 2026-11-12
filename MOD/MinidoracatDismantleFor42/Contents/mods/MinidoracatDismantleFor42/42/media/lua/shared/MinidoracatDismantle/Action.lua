@@ -27,7 +27,7 @@ function D.count(vehicle)
 end
 
 -- 不能拆的原因；可以拆回 nil。"occupied"、"animals" 也給選單顯示用。
--- confirmedItems：玩家在確認框看到的車內物品數（沒經過本 MOD 選單的動作是 nil，不檢查）
+-- confirmedItems：玩家在確認框看到的車內物品數；nil 不檢查。三個參數都要傳（Kahlua 不替少傳的參數補 nil）
 function D.blocked(character, vehicle, confirmedItems)
     if vehicle:isRemovedFromWorld() then return "gone" end
     local dx, dy = character:getX() - vehicle:getX(), character:getY() - vehicle:getY()
@@ -43,15 +43,21 @@ function D.blocked(character, vehicle, confirmedItems)
     return nil
 end
 
--- 參數名要和動作表的欄位同名：引擎照 new 的參數名從動作表取值送到伺服器，再用它們重建動作
+-- 車內物品數的確認；沒經過本 MOD 選單的動作（原版殘骸入口、其他 MOD）沒有，回 nil
+local function confirmedItems(action)
+    return action.confirmed and action.confirmed.dismantleItems or nil
+end
+
+-- 參數名要和動作表的欄位同名：引擎照 new 的參數名從動作表取值送到伺服器，再用它們重建動作。
+-- confirmed 是 { dismantleItems = n }，不是裸數字：別人只傳兩個參數時，Kahlua 可能留下別的值，表加欄位名才認得出來
 local vanillaNew = ISRemoveBurntVehicle.new
-function ISRemoveBurntVehicle:new(character, vehicle, confirmedItems)
+function ISRemoveBurntVehicle:new(character, vehicle, confirmed)
     local o = vanillaNew(self, character, vehicle)
     if vehicle ~= nil and o.vehicle == nil then
         o.vehicle = vehicle
         o.maxTime = o:getDuration()
     end
-    if type(confirmedItems) == "number" then o.confirmedItems = confirmedItems end
+    if type(confirmed) == "table" and type(confirmed.dismantleItems) == "number" then o.confirmed = confirmed end
     return o
 end
 
@@ -59,14 +65,14 @@ end
 local vanillaIsValid = ISRemoveBurntVehicle.isValid
 function ISRemoveBurntVehicle:isValid()
     if not vanillaIsValid(self) then return false end
-    return D.blocked(self.character, self.vehicle, self.confirmedItems) == nil
+    return D.blocked(self.character, self.vehicle, confirmedItems(self)) == nil
 end
 
 local vanillaComplete = ISRemoveBurntVehicle.complete
 function ISRemoveBurntVehicle:complete()
     local character, vehicle = self.character, self.vehicle
     if not character or not vehicle then return false end
-    local why = D.blocked(character, vehicle, self.confirmedItems)
+    local why = D.blocked(character, vehicle, confirmedItems(self))
     if why then
         print(LOG .. "refused (" .. why .. "): " .. tostring(character:getUsername()))
         return false

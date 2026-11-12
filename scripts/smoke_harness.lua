@@ -165,9 +165,10 @@ refused("燒毀車也檢查距離", fakePlayer(108, 200.5), fakeVehicle("CarNorm
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal", { passengers = 1 })):isValid() == false, "客戶端 isValid 同步中止")
 
 print("情境三之二：確認後車內物品變多就不拆")
-local function withItems(confirmed) return ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal"), confirmed) end
+local function withItems(n) return ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal"), n and { dismantleItems = n }) end
 check(withItems(2):isValid() == false and withItems(2):complete() == false, "確認時 2 件、現在 3 件：中止且伺服器拒絕")
-refused("確認時 0 件、現在 3 件（走 refused 斷言：不產出不刪車不記錄）", near, fakeVehicle("CarNormal"), 0)
+refused("確認時 0 件、現在 3 件（走 refused 斷言：不產出不刪車不記錄）", near, fakeVehicle("CarNormal"), { dismantleItems = 0 })
+check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal"), 0):complete() == true, "第三個參數不是確認表（別人少傳留下的值）：當成沒有確認")
 check(withItems(3):complete() == true and withItems(5):complete() == true, "確認的數量沒變或變少：照拆")
 check(withItems(nil):complete() == true, "沒經過確認流程的動作（原版入口、其他 MOD）：不檢查數量")
 

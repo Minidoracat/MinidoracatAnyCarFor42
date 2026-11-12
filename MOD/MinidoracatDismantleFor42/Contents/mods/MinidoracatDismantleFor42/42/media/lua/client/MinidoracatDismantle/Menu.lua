@@ -30,7 +30,7 @@ local function start(playerObj, vehicle, items)
         if mask then
             ISInventoryPaneContextMenu.wearItem(mask, playerObj:getPlayerNum())
         end
-        ISTimedActionQueue.add(ISRemoveBurntVehicle:new(playerObj, vehicle, items))
+        ISTimedActionQueue.add(ISRemoveBurntVehicle:new(playerObj, vehicle, { dismantleItems = items }))
     end
 end
 
@@ -79,7 +79,7 @@ function ISVehicleMenu.FillMenuOutsideVehicle(player, context, vehicle, test)
     description = description .. requirementLine(uses >= 10,
         getItemName("Base.BlowTorch") .. " " .. getText("ContextMenu_Uses") .. " " .. uses .. "/10")
 
-    local why = D.blocked(playerObj, vehicle)
+    local why = D.blocked(playerObj, vehicle, nil)
     if why == "occupied" then
         description = description .. requirementLine(false, getText("Tooltip_MinidoracatDismantle_Occupied"))
     elseif why == "animals" then
