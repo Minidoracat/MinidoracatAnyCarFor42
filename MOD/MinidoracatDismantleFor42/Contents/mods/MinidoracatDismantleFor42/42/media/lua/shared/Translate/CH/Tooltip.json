@@ -1,5 +1,5 @@
 {
-    "Tooltip_MinidoracatDismantle_Dismantle": "把這台車拆成金屬材料，車會永久消失。 <LINE> 焊接技能越高，回收的材料越多。",
+    "Tooltip_MinidoracatDismantle_Dismantle": "把這台車拆成金屬材料，車會永久消失。 <LINE> 金工技能越高，回收的材料越多。",
     "Tooltip_MinidoracatDismantle_Occupied": "車上有人",
     "Tooltip_MinidoracatDismantle_Animals": "拖車上有動物"
 }
