@@ -116,6 +116,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Both[/b]: your character walks to the part, opens the hood first and closes it afterwards. A locked hood is unlocked first.
 [/list]
 === 🧰 Part Salvage
+{{img:07-salvage-en.jpg}}
 [list]
 [*] [b]Where[/b]: with a removed part in your inventory, right-click it and choose the option that starts with "Salvage", such as "Salvage Car Door". Broken parts work too. The part is used up.
 [*] [b]Output[/b]: one fixed material, plus 3 rolls for extra materials (sandbox option).
@@ -136,6 +137,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [tr][td]Salvage Glove Box[/td][td]Screwdriver[/td][td]—[/td][td]Scrap Metal[/td][td]Steel Sheet - Small, Scrap Metal, Screws[/td][/tr]
 [/table]
 === 🧰 Tire Sealant
+{{img:08-sealant-en.jpg}}
 [list]
 [*] [b]Use[/b]: the "Use Tire Sealant" method for tires. One can, one repair. It needs only Mechanics 1 and repairs more than patching.
 [*] [b]Where to find it[/b]: shelves and crates in mechanic shops, car supply stores, gas stations and garages, and in the trunks and glove boxes of mechanic vehicles.

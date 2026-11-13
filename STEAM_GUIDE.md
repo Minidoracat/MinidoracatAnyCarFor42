@@ -116,6 +116,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]兩者共通[/b]：角色會走到零件旁，先打開引擎蓋，做完再關上；引擎蓋鎖著時會先解鎖。
 [/list]
 === 🧰 零件拆解
+{{img:07-salvage-zh.jpg}}
 [list]
 [*] [b]在哪裡[/b]：卸下來的零件放在背包，對它按右鍵選「拆解」開頭的選項，例如「拆解車門」。壞掉的零件也能拆，拆完零件就沒了。
 [*] [b]產出[/b]：固定得到一件材料，再抽 3 次額外材料（沙盒可調）。
@@ -136,6 +137,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [tr][td]拆解手套箱[/td][td]螺絲起子[/td][td]—[/td][td]廢金屬[/td][td]小金屬片、廢金屬、螺絲[/td][/tr]
 [/table]
 === 🧰 補胎劑
+{{img:08-sealant-zh.jpg}}
 [list]
 [*] [b]用途[/b]：輪胎的「使用補胎劑」修法，一罐補一次，技工 1 級就能用，比補胎修得多。
 [*] [b]哪裡找[/b]：修車廠、汽車用品店、加油站與車庫的架子和箱子，以及修車廠車輛的車廂與手套箱。
