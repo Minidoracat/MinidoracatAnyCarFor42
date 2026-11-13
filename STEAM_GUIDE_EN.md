@@ -155,7 +155,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [list]
 [*] [b]Where[/b]: right-click an intact vehicle and choose "Remove Parts, Then Dismantle".
 [*] [b]What it does[/b]: removes every part you are able to remove, one by one, then dismantles the vehicle. This takes a long time.
-[*] [b]Parts you cannot remove[/b]: removing follows the vanilla rules. Parts you lack the tools, skills or recipe for, and parts vanilla never lets you remove (such as the gas tank and glove box), stay on the vehicle and are destroyed with it.
+[*] [b]Parts you cannot remove[/b]: removing follows the vanilla rules. Parts you lack the tools, skills or recipe for, a gas tank that is not empty, and parts vanilla never lets you remove (such as the glove box) stay on the vehicle and are destroyed with it.
 [*] [b]Dismantle requirements[/b]: the same as "Dismantle Vehicle", so bring a welding mask and a full propane torch.
 [*] [b]If it stops[/b]: if you cancel one of the removals, the rest do not continue and the vehicle is not dismantled. Parts already removed stay with you or on the ground.
 [/list]
