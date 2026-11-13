@@ -207,7 +207,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [*] [b]Server re-check[/b]: the server re-checks every dismantle, part repair, engine rebuild, heater repair, part salvage, key making, hotwire removal and key copy before applying the result.
 [*] [b]If a check fails[/b]: a vehicle being dismantled stays and no materials drop; a part being repaired or rebuilt stays the same and no materials are used; no key is made and no material is used; a hotwire being removed stays.
 [*] [b]Vanilla actions[/b]: this mod reuses the vanilla dismantle, repair and hotwire actions and adds no network commands. Vehicle protection mods that guard those vanilla actions work without changes.
-[*] [b]Vehicle protection mods[/b]: with Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin, and making a key or removing the hotwire needs permission to drive it.
+[*] [b]Vehicle protection mods[/b]: with Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin. Only the owner (someone with permission to manage it) can make a key for it, and removing the hotwire needs permission to drive it.
 [*] [b]Server log[/b]: the server writes one line per event to the MinidoracatAnyCar log file in the Logs folder:
 [list]
 [*] Dismantle: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
