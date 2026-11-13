@@ -1,8 +1,9 @@
+<!-- 指南網址：https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195 -->
 <!-- Steam 指南稿源（英文）：MOD 的完整說明以本指南為準，簡介只放摘要。格式、版面與同步方式見 pz-family-docs/release.md「完整說明：Steam 指南」 -->
 <!-- 標題：📖 Minidoracat Repair & Dismantle Any Car MP Mod Guide: Part Repair, Dismantling and Sandbox Options -->
 <!-- 摘要：Full guide for the mod that repairs and dismantles any vehicle: how to repair parts, repair methods and materials for each part type, Repair All Parts, engine rebuild, part salvage, tire sealant, dismantling vehicles, what a multiplayer server checks, sandbox options, known limits and FAQ. -->
 === 🚀 Quick Start
-[b]繁體中文版：[/b][url=XXXX]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]
+[b]繁體中文版：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984184]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]
 
 The mod (Steam Workshop):
 https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743

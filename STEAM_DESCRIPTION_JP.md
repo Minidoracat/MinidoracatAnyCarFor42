@@ -35,7 +35,7 @@
 [*] [b]どんな車両も解体[/b]：壊れていない車やトレーラーもプロパントーチで解体できます
 [*] [b]マルチサーバー対応[/b]：サーバーが結果を再チェックしてから反映します
 [/list]
-📖 [b]詳しい説明とよくある質問：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP Mod Guide（英語）[/url]
+📖 [b]詳しい説明とよくある質問：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195]Minidoracat Repair & Dismantle Any Car MP Mod Guide（英語）[/url]
 
 [h2]🔗 Minidoracat シリーズ[/h2]
 他の作品は[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat コレクション[/url]にまとめています。必要なものだけサブスクライブしてください。

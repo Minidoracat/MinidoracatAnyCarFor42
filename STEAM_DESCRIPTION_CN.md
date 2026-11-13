@@ -35,7 +35,7 @@
 [*] [b]任何车都能拆[/b]：完好的车与拖车也能用喷灯拆解
 [*] [b]多人服务器可用[/b]：结果都由服务器重新检查后才执行
 [/list]
-📖 [b]完整说明与常见问题：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]（繁体中文）
+📖 [b]完整说明与常见问题：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984184]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]（繁体中文）
 
 [h2]🔗 Minidoracat 全系列[/h2]
 其他作品都在[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat 全系列收藏[/url]，按需自选订阅。

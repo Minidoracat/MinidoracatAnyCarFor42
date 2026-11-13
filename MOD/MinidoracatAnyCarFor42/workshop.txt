@@ -38,7 +38,7 @@ description=[*] [b]Tire Sealant[/b]: A new item that repairs a tire once per can
 description=[*] [b]Dismantle any vehicle[/b]: Intact cars and trailers can be cut up with a propane torch
 description=[*] [b]Works on multiplayer servers[/b]: The server re-checks every result before applying it
 description=[/list]
-description=📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
+description=📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
 description=
 description=[h2]🔗 Minidoracat Collection[/h2]
 description=All my other mods are in the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat collection[/url]. Subscribe to the ones you need.

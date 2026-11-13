@@ -35,7 +35,7 @@ Adds repair methods for every vehicle part, so you can repair parts while they a
 [*] [b]Dismantle any vehicle[/b]: Intact cars and trailers can be cut up with a propane torch
 [*] [b]Works on multiplayer servers[/b]: The server re-checks every result before applying it
 [/list]
-📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
+📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
 
 [h2]🔗 Minidoracat Collection[/h2]
 All my other mods are in the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat collection[/url]. Subscribe to the ones you need.
