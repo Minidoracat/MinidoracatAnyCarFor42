@@ -39,7 +39,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]伺服器重新檢查[/b]：拆車與給材料由伺服器重新檢查後才執行。
 [*] [b]不通過時[/b]：車不會消失，也不會掉材料。
 [*] [b]車輛保護 MOD[/b]：本 MOD 沿用原版的拆除動作。Minidoracat 車輛管理綁定的車，只有車主與管理員能拆。
-[*] [b]拆車紀錄[/b]：每拆一台車，伺服器在 Logs 資料夾的 MinidoracatDismantle 紀錄檔寫一行：帳號、車型、車輛編號、座標、零件數、車內物品數。
+[*] [b]拆車紀錄[/b]：每拆一台車，伺服器在 Logs 資料夾的 MinidoracatAnyCar 紀錄檔寫一行：帳號、車型、車輛編號、座標、零件數、車內物品數。
 [/list]
 === ⚙️ 沙盒選項與預設值
 [table]
@@ -75,7 +75,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [/list]
 === 💬 回報方式
 [list]
-[*] [b][url=https://github.com/Minidoracat/MinidoracatDismantleFor42/issues]GitHub Issues[/url][/b]
+[*] [b][url=https://github.com/Minidoracat/MinidoracatAnyCarFor42/issues]GitHub Issues[/url][/b]
 [*] [b][url=https://discord.gg/Gur2V67]Discord 社群[/url][/b]：回報時請附上
 [list]
 [*] 遊戲模式（單人／多人）

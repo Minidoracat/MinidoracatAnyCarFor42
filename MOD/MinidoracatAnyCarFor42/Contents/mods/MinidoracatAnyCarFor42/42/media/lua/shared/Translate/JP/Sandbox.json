@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatAnyCar": "車両解体",
+    "Sandbox_MinidoracatAnyCar_LootMult": "解体の入手量倍率",
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "車両や残骸を解体したときに得られる資材の倍率。1.0 = バニラ。マルチプレイではサーバーが適用します。"
+}

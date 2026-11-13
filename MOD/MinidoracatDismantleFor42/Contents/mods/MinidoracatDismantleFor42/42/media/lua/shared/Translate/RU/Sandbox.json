@@ -1,5 +1,0 @@
-{
-    "Sandbox_MinidoracatDismantle": "Разборка автомобилей",
-    "Sandbox_MinidoracatDismantle_LootMult": "Множитель добычи при разборке",
-    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "Множитель материалов, получаемых при разборке автомобиля или остова. 1.0 = как в оригинале. В сетевой игре применяется сервером."
-}

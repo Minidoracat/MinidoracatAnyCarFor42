@@ -1,5 +1,0 @@
-{
-    "Sandbox_MinidoracatDismantle": "Démontage de véhicules",
-    "Sandbox_MinidoracatDismantle_LootMult": "Multiplicateur de butin au démontage",
-    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "Multiplie le matériel obtenu en démontant un véhicule ou une épave. 1.0 = jeu de base. En multijoueur, le serveur l'applique."
-}

@@ -18,7 +18,7 @@ import re
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(REPO, "STEAM_DESCRIPTION_EN.md")   # 翻譯包改為 STEAM_DESCRIPTION.md
-DST = os.path.join(REPO, "MOD", "MinidoracatDismantleFor42", "workshop.txt")
+DST = os.path.join(REPO, "MOD", "MinidoracatAnyCarFor42", "workshop.txt")
 
 TITLE = "[B42] Dismantle Any Car MP by Minidoracat"
 TAGS = "Build 42;Vehicles;Multiplayer"   # 翻譯類用 Build 42;Language/Translation

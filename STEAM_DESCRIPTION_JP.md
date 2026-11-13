@@ -40,16 +40,16 @@
 
 [h2]💬 報告・交流[/h2]
 [list]
-[*] GitHub Issues：https://github.com/Minidoracat/MinidoracatDismantleFor42/issues
+[*] GitHub Issues：https://github.com/Minidoracat/MinidoracatAnyCarFor42/issues
 [*] Discord：https://discord.gg/Gur2V67
 [/list]
 
 [h2]☕ 作者を支援[/h2]
 役に立ったら、このページで 👍 を、GitHub で ⭐ をお願いします。より多くのプレイヤーに届きます。
 MOD はずっと無料です。気に入ったらコーヒーをおごってください。支援はサーバーと MOD の開発に使います。ソースコードは GitHub で公開しています。
-[url=https://ko-fi.com/minidoracat][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_kofi.png[/img][/url] [url=https://github.com/Minidoracat/MinidoracatDismantleFor42][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_github.png[/img][/url]
+[url=https://ko-fi.com/minidoracat][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_kofi.png[/img][/url] [url=https://github.com/Minidoracat/MinidoracatAnyCarFor42][img]https://raw.githubusercontent.com/Minidoracat/workshop-resources/refs/heads/main/badges/badge_github.png[/img][/url]
 
 [b]#Minidoracat[/b]
 
 Workshop ID: XXXX
-Mod ID: MinidoracatDismantleFor42
+Mod ID: MinidoracatAnyCarFor42

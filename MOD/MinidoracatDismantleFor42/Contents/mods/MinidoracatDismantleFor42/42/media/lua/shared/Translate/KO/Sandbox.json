@@ -1,5 +1,0 @@
-{
-    "Sandbox_MinidoracatDismantle": "차량 분해",
-    "Sandbox_MinidoracatDismantle_LootMult": "분해 획득량 배율",
-    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "차량이나 잔해를 분해할 때 얻는 자재의 배율입니다. 1.0 = 바닐라. 멀티플레이에서는 서버가 적용합니다."
-}

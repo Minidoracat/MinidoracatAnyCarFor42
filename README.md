@@ -10,7 +10,7 @@ Project Zomboid Build 42 MOD。
 - **多人伺服器可用**：拆車與給材料由伺服器重新檢查後才執行。車上有人或拖車上有動物時不能拆。
 - **車內物品提醒**：車內還有物品時先跳確認框；確認後物品和車一起消失。確認後車內物品又變多，拆解會中止。
 - **產出倍率**：沙盒選項「拆車產出倍率」（0–10，預設 1.0）。
-- **拆車紀錄**：伺服器每拆一台車在 `Logs/*_MinidoracatDismantle.txt` 記一行。
+- **拆車紀錄**：伺服器每拆一台車在 `Logs/*_MinidoracatAnyCar.txt` 記一行。
 - **介面語言**：繁體中文、简体中文、English、日本語、한국어、Русский、Español、Português、Türkçe、Français、Polski、Deutsch。
 
 ## 相容性
@@ -21,7 +21,7 @@ Project Zomboid Build 42 MOD。
 ## 安裝
 
 - Steam Workshop：（首次上傳後補上連結）
-- 手動安裝：把 `MOD/MinidoracatDismantleFor42/Contents/mods/MinidoracatDismantleFor42` 複製到 `%USERPROFILE%\Zomboid\mods\` 並將資料夾改名為 `MinidoracatDismantleFor42`
+- 手動安裝：把 `MOD/MinidoracatAnyCarFor42/Contents/mods/MinidoracatAnyCarFor42` 複製到 `%USERPROFILE%\Zomboid\mods\` 並將資料夾改名為 `MinidoracatAnyCarFor42`
 
 ## 開發
 

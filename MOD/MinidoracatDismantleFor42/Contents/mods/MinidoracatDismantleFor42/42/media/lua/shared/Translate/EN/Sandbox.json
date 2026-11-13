@@ -1,5 +1,0 @@
-{
-    "Sandbox_MinidoracatDismantle": "Dismantle Any Car",
-    "Sandbox_MinidoracatDismantle_LootMult": "Dismantle Loot Multiplier",
-    "Sandbox_MinidoracatDismantle_LootMult_tooltip": "Multiplies the materials you get from dismantling a vehicle or a wreck. 1.0 = vanilla. In multiplayer the server applies it."
-}

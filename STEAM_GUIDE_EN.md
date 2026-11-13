@@ -39,7 +39,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Server re-check[/b]: the server re-checks every dismantle before it removes the vehicle and gives materials.
 [*] [b]If a check fails[/b]: the vehicle stays and no materials drop.
 [*] [b]Vehicle protection mods[/b]: this mod reuses the vanilla dismantle action. With Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin.
-[*] [b]Dismantle log[/b]: for every dismantled vehicle the server writes one line to the MinidoracatDismantle log file in the Logs folder: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
+[*] [b]Dismantle log[/b]: for every dismantled vehicle the server writes one line to the MinidoracatAnyCar log file in the Logs folder: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
 [/list]
 === ⚙️ Sandbox Options and Defaults
 [table]
@@ -75,7 +75,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [/list]
 === 💬 Feedback
 [list]
-[*] [b][url=https://github.com/Minidoracat/MinidoracatDismantleFor42/issues]GitHub Issues[/url][/b]
+[*] [b][url=https://github.com/Minidoracat/MinidoracatAnyCarFor42/issues]GitHub Issues[/url][/b]
 [*] [b][url=https://discord.gg/Gur2V67]Discord[/url][/b]: please include
 [list]
 [*] Game mode (single player or multiplayer)

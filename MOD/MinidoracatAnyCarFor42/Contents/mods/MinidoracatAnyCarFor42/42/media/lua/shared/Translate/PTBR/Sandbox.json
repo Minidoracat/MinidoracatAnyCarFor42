@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatAnyCar": "Desmontar Veículos",
+    "Sandbox_MinidoracatAnyCar_LootMult": "Multiplicador de itens ao desmontar",
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplica os materiais obtidos ao desmontar um veículo ou uma carcaça. 1.0 = original. No multijogador, é aplicado pelo servidor."
+}

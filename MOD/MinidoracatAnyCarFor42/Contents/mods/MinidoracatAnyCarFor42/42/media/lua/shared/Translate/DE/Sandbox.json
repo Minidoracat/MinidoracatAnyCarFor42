@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatAnyCar": "Fahrzeugdemontage",
+    "Sandbox_MinidoracatAnyCar_LootMult": "Beute-Multiplikator beim Demontieren",
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multipliziert die Materialien, die du beim Demontieren eines Fahrzeugs oder Wracks erhältst. 1.0 = Originalspiel. Im Mehrspielermodus wendet der Server ihn an."
+}

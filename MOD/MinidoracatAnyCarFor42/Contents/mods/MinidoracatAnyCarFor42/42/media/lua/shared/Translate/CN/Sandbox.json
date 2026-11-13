@@ -1,0 +1,5 @@
+{
+    "Sandbox_MinidoracatAnyCar": "拆车",
+    "Sandbox_MinidoracatAnyCar_LootMult": "拆车产出倍率",
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "拆解车辆或残骸时掉落材料的倍率。1.0 = 原版。多人游戏由服务器应用。"
+}

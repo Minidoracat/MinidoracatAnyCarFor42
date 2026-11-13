@@ -21,7 +21,7 @@
 ]]
 
 -- 家族佈局固定，直接填死最省事；scaffold 時由模板替換佔位符
-local MEDIA = "MOD/MinidoracatDismantleFor42/Contents/mods/MinidoracatDismantleFor42/42/media/lua"
+local MEDIA = "MOD/MinidoracatAnyCarFor42/Contents/mods/MinidoracatAnyCarFor42/42/media/lua"
 
 -- ===== 假的 PZ 全域（依 MOD 實際用到的 API 增補）=====
 -- 起始時間要夠大：週期類邏輯常寫成 now - lastAt >= interval 而 lastAt 初值 0，
@@ -71,7 +71,7 @@ end
 -- 假的原版動作：只保留本 MOD 會包到的行為（ISRemoveBurntVehicle.lua:60-203）
 local rolls, randFloat = 0, 0.99
 function ZombRandFloat() return randFloat end
-SandboxVars = { MinidoracatDismantle = { LootMult = 1.0 } }
+SandboxVars = { MinidoracatAnyCar = { LootMult = 1.0 } }
 ISRemoveBurntVehicle = {}
 ISRemoveBurntVehicle.__index = ISRemoveBurntVehicle
 function ISRemoveBurntVehicle:new(character, vehicle)
@@ -92,7 +92,7 @@ function ISRemoveBurntVehicle:complete()
 end
 loaded["Vehicles/TimedActions/ISRemoveBurntVehicle"] = true
 
-require "MinidoracatDismantle/Action"
+require "MinidoracatAnyCar/Dismantle"
 
 local function fakeVehicle(script, opts)
     opts = opts or {}
@@ -168,7 +168,7 @@ refused("車上有人", near, fakeVehicle("CarNormal", { passengers = 1 }))
 refused("拖車上有動物", near, fakeVehicle("TrailerAnimal", { animals = { {} } }))
 refused("燒毀車也檢查距離", fakePlayer(108, 200.5), fakeVehicle("CarNormalBurnt"))
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal", { passengers = 1 })):isValid() == false, "客戶端 isValid 同步中止")
-check(MinidoracatDismantle.blocked(fakePlayer(120, 200), fakeVehicle("CarNormal", { passengers = 1 }), nil) == "occupied", "從遠處看：先回車上有人，選單才顯示得出原因")
+check(MinidoracatAnyCar.blocked(fakePlayer(120, 200), fakeVehicle("CarNormal", { passengers = 1 }), nil) == "occupied", "從遠處看：先回車上有人，選單才顯示得出原因")
 check(debug.getlocal(ISRemoveBurntVehicle.new, 2) == "character" and debug.getlocal(ISRemoveBurntVehicle.new, 3) == "vehicle" and debug.getlocal(ISRemoveBurntVehicle.new, 4) == "confirmed", "new 的參數名和動作欄位同名（多人靠它送參數）")
 
 print("情境三之二：確認後車內物品變多就不拆")
@@ -181,7 +181,7 @@ check(withItems(nil):complete() == true, "沒經過確認流程的動作（原�
 
 print("情境四：LootMult 決定擲骰次數")
 local function rollsAt(mult, rand)
-    SandboxVars.MinidoracatDismantle.LootMult = mult
+    SandboxVars.MinidoracatAnyCar.LootMult = mult
     randFloat = rand
     rolls = 0
     local got = ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("ScrapMetal", 12)
@@ -192,7 +192,7 @@ check(rollsAt(3.0, 0) == 3, "3.0：三次")
 local n0, got0 = rollsAt(0.0, 0)
 check(n0 == 0 and got0 == false, "0.0：不擲、不加額外經驗")
 check(rollsAt(1.5, 0.4) == 2 and rollsAt(1.5, 0.6) == 1, "1.5：一半機率多擲一次")
-SandboxVars.MinidoracatDismantle = nil
+SandboxVars.MinidoracatAnyCar = nil
 rolls = 0
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("x", 1) == true and rolls == 1, "沒有沙盒值：當成 1.0")
 
