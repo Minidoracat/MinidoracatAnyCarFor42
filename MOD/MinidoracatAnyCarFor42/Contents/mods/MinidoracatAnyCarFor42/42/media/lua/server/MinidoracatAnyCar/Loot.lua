@@ -33,15 +33,17 @@ local function put(items, weight)
     items[#items + 1] = weight
 end
 
+local function add(place, name, weight)
+    if place and place.items then
+        put(place.items, weight)
+    else
+        print("[MinidoracatAnyCarFor42] loot table missing: " .. name)
+    end
+end
+
 local function inject()
-    for name, weight in pairs(PLACES) do
-        local place = ProceduralDistributions.list[name]
-        if place and place.items then put(place.items, weight) end
-    end
-    for name, weight in pairs(VEHICLE_PLACES) do
-        local place = VehicleDistributions[name]
-        if place and place.items then put(place.items, weight) end
-    end
+    for name, weight in pairs(PLACES) do add(ProceduralDistributions.list[name], name, weight) end
+    for name, weight in pairs(VEHICLE_PLACES) do add(VehicleDistributions[name], name, weight) end
 end
 
 Events.OnPostDistributionMerge.Add(inject)

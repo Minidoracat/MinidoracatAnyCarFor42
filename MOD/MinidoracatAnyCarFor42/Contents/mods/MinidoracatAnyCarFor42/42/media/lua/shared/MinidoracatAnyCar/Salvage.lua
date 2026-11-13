@@ -26,10 +26,10 @@ D.SALVAGE = {
 }
 
 local function open(class)
-    return D.sandbox("Salvage", true) and D.partsByClass[class] ~= nil
+    return D.sandbox("Salvage", true) and D.salvageReady[class] == true
 end
 
--- 配方的 OnTest（scripts 寫 MinidoracatAnyCar.salvageTest.<類別>）：沙盒關掉或這一類沒有零件時不能做
+-- 配方的 OnTest（scripts 寫 MinidoracatAnyCar.salvageTest.<類別>）：沙盒關掉、這一類沒有零件或零件那一列沒加上時不能做
 D.salvageTest = {}
 for class in pairs(D.SALVAGE) do
     D.salvageTest[class] = function() return open(class) end

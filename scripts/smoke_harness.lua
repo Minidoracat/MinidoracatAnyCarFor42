@@ -409,13 +409,15 @@ local tirePatch = fakeFixing("AnyCar_Tire_Patch", { fakeFixer("Base.TirePiece", 
 local vanillaDoor = fakeFixing("Fix Door Welding", { fakeFixer("Base.SheetMetal", 1, { MetalWelding = 3 }) }, fakeFixer("Base.BlowTorch", 2))
 vanillaDoor:addRequiredItem("Base.FrontCarDoor1")
 doorWeld:addRequiredItem("") -- 腳本裡 Require 留空時引擎放進去的空字串
-local recipeLoads, recipeInputs = {}, 2
+-- 每個配方自己的輸入列數：車門照腳本是 2 列工具；消音器的腳本工具列數和 D.SALVAGE 對不上；引擎蓋 Load 丟例外
+local recipeLoads, recipeInputs = {}, { AnyCarSalvageDoor = 2, AnyCarSalvageMuffler = 5, AnyCarSalvageHood = 2 }
 local function scriptItem(module, name, mechanic, vehicleType)
     return { getFullName = function() return module .. "." .. name end, getName = function() return name end,
         isMechanicsLoot = function() return mechanic end, getConditionMax = function() return 100 end, vehicleType = vehicleType }
 end
 local scriptItems = {
     scriptItem("Base", "FrontCarDoor1", true, 1), scriptItem("Base", "ModDoor2", true, 2), scriptItem("Base", "ModTire2", true, 2),
+    scriptItem("Base", "ModMuffler2", true, 2), scriptItem("Base", "ModEngineDoor2", true, 2),
     scriptItem("Base", "Jack", true, 0), scriptItem("Base", "Apple", false, 0),
 }
 function instanceItem(full)
@@ -430,8 +432,13 @@ function getScriptManager()
         getAllFixing = function() return javaList({ doorWeld, tirePatch, vanillaDoor }) end,
         getAllItems = function() return javaList(scriptItems) end,
         getCraftRecipe = function(_, name)
-            return { getName = function() return name end, getInputs = function() return { size = function() return recipeInputs end } end,
-                Load = function(_, _, body) recipeLoads[#recipeLoads + 1] = body; recipeInputs = recipeInputs + 1 end }
+            if not recipeInputs[name] then return nil end
+            return { getName = function() return name end, getInputs = function() return { size = function() return recipeInputs[name] end } end,
+                Load = function(_, _, body)
+                    if name == "AnyCarSalvageHood" then error("bad script") end
+                    recipeLoads[#recipeLoads + 1] = body
+                    recipeInputs[name] = recipeInputs[name] + 1
+                end }
         end,
     }
 end
@@ -444,6 +451,10 @@ check(#recipeLoads == 1 and recipeLoads[1]:find("Base.FrontCarDoor1;Base.ModDoor
 D.registerParts()
 check(#recipeLoads == 1 and doorWeld:getRequiredItem():size() == 2, "再跑一次不會重複加")
 check(D.salvageTest.Door() == true and D.salvageTest.Armor() == false, "沒有零件的類別，拆解配方關著")
+check(D.salvageTest.Muffler() == false and D.salvageTest.Hood() == false and #recipeLoads == 1,
+    "工具列數對不上或 Load 失敗：零件那一列沒加上，配方關著")
+check(MinidoracatAnyCar_salvageInMenu({ recipe = { getName = function() return "AnyCarSalvageMuffler" end } }) == false,
+    "零件那一列沒加上的配方不列在製作清單")
 SB.Salvage = false
 check(D.salvageTest.Door() == false and MinidoracatAnyCar_salvageInMenu({ recipe = { getName = function() return "AnyCarSalvageDoor" end } }) == false,
     "沙盒關掉零件拆解：不能做、不列在清單")

@@ -62,6 +62,7 @@ function D.fixName(fixing)
 end
 
 D.partsByClass = {} -- 類別 -> { 物品全名, ... }
+D.salvageReady = {} -- 類別 -> true：拆解配方的零件那一列確定加上了（OnTest、OnAddToMenu 看它）
 
 function D.registerParts()
     local scripts = getScriptManager()
@@ -101,13 +102,26 @@ function D.registerParts()
         end
     end
 
-    -- 拆解配方：腳本只寫工具，零件那一列在這裡加上。這一類沒有零件就不加（配方由 OnTest 關掉）
+    -- 拆解配方：腳本只寫工具，零件那一列在這裡加上。這一類沒有零件、或那一列沒加上，配方就關著（OnTest 看 salvageReady）
+    D.salvageReady = {}
     for class, list in pairs(D.partsByClass) do
-        local recipe = scripts:getCraftRecipe("AnyCarSalvage" .. class)
         local pool = D.SALVAGE[class]
-        if recipe and pool and recipe:getInputs():size() == pool.tools then
-            recipe:Load(recipe:getName(), "craftRecipe " .. recipe:getName() .. " { inputs { item 1 ["
-                .. table.concat(list, ";") .. "] mode:destroy flags[AllowDestroyedItem;ItemCount], } }")
+        local recipe = pool and scripts:getCraftRecipe("AnyCarSalvage" .. class)
+        if pool and not recipe then print(D.LOG .. "salvage recipe missing: AnyCarSalvage" .. class) end
+        if recipe then
+            if recipe:getInputs():size() == pool.tools then
+                local ok, err = pcall(function()
+                    recipe:Load(recipe:getName(), "craftRecipe " .. recipe:getName() .. " { inputs { item 1 ["
+                        .. table.concat(list, ";") .. "] mode:destroy flags[AllowDestroyedItem;ItemCount], } }")
+                end)
+                if not ok then print(D.LOG .. "salvage recipe " .. class .. " load failed: " .. tostring(err)) end
+            end
+            local inputs = recipe:getInputs():size()
+            if inputs == pool.tools + 1 then
+                D.salvageReady[class] = true
+            else
+                print(D.LOG .. "salvage recipe " .. class .. " off: " .. inputs .. " inputs, script tools " .. pool.tools)
+            end
         end
     end
 end
