@@ -1,11 +1,11 @@
-[h1]🔧 Minidoracat Dismantle Any Car MP[/h1]
+[h1]🔧 Minidoracat Repair & Dismantle Any Car MP[/h1]
 [h3]By Minidoracat[/h3]
 
 [b]42.22 Ready[/b]
 
 [hr][/hr]
 
-用喷灯把任何车拆成金属材料，完好的车也可以。单人与多人服务器都能用，多人由服务器重新检查。
+替每个车辆零件加上修法，装在车上就能修；也能用喷灯把任何车拆成金属材料。单人与多人服务器都能用，多人由服务器重新检查。
 
 [h2]📦 需要安装[/h2]
 [list]
@@ -18,28 +18,31 @@
 
 [h2]🚀 快速上手[/h2]
 [olist]
-[*] 准备焊工面罩，以及剩余用量足够的喷灯
-[*] 对着车按右键，选“拆解车辆”
-[*] 车内还有物品时会先问你，确认后才开始
-[*] 拆完后车会消失，金属材料掉在地上
+[*] 对着车按右键选“车辆信息”，再对受损的零件按右键选“修理”
+[*] 想一次修完，就对零件按右键选“修理全部零件”
+[*] 要拆车时，准备焊工面罩与一支满的喷灯
+[*] 对着车按右键选“拆解车辆”，车内有物品时会先问你
 [/olist]
 
 [h2]✨ 主要功能[/h2]
 [list]
-[*] [b]任何车都能拆[/b]：完好的车与拖车也有“拆解车辆”选项
-[*] [b]残骸照原版[/b]：烧毁与撞毁的车沿用原版的拆解选项
-[*] [b]多人服务器可用[/b]：服务器重新检查后才拆车与给材料
-[*] [b]车内物品提醒[/b]：车内还有物品时先弹出确认框
-[*] [b]产出倍率[/b]：沙盒选项可调整拆车掉落的材料量
-[*] [b]拆车记录[/b]：服务器记下谁在哪里拆了哪辆车
+[*] [b]零件修理[/b]：每个车辆零件都有修法，装在车上就能修
+[*] [b]车辆 MOD 也支持[/b]：新车的零件自动分类，不用等更新
+[*] [b]修理全部零件[/b]：自动挑材料够的修法，一个一个修
+[*] [b]零件拆解[/b]：卸下来的零件可以拆成材料
+[*] [b]翻新引擎[/b]：用引擎零件提高引擎品质
+[*] [b]补胎液[/b]：新物品，一罐补一次轮胎
+[*] [b]任何车都能拆[/b]：完好的车与拖车也能用喷灯拆解
+[*] [b]多人服务器可用[/b]：结果都由服务器重新检查后才执行
 [/list]
-📖 [b]完整说明与常见问题：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Dismantle Any Car MP 完整说明[/url]
+📖 [b]完整说明与常见问题：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]（繁体中文）
 
 [h2]🔗 Minidoracat 全系列[/h2]
 其他作品都在[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat 全系列收藏[/url]，按需自选订阅。
 
 [h2]💬 反馈与交流[/h2]
 [list]
+[*] [b]QQ交流群：[/b]1131095572（MOD问题反馈、更新通知）
 [*] GitHub Issues：https://github.com/Minidoracat/MinidoracatAnyCarFor42/issues
 [*] Discord：https://discord.gg/Gur2V67
 [/list]

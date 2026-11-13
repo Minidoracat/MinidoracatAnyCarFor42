@@ -1,11 +1,11 @@
-[h1]🔧 Minidoracat Dismantle Any Car MP[/h1]
+[h1]🔧 Minidoracat Repair & Dismantle Any Car MP[/h1]
 [h3]By Minidoracat[/h3]
 
 [b]42.22 Ready[/b]
 
 [hr][/hr]
 
-Cut any vehicle into metalworking materials with a propane torch, intact cars included. Works in single player and on multiplayer servers, where the server re-checks every dismantle.
+Adds repair methods for every vehicle part, so you can repair parts while they are still installed, and lets you cut any vehicle into metalworking materials with a propane torch. Works in single player and on multiplayer servers, where the server re-checks every result.
 
 [h2]📦 Requirements[/h2]
 [list]
@@ -18,22 +18,24 @@ Cut any vehicle into metalworking materials with a propane torch, intact cars in
 
 [h2]🚀 Quick Start[/h2]
 [olist]
-[*] Bring a welding mask and a propane torch with enough uses left
-[*] Right-click a vehicle and choose "Dismantle Vehicle"
-[*] If items are still inside, you are asked to confirm first
-[*] When it finishes the vehicle is gone and the materials drop on the ground
+[*] Right-click a vehicle and open "Vehicle Mechanics", then right-click a damaged part and choose "Repair"
+[*] To fix everything at once, right-click a part and choose "Repair All Parts"
+[*] To dismantle a vehicle, bring a welding mask and a full propane torch
+[*] Right-click the vehicle and choose "Dismantle Vehicle"; if items are still inside, you are asked first
 [/olist]
 
 [h2]✨ Features[/h2]
 [list]
-[*] [b]Dismantle any vehicle[/b]: Intact cars and trailers get a "Dismantle Vehicle" option
-[*] [b]Wrecks stay vanilla[/b]: Burnt and smashed vehicles keep the vanilla option
-[*] [b]Works on multiplayer servers[/b]: The server re-checks before removing the vehicle and giving materials
-[*] [b]Items warning[/b]: A confirmation appears when items are still inside the vehicle
-[*] [b]Loot multiplier[/b]: A sandbox option scales the materials you get
-[*] [b]Dismantle log[/b]: The server records who dismantled which vehicle and where
+[*] [b]Part repair[/b]: Every vehicle part has repair methods, even while installed
+[*] [b]Vehicle mods supported[/b]: Parts from new vehicles are sorted automatically, no update needed
+[*] [b]Repair All Parts[/b]: Picks a method you have materials for and repairs parts one by one
+[*] [b]Part salvage[/b]: Break removed parts down into materials
+[*] [b]Engine rebuild[/b]: Raise engine quality with spare engine parts
+[*] [b]Tire Sealant[/b]: A new item that repairs a tire once per can
+[*] [b]Dismantle any vehicle[/b]: Intact cars and trailers can be cut up with a propane torch
+[*] [b]Works on multiplayer servers[/b]: The server re-checks every result before applying it
 [/list]
-📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Dismantle Any Car MP Mod Guide[/url]
+📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
 
 [h2]🔗 Minidoracat Collection[/h2]
 All my other mods are in the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3809297109]Minidoracat collection[/url]. Subscribe to the ones you need.
