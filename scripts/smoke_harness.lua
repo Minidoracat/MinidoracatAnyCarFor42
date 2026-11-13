@@ -395,6 +395,12 @@ class("GloveBox2", "GloveBox")
 class("leafSuspension2", "Suspension")
 class("W460SnorkelM", "Accessory")
 class("93chevySuburbanBumperRear0", "Armor")
+class("Tank125_2", "GasTank")
+class("90pierceArrowWaterTank2", "GasTank")
+class("93chevyK3500WreckerLid2", "TrunkLid")
+class("E150CarSlideDoor2", "Door")
+class("69miniMrBChair1", "Seat")
+class("91rangeSunRoof2", "Window")
 
 print("情境六：載入時把零件填進修法與拆解配方")
 local doorWeld = fakeFixing("AnyCar_Door_Welding", { fakeFixer("Base.SheetMetal", 1, { MetalWelding = 2, Mechanics = 2 }) },
