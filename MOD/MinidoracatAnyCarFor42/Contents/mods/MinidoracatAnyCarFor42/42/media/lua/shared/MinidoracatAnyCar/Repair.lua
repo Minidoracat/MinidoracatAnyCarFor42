@@ -61,13 +61,14 @@ function D.fixerReady(character, fixing, fixer, broken)
     return true
 end
 
--- 擋住這個零件的輪胎（煞車、懸吊要先卸輪胎，和原版卸下它們的條件相同）；沒有回 nil
+-- 擋住這個零件的輪胎（煞車、懸吊要先卸輪胎，和原版卸下它們的條件相同）；沒有回 nil。
+-- 只算車輪：KI5 的車頂架要先卸車頂備胎才卸得下，但備胎不擋修理
 function D.coveredBy(part)
     local uninstall = part:getTable("uninstall")
     local id = uninstall and uninstall.requireUninstalled
     if not id or not string.find(id, "Tire", 1, true) then return nil end
     local cover = part:getVehicle():getPartById(id)
-    return cover and cover:getInventoryItem() and cover or nil
+    return cover and cover:getInventoryItem() and cover:getWheelIndex() >= 0 and cover or nil
 end
 
 -- 本 MOD 的修法不能用在這個零件上的原因；可以修回 nil。四個參數都要傳

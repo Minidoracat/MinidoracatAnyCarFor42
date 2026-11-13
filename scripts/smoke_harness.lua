@@ -363,6 +363,7 @@ local function garage(opts)
         function p:getMechanicSkillInstaller() return 0 end
         function p:getContainerContentAmount() return 30 end
         function p:setContainerContentAmount() end
+        function p:getWheelIndex() return string.find(id, "^Tire") and 0 or -1 end
         parts[id] = p
         return p
     end
@@ -371,6 +372,8 @@ local function garage(opts)
     part("BrakeFrontRight", fakeItem("Base.ModBrake2", { cond = 30 }), { uninstall = { requireUninstalled = "TireFrontRight" } })
     part("Engine", nil)
     part("Heater", nil)
+    part("SpareTireRoof", fakeItem("Base.ModTire2"))
+    part("Roofrack", fakeItem("Base.ModRoofrack2", { cond = 50 }), { uninstall = { requireUninstalled = "SpareTireRoof" } })
     function v:getPartById(id) return parts[id] end
     function v:getScript()
         return { getName = function() return "CarNormal" end, getEngineRepairLevel = function() return 4 end,
@@ -503,6 +506,8 @@ local function brakeGuy() return mechanic({ Mechanics = 3 }, { fakeItem("Base.Sm
 refusedRepair("煞車被輪胎擋住", brakeGuy(), carParts.BrakeFrontRight, brakeFix)
 local _, bareParts = garage({ noTire = true })
 check(repair(brakeGuy(), bareParts.BrakeFrontRight, brakeFix) == true, "卸下輪胎後可以修煞車")
+check(D.coveredBy(carParts.Roofrack) == nil and D.coveredBy(carParts.BrakeFrontRight) == carParts.TireFrontRight,
+    "只有車輪擋修理：車頂架要先卸的車頂備胎不算")
 
 before = vanillaPartCompletes
 local tireGuy = mechanic({ Mechanics = 2 }, { fakeItem("Base.TirePiece"), fakeItem("Base.Glue", { uses = 5 }) })
