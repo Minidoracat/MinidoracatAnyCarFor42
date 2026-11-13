@@ -8,6 +8,6 @@
     "Tooltip_MinidoracatAnyCar_rebuild": "Motorqualität: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Zustand: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Baut nacheinander jedes Teil aus, das du ausbauen kannst, und demontiert dann das Fahrzeug. Das dauert lange.",
-    "Tooltip_MinidoracatAnyCar_Salvage": "Zerlegt ein ausgebautes Fahrzeugteil in Materialien. Kaputte Teile gehen auch. Höhere Fertigkeiten bringen mehr.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Kaputte Teile gehen auch. Höhere Fertigkeiten bringen mehr.",
     "Tooltip_MinidoracatAnyCar_TireSealant": "Repariert einen beschädigten Reifen. Eine Dose, eine Reparatur."
 }
