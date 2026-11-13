@@ -1,11 +1,12 @@
--- 車輛輪盤選單（坐駕駛座）：熱線的車加「配鑰匙」「拆除短接」。條件不足時照原版熱線項目的做法：熄火圖示、不能選、寫出缺什麼。
+-- 車輛輪盤選單（坐駕駛座）：熱線的車加「配鑰匙」「拆除短接」。條件不足時照原版熱線項目的做法：換成不能用的圖示、不能選、寫出缺什麼。
 require "Vehicles/ISUI/ISVehicleMenu"
 require "MinidoracatAnyCar/Keys"
 
 local D = MinidoracatAnyCar
 
-local ICON_ON = "media/ui/vehicles/vehicle_ignitionON.png"
-local ICON_OFF = "media/ui/vehicles/vehicle_ignitionOFF.png"
+-- 原版發動與短接都是點火開關圖示，輪盤又要指到才顯示文字，所以兩個項目各用自己的圖示（不能用時灰階加紅叉，同原版 ignitionOFF）
+local ICON = { make = "media/ui/MinidoracatAnyCar/key_make.png", unwire = "media/ui/MinidoracatAnyCar/key_unwire.png" }
+local ICON_OFF = { make = "media/ui/MinidoracatAnyCar/key_make_off.png", unwire = "media/ui/MinidoracatAnyCar/key_unwire_off.png" }
 local TEXT = { make = "ContextMenu_MinidoracatAnyCar_KeyMake", unwire = "ContextMenu_MinidoracatAnyCar_KeyUnwire" }
 local REASON = { running = "Tooltip_MinidoracatAnyCar_EngineOff", nokey = "Tooltip_MinidoracatAnyCar_NeedKey" }
 
@@ -17,7 +18,7 @@ local function addSlice(menu, playerObj, job)
     local why, rows = D.keyNeeds(playerObj, job)
     local text = getText(TEXT[job])
     if not why then
-        menu:addSlice(text, getTexture(ICON_ON), D.onKeyJob, playerObj, job)
+        menu:addSlice(text, getTexture(ICON[job]), D.onKeyJob, playerObj, job)
         return
     end
     -- 輪盤只認 \n（翻譯檔的 <br> 是 getText 換的）
@@ -28,7 +29,7 @@ local function addSlice(menu, playerObj, job)
             text = text .. "\n" .. name .. " " .. row.have .. "/" .. row.need
         end
     end
-    menu:addSlice(text, getTexture(ICON_OFF), nil, playerObj, job)
+    menu:addSlice(text, getTexture(ICON_OFF[job]), nil, playerObj, job)
 end
 
 local vanillaShowRadialMenu = ISVehicleMenu.showRadialMenu
