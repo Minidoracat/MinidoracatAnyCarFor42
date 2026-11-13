@@ -53,5 +53,5 @@ MOD はずっと無料です。気に入ったらコーヒーをおごってく�
 
 [b]#Minidoracat[/b]
 
-Workshop ID: XXXX
+Workshop ID: 3838982743
 Mod ID: MinidoracatAnyCarFor42

@@ -53,5 +53,5 @@ The mod is free forever. If you like it, you can buy me a coffee. Donations go t
 
 [b]#Minidoracat[/b]
 
-Workshop ID: XXXX
+Workshop ID: 3838982743
 Mod ID: MinidoracatAnyCarFor42

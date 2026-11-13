@@ -5,7 +5,7 @@
 [b]繁體中文版：[/b][url=XXXX]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]
 
 The mod (Steam Workshop):
-https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
+https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [list]
 [*] [b]Game version[/b]: Build 42.22.2 or newer. No other mods required.
 [*] [b]Modes[/b]: single player, multiplayer and dedicated servers. In multiplayer the server must enable this mod.

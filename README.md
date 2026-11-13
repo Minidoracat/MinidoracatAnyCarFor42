@@ -26,7 +26,7 @@ Project Zomboid Build 42 MOD。
 
 ## 安裝
 
-- Steam Workshop：（首次上傳後補上連結）
+- Steam Workshop：[Repair & Dismantle Any Car MP](https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743)（Workshop ID `3838982743`）
 - 手動安裝：把 `MOD/MinidoracatAnyCarFor42/Contents/mods/MinidoracatAnyCarFor42` 複製到 `%USERPROFILE%\Zomboid\mods\` 並將資料夾改名為 `MinidoracatAnyCarFor42`
 
 ## 開發
