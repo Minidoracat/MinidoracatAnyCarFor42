@@ -244,7 +244,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [*] [b]Repair Heater[/b]: only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod. Without one, anyone who can hotwire a vehicle can also make a key for it and remove the hotwire.
 [*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
-[*] [b]Crafting right after leaving a vehicle[/b]: if you craft from the crafting window or an inventory right-click right after getting out, before opening your inventory, vanilla may finish the action without making anything or using materials (vanilla recipes too). Open your inventory once first.
+[*] [b]Crafting right after leaving a vehicle[/b]: if you craft from the crafting window or an inventory right-click right after getting out, before opening your inventory, vanilla finishes the action without making anything or using materials (vanilla recipes too). Open your inventory once, or walk a few steps away from the vehicle, first. Just waiting does not fix it.
 [/list]
 === ❓ FAQ
 [h3]There is no "Repair" on a part?[/h3]
