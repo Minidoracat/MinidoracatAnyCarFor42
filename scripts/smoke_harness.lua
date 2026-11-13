@@ -43,6 +43,9 @@ Events = setmetatable({}, {
                 if name == "OnTick" then tickHandlers[#tickHandlers + 1] = fn
                 elseif name == "OnClientCommand" then clientCommandHandlers[#clientCommandHandlers + 1] = fn end
             end,
+            Remove = function(fn)
+                for i = #tickHandlers, 1, -1 do if tickHandlers[i] == fn then table.remove(tickHandlers, i) end end
+            end,
         }
     end,
 })
@@ -129,7 +132,9 @@ end
 
 local function runTicks(count)
     for _ = 1, count do
-        for _, fn in ipairs(tickHandlers) do fn() end
+        local handlers = {}
+        for i, fn in ipairs(tickHandlers) do handlers[i] = fn end
+        for _, fn in ipairs(handlers) do fn() end
     end
 end
 
@@ -260,6 +265,7 @@ local function mechanic(perks, main, bag, x)
     function p:getPerkLevel(perk) return perks[perk] or 0 end
     function p:getInventory() return inv end
     function p:sendObjectChange() end
+    function p:isTimedActionInstant() return false end
     return p, inv
 end
 
@@ -495,7 +501,17 @@ local slow = ISFixVehiclePartAction:new(welder, carParts.DoorFrontLeft, doorWeld
 SB.RepairTimeMult = 2.0
 check(slow:getDuration() == 300 and ISFixVehiclePartAction:new(welder, carParts.DoorFrontLeft, vanillaDoor, vanillaDoor:getFixers():get(0)):getDuration() == 60,
     "時間倍率只算本 MOD 的修法；原版修法維持 60")
+check(setmetatable({ fixing = doorWeld }, ISFixAction):getDuration() == 300 and setmetatable({ fixing = vanillaDoor }, ISFixAction):getDuration() == 60,
+    "背包裡修（ISFixAction）也照時間倍率；原版修法維持 60")
 SB.RepairTimeMult = nil
+
+local swapCar, swapParts = garage()
+local swap = ISFixVehiclePartAction:new(welder, swapParts.DoorFrontLeft, doorWeld, doorWeld:getFixers():get(0))
+local newDoor = fakeItem("Base.ModDoor2", { cond = 20 })
+swapParts.DoorFrontLeft.getInventoryItem = function() return newDoor end
+local calls0, logs0 = fixCalls, #logLines
+check(swap:complete() == false and fixCalls == calls0 and #logLines == logs0 and newDoor.cond == 20 and swap.item.cond == 40,
+    "動作進行中零件被換掉：拒絕，新舊零件都不動")
 
 print("情境七之二：背包裡卸下的零件")
 local loose = fakeItem("Base.ModDoor2", { cond = 40 })
@@ -547,6 +563,10 @@ check(ISRepairEngine:new(ace, parts2.Engine, nil, 300):complete() == true and va
 check(ISRepairEngine:new(ace, parts2.Engine, nil, 300, 7).anycar == nil, "第五個參數不是表：當成原版")
 check(debug.getlocal(ISRepairEngine.new, 5) == "maxTimeInit" and debug.getlocal(ISRepairEngine.new, 6) == "anycar",
     "ISRepairEngine.new 的參數名和動作欄位同名")
+local quick = ISRepairEngine:new(ace, parts2.Engine, nil, 0, { job = "rebuild" })
+check(quick.maxTime == 600 and quick:getDuration() == 600 and ISRepairEngine:new(ace, parts2.Heater, nil, 0, { job = "heater" }).maxTime == 300,
+    "本 MOD 的工作用規格的時間，不看傳進來的 maxTimeInit（0）與 item（nil）")
+check(ISRepairEngine:new(ace, parts2.Engine, nil, 0).maxTime == 0, "原版修引擎的時間照原版")
 
 print("情境九：零件拆解的額外材料")
 local function salvage(mult, perks)
@@ -572,6 +592,53 @@ SB.DismantleTimeMult = 2.5
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")).maxTime == 2000 and ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormalBurnt")).maxTime == 800,
     "時間倍率 2.5：完好車 2000，殘骸照原版 800")
 SB.DismantleTimeMult = nil
+
+print("情境十一：拆車前先卸零件，等上一個零件真的卸下才排下一個")
+-- 單人的順序是 perform（動作離開佇列）→ complete（零件離開車）；多人時結果由伺服器同步，時間不定
+ISVehicleMenu = { FillMenuOutsideVehicle = function() end }
+loaded["Vehicles/ISUI/ISVehicleMenu"] = true
+require "MinidoracatAnyCar/Menu"
+local queue, dismantled = {}, 0
+ISTimedActionQueue = { getTimedActionQueue = function() return { queue = queue } end }
+D.onDismantle = function() dismantled = dismantled + 1 end
+local stripCar, stripParts = fakeVehicle("CarNormal"), {}
+local function stripPart(id)
+    local p = { id = id, item = fakeItem("Base." .. id), cond = 100 }
+    function p:getId() return self.id end
+    function p:getInventoryItem() return self.item end
+    function p:getCondition() return self.cond end
+    function p:getTable(name) return name == "uninstall" and {} or nil end
+    stripParts[#stripParts + 1] = p
+    return p
+end
+local tire, brake = stripPart("TireFrontLeft"), stripPart("BrakeFrontLeft")
+brake.needs = tire
+function stripCar:getPartCount() return #stripParts end
+function stripCar:getPartByIndex(i) return stripParts[i + 1] end
+function stripCar:canUninstallPart(_, part) return part.needs == nil or part.needs.item == nil end
+ISVehiclePartMenu = { onUninstallPart = function(_, part) queue[#queue + 1] = { Type = "ISUninstallVehiclePart", part = part } end }
+local function step(ms) nowMs = nowMs + ms; runTicks(1) end
+D.onStrip(near, stripCar, {})
+check(#queue == 1 and queue[1].part == tire, "先排輪胎（煞車被擋住）")
+table.remove(queue, 1) -- perform：動作離開佇列，零件還在車上
+step(100)
+check(#queue == 0 and dismantled == 0, "動作結束但輪胎還沒卸下：不排下一個、不拆車")
+tire.item = nil -- complete
+step(100)
+step(D.CHAIN_SETTLE)
+check(#queue == 1 and queue[1].part == brake and dismantled == 0, "輪胎卸下後才排煞車")
+table.remove(queue, 1)
+brake.cond = 93 -- 卸失敗：扣了狀況、零件留在車上
+step(100)
+step(D.CHAIN_SETTLE)
+check(#queue == 0 and dismantled == 1, "煞車卸失敗不重試，零件都試過才拆車")
+tire.item, brake.cond = fakeItem("Base.TireFrontLeft"), 100
+D.onStrip(near, stripCar, {})
+queue = {}
+step(100)
+step(D.CHAIN_TIMEOUT)
+step(D.CHAIN_SETTLE)
+check(#queue == 0 and dismantled == 1, "玩家取消（沒有結果）：逾時後停下，不拆車")
 
 print()
 if failures > 0 then

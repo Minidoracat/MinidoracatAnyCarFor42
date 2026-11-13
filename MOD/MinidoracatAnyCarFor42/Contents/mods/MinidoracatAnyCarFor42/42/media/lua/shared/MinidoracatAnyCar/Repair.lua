@@ -30,9 +30,9 @@ local function notBroken(item)
     return not item:isBroken()
 end
 
--- 主背包裡某種物品的可用次數（消耗品算剩餘次數）。FixingManager.useFixer 只從主背包扣
-local function uses(inventory, fullType, broken)
-    local total, items = 0, inventory:getItems()
+-- 某種物品的可用次數（消耗品算剩餘次數）。deep：含袋子；FixingManager.useFixer 只從主背包扣
+local function uses(inventory, fullType, broken, deep)
+    local total, items = 0, deep and inventory:getAllTypeRecurse(fullType) or inventory:getItems()
     for i = 0, items:size() - 1 do
         local item = items:get(i)
         if item ~= broken and item:getFullType() == fullType then
@@ -40,6 +40,11 @@ local function uses(inventory, fullType, broken)
         end
     end
     return total
+end
+
+-- 玩家身上（含袋子）某種物品的總次數；給選單算條件（原版 Fixing:countUses 湊夠需求量就停，不是總量）
+function D.available(character, fullType, broken)
+    return uses(character:getInventory(), fullType, broken, true)
 end
 
 -- 材料在主背包而且技能夠
@@ -95,11 +100,15 @@ end
 
 -- ===== 裝在車上的零件 =====
 
+-- 本 MOD 修法的時間（tick）：FIX_TIME 乘沙盒 RepairTimeMult；原版修法與瞬間完成照原版
+local function fixTime(action, time)
+    if time <= 1 or not D.fixName(action.fixing) then return time end
+    return math.max(1, math.floor(D.FIX_TIME * D.sandbox("RepairTimeMult", 1)))
+end
+
 local vanillaPartDuration = ISFixVehiclePartAction.getDuration
 function ISFixVehiclePartAction:getDuration()
-    local time = vanillaPartDuration(self)
-    if time <= 1 or not D.fixName(self.fixing) then return time end
-    return math.max(1, math.floor(D.FIX_TIME * D.sandbox("RepairTimeMult", 1)))
+    return fixTime(self, vanillaPartDuration(self))
 end
 
 -- 客戶端：條件不符時動作直接中止；伺服器在 complete 重新檢查
@@ -151,6 +160,8 @@ end
 local vanillaPartComplete = ISFixVehiclePartAction.complete
 function ISFixVehiclePartAction:complete()
     local part, item = self.vehiclePart, self.item
+    -- 動作進行中零件被換掉：不修舊的那件、也不把它的狀況寫到新的上
+    if part:getInventoryItem() ~= item then return refuse("repair", "gone", self.character) end
     local ours = D.fixName(self.fixing) ~= nil
     if ours then
         local why = D.repairBlocked(self.character, part, self.fixing, self.fixer)
@@ -181,6 +192,11 @@ function ISFixVehiclePartAction:complete()
 end
 
 -- ===== 卸下來、放在背包裡的零件（原版的物品修理動作） =====
+
+local vanillaItemDuration = ISFixAction.getDuration
+function ISFixAction:getDuration()
+    return fixTime(self, vanillaItemDuration(self))
+end
 
 local vanillaItemComplete = ISFixAction.complete
 function ISFixAction:complete()
@@ -275,8 +291,17 @@ function ISRepairEngine:new(character, part, item, maxTimeInit, anycar)
     if type(anycar) == "table" and D.ENGINE[anycar.job] then
         o.anycar = anycar
         o.jobType = getText("ContextMenu_MinidoracatAnyCar_" .. anycar.job)
+        o.maxTime = o:getDuration()
     end
     return o
+end
+
+-- 本 MOD 的工作用規格裡的時間，不看傳進來的 maxTimeInit
+local vanillaEngineDuration = ISRepairEngine.getDuration
+function ISRepairEngine:getDuration()
+    if not self.anycar then return vanillaEngineDuration(self) end
+    if self.character:isTimedActionInstant() then return 1 end
+    return D.ENGINE[self.anycar.job].time
 end
 
 local vanillaEngineStart = ISRepairEngine.start

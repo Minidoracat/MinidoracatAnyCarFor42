@@ -4,6 +4,7 @@ require "Vehicles/ISUI/ISVehicleMechanics"
 require "ISUI/ISInventoryPaneContextMenu"
 require "MinidoracatAnyCar/Repair"
 require "MinidoracatAnyCar/Salvage"
+require "MinidoracatAnyCar/Menu"
 
 local D = MinidoracatAnyCar
 
@@ -53,7 +54,7 @@ local function requirements(playerObj, item, fixing, fixer, reserved)
     local function material(entry, broken)
         local name = entry:getFixerName()
         table.insert(rows, { name = getItemName(name), need = entry:getNumberOfUse(),
-            have = math.max(0, fixing:countUses(playerObj, entry, broken) - (reserved[name] or 0)) })
+            have = math.max(0, D.available(playerObj, name, broken) - (reserved[name] or 0)) })
     end
     if fixing:getGlobalItem() then material(fixing:getGlobalItem(), nil) end
     material(fixer, item)
@@ -197,18 +198,20 @@ function D.planRepairAll(playerObj, vehicle, tried)
     return todo, skipped
 end
 
--- 一次只排一個零件，修完再排下一個：前一個用掉材料之後，下一個才知道還剩什麼
+-- 一次只排一個零件，修完（結果真的出現）再排下一個：前一個用掉材料之後，下一個才知道還剩什麼
 function D.onRepairAll(playerObj, vehicle, tried)
     if vehicle:isRemovedFromWorld() then return end
     local entry = D.planRepairAll(playerObj, vehicle, tried)[1]
     if not entry then return end
     tried[entry.part:getId()] = true
-    local action = queueFix(playerObj, entry.part, entry.fixingNum, entry.fixerNum)
+    local part = entry.part
+    local item = part:getInventoryItem()
+    local before = item:getCondition()
+    local action = queueFix(playerObj, part, entry.fixingNum, entry.fixerNum)
     if not action then return D.onRepairAll(playerObj, vehicle, tried) end
-    action.perform = function(self)
-        ISFixVehiclePartAction.perform(self)
-        D.onRepairAll(playerObj, vehicle, tried)
-    end
+    D.afterAction(playerObj, action, function()
+        return part:getInventoryItem() ~= item or item:getCondition() ~= before
+    end, function() D.onRepairAll(playerObj, vehicle, tried) end)
 end
 
 local function addRepairAll(context, playerObj, vehicle)

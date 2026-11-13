@@ -59,25 +59,55 @@ function D.onDismantle(playerObj, vehicle)
     end
 end
 
--- 拆車前先卸零件：一次排一個卸得動的零件，卸完再找下一個（卸了輪胎之後煞車才卸得動），都卸完才拆車。
--- tried：這一輪試過的零件 id；卸失敗的不重試
+-- 排了一個動作之後：等它離開佇列，再等結果真的出現（done() 成立）才接下一步。
+-- 單人是 perform 先、complete 後；多人的結果要等伺服器同步，也可能先同步到、動作才被中止（不會呼叫 perform）。
+-- 超過 CHAIN_TIMEOUT 還沒有結果（玩家取消、動作被擋）就不接下去
+D.CHAIN_TIMEOUT = 5000
+D.CHAIN_SETTLE = 500 -- 結果出現後再等一下，讓同一次的其他同步（材料、背包）也到
+function D.afterAction(playerObj, action, done, nextStep)
+    local leftAt, doneAt
+    local function tick()
+        local now = getTimestampMs()
+        if not leftAt then
+            for _, queued in ipairs(ISTimedActionQueue.getTimedActionQueue(playerObj).queue) do
+                if queued == action then return end
+            end
+            leftAt = now
+        end
+        if not doneAt then
+            if done() then
+                doneAt = now
+            elseif now - leftAt >= D.CHAIN_TIMEOUT then
+                Events.OnTick.Remove(tick)
+            end
+            return
+        end
+        if now - doneAt < D.CHAIN_SETTLE then return end
+        Events.OnTick.Remove(tick)
+        nextStep()
+    end
+    Events.OnTick.Add(tick)
+end
+
+-- 拆車前先卸零件：一次排一個卸得動的零件，卸完（零件真的離開車或卸失敗扣了狀況）再找下一個
+-- （卸了輪胎之後煞車才卸得動），都卸完才拆車。tried：這一輪試過的零件 id；卸失敗的不重試
 function D.onStrip(playerObj, vehicle, tried)
     if vehicle:isRemovedFromWorld() then return end
     for i = 0, vehicle:getPartCount() - 1 do
         local part = vehicle:getPartByIndex(i)
-        if part:getInventoryItem() and not tried[part:getId()] and part:getTable("uninstall")
+        local item = part:getInventoryItem()
+        if item and not tried[part:getId()] and part:getTable("uninstall")
             and vehicle:canUninstallPart(playerObj, part) then
             tried[part:getId()] = true
+            local before = part:getCondition()
             ISVehiclePartMenu.onUninstallPart(playerObj, part)
-            local queue = ISTimedActionQueue.getTimedActionQueue(playerObj).queue
-            local last = queue[#queue]
-            if last then
-                local perform = last.perform
-                last.perform = function(self)
-                    perform(self)
-                    D.onStrip(playerObj, vehicle, tried)
+            for _, action in ipairs(ISTimedActionQueue.getTimedActionQueue(playerObj).queue) do
+                if action.Type == "ISUninstallVehiclePart" and action.part == part then
+                    D.afterAction(playerObj, action, function()
+                        return part:getInventoryItem() ~= item or part:getCondition() ~= before
+                    end, function() D.onStrip(playerObj, vehicle, tried) end)
+                    return
                 end
-                return
             end
         end
     end
