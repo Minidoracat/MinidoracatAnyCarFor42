@@ -112,12 +112,17 @@ function ISFixVehiclePartAction:getDuration()
     return fixTime(self, vanillaPartDuration(self))
 end
 
--- 客戶端：條件不符時動作直接中止；伺服器在 complete 重新檢查
+-- 客戶端：條件不符時動作直接中止；伺服器在 complete 重新檢查。
+-- 本 MOD 的修法不因材料、狀況已滿中止：多人時結果常比客戶端的動作先同步過來（材料扣掉、狀況變了），這時中止會連後面排的關引擎蓋一起清掉。
+-- 原版 isValid 只看材料（ISFixVehiclePartAction.lua:5-7），用掉最後一份也會回 false，所以本 MOD 的修法不經過它
 local vanillaPartIsValid = ISFixVehiclePartAction.isValid
 function ISFixVehiclePartAction:isValid()
-    if not vanillaPartIsValid(self) then return false end
-    if not D.fixName(self.fixing) then return true end
-    return D.repairBlocked(self.character, self.vehiclePart, self.fixing, self.fixer) == nil
+    if not D.fixName(self.fixing) then return vanillaPartIsValid(self) end
+    local why = D.repairBlocked(self.character, self.vehiclePart, self.fixing, self.fixer)
+    if why == "full" then -- full 排在 covered、far 前面，這兩條另外看
+        return not D.coveredBy(self.vehiclePart) and not D.far(self.character, self.vehiclePart:getVehicle(), D.REPAIR_DIST)
+    end
+    return why == nil or why == "materials"
 end
 
 -- 用噴燈的修法（GlobalItem 是噴燈）：本 MOD、原版與別的 MOD 的都算

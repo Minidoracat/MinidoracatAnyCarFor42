@@ -324,6 +324,8 @@ function ISFixVehiclePartAction:new(character, vehiclePart, fixing, fixer)
     o.item = vehiclePart:getInventoryItem()
     return o
 end
+-- 原版只看主背包有沒有材料（ISFixVehiclePartAction.lua:5-7）；測試用 vanillaValid 模擬「最後一份剛用掉」
+function ISFixVehiclePartAction:isValid() return self.vanillaValid ~= false end
 ISFixAction = fakeAction(function(self)
     vanillaItemCompletes = vanillaItemCompletes + 1
     FixingManager.fixItem(self.item)
@@ -550,6 +552,28 @@ swapParts.DoorFrontLeft.getInventoryItem = function() return newDoor end
 local calls0, logs0 = fixCalls, #logLines
 check(swap:complete() == false and fixCalls == calls0 and #logLines == logs0 and newDoor.cond == 20 and swap.item.cond == 40,
     "動作進行中零件被換掉：拒絕，新舊零件都不動")
+
+local function validAction(player, part, fixing, vanillaValid)
+    local a = ISFixVehiclePartAction:new(player, part, fixing, fixing:getFixers():get(0))
+    a.vanillaValid = vanillaValid
+    return a:isValid()
+end
+local _, vParts = garage()
+local noMats = mechanic({ MetalWelding = 2, Mechanics = 2 }, {})
+check(validAction(noMats, vParts.DoorFrontLeft, doorWeld, false) == true,
+    "客戶端 isValid（本 MOD）：材料剛好用完、原版那條回 false 也不中止（交給伺服器 complete）")
+vParts.DoorFrontLeft:getInventoryItem().cond = 100
+check(validAction(welder, vParts.DoorFrontLeft, doorWeld) == true, "客戶端 isValid（本 MOD）：狀況已滿（結果先同步到）不中止")
+check(validAction(mechanic({ MetalWelding = 2, Mechanics = 2 }, { fakeItem("Base.SheetMetal"), torch() }, nil, 120), vParts.DoorFrontLeft, doorWeld) == false,
+    "客戶端 isValid（本 MOD）：狀況已滿但離車太遠，照樣中止")
+vParts.DoorFrontLeft:getInventoryItem().cond = 40
+check(validAction(mechanic({ MetalWelding = 2, Mechanics = 2 }, { fakeItem("Base.SheetMetal"), torch() }, nil, 120), vParts.DoorFrontLeft, doorWeld) == false,
+    "客戶端 isValid（本 MOD）：離車太遠中止")
+local goneAction = ISFixVehiclePartAction:new(welder, vParts.DoorFrontLeft, doorWeld, doorWeld:getFixers():get(0))
+vParts.DoorFrontLeft.getInventoryItem = function() return nil end
+check(goneAction:isValid() == false, "客戶端 isValid（本 MOD）：零件被卸掉（gone）中止")
+check(validAction(welder, carParts.DoorFrontLeft, vanillaDoor, false) == false and validAction(noMats, carParts.DoorFrontLeft, vanillaDoor) == true,
+    "客戶端 isValid（原版修法）：照原版（只看材料）")
 
 print("情境七之二：背包裡卸下的零件")
 local loose = fakeItem("Base.ModDoor2", { cond = 40 })
