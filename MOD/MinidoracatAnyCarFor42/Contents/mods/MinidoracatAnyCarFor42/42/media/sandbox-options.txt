@@ -93,3 +93,31 @@ option MinidoracatAnyCar.EngineRebuildParts
     page = MinidoracatAnyCar,
     translation = MinidoracatAnyCar_EngineRebuildParts,
 }
+
+option MinidoracatAnyCar.Keys
+{
+    type = boolean,
+    default = true,
+    page = MinidoracatAnyCar,
+    translation = MinidoracatAnyCar_Keys,
+}
+
+option MinidoracatAnyCar.KeysWelding
+{
+    type = integer,
+    min = 0,
+    max = 10,
+    default = 3,
+    page = MinidoracatAnyCar,
+    translation = MinidoracatAnyCar_KeysWelding,
+}
+
+option MinidoracatAnyCar.KeysMechanics
+{
+    type = integer,
+    min = 0,
+    max = 10,
+    default = 3,
+    page = MinidoracatAnyCar,
+    translation = MinidoracatAnyCar_KeysMechanics,
+}

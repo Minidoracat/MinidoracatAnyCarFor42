@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Réfection du moteur",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permet d'augmenter la qualité du moteur avec des pièces de rechange moteur une fois le moteur en parfait état.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Réfection du moteur : pièces de rechange par étape",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Pièces de rechange moteur utilisées à chaque fois. Chaque étape ajoute 10 de qualité."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Pièces de rechange moteur utilisées à chaque fois. Chaque étape ajoute 10 de qualité.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Clés de véhicule",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Permet de faire une clé pour un véhicule câblé, de défaire les fils et de copier des clés de véhicule. Désactivé = aucune des trois actions.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Faire une clé : niveau de Travail des métaux requis",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Niveau de Travail des métaux nécessaire pour faire une clé pour un véhicule câblé.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Faire une clé : niveau de Mécanique requis",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Niveau de Mécanique nécessaire pour faire une clé pour un véhicule câblé."
 }

@@ -294,4 +294,27 @@ module Base
             item 1 Base.ScrapMetal,
         }
     }
+
+    /* 複製車鑰匙：產出的編號、名稱、顏色由 Keys.lua 的 OnCreate 在伺服器照來源鑰匙設 */
+    craftRecipe AnyCarCopyCarKey
+    {
+        timedAction = Making,
+        /* ISHandcraftAction:getDuration 乘 5：動作 200 */
+        time = 40,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;CannotBeResearched,
+        OnTest = MinidoracatAnyCar.copyKeyTest,
+        OnAddToMenu = MinidoracatAnyCar_keysInMenu,
+        OnCreate = MinidoracatAnyCar.onCopyKey,
+        inputs
+        {
+            item 1 tags[base:carkey] mode:keep,
+            item 1 tags[base:file;base:smallfiles] mode:keep flags[Prop1;MayDegradeLight],
+            item 1 [Base.SmallSheetMetal] flags[Prop2],
+        }
+        outputs
+        {
+            item 1 Base.CarKey,
+        }
+    }
 }

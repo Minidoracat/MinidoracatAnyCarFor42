@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "Zustand: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Baut nacheinander jedes Teil aus, das du ausbauen kannst, und demontiert dann das Fahrzeug. Das dauert lange.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Kaputte Teile gehen auch. Mehr Fertigkeit, mehr Ertrag.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Repariert einen beschädigten Reifen. Eine Dose, eine Reparatur."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Repariert einen beschädigten Reifen. Eine Dose, eine Reparatur.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Zuerst den Motor abstellen",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Benötigt den Schlüssel dieses Fahrzeugs"
 }

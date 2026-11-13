@@ -33,6 +33,7 @@
 [*] [b]翻新引擎[/b]：用備用引擎零件提高引擎品質
 [*] [b]補胎劑[/b]：新物品，一罐補一次輪胎
 [*] [b]任何車都能拆[/b]：完好的車與拖車也能用噴燈拆解
+[*] [b]車鑰匙[/b]：短接過的車可以配鑰匙、拆除短接，手上的車鑰匙也能複製
 [*] [b]多人伺服器可用[/b]：結果都由伺服器重新檢查後才執行
 [/list]
 📖 [b]完整說明與常見問題：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984184]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]

@@ -11,5 +11,6 @@
     "AnyCarSalvageAccessory": "Fahrzeugzubehör zerlegen",
     "AnyCarSalvageSeat": "Autositz zerlegen",
     "AnyCarSalvageBattery": "Autobatterie zerlegen",
-    "AnyCarSalvageGloveBox": "Handschuhfach zerlegen"
+    "AnyCarSalvageGloveBox": "Handschuhfach zerlegen",
+    "AnyCarCopyCarKey": "Autoschlüssel kopieren"
 }

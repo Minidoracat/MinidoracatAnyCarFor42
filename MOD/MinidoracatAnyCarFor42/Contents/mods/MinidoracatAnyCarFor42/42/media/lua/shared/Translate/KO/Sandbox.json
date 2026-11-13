@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "엔진 오버홀",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "엔진 상태가 최대일 때 예비 엔진 부품으로 엔진 품질을 올릴 수 있게 합니다.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "엔진 오버홀: 1회당 예비 엔진 부품 수",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "한 번에 쓰는 예비 엔진 부품 수입니다. 한 번에 품질이 10 오릅니다."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "한 번에 쓰는 예비 엔진 부품 수입니다. 한 번에 품질이 10 오릅니다.",
+    "Sandbox_MinidoracatAnyCar_Keys": "차 열쇠",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "배선을 딴 차량의 열쇠 만들기, 딴 배선 원래대로 하기, 차 열쇠 복제하기를 쓸 수 있게 합니다. 끄면 세 가지 모두 쓸 수 없습니다.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "열쇠 만들기: 필요한 금속용접 레벨",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "배선을 딴 차량의 열쇠를 만들 때 필요한 금속용접 레벨입니다.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "열쇠 만들기: 필요한 차량정비 레벨",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "배선을 딴 차량의 열쇠를 만들 때 필요한 차량정비 레벨입니다."
 }

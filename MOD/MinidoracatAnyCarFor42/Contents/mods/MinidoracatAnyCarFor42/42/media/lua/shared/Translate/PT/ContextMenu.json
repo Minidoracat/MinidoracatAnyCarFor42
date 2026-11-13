@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Remendar o Pneu",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Usar Vedante de Pneus",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Fixar Metal Novo com Porcas",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Refazer a Cablagem"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Refazer a Cablagem",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Fazer uma Chave",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Desfazer Ligação Direta"
 }

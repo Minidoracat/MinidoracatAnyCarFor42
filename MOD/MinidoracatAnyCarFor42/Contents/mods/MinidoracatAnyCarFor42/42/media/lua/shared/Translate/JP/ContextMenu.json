@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "タイヤにパッチを貼る",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "パンク修理剤を使う",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "新しい金属板をボルト留めする",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "配線をやり直す"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "配線をやり直す",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "鍵を作る",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "直結を外す"
 }

@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "상태: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "떼어낼 수 있는 부품을 하나씩 모두 떼어낸 뒤 차량을 분해합니다. 시간이 오래 걸립니다.",
     "Tooltip_MinidoracatAnyCar_Salvage": "망가진 부품도 분해 가능. 기술이 높을수록 더 많이 얻습니다.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "손상된 타이어를 수리합니다. 한 캔에 한 번 수리합니다."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "손상된 타이어를 수리합니다. 한 캔에 한 번 수리합니다.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "먼저 시동을 끄세요",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "이 차량의 열쇠가 필요합니다"
 }

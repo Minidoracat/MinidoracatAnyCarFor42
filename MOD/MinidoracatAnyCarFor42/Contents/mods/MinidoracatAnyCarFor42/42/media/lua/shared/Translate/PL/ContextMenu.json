@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Załataj oponę",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Użyj uszczelniacza do opon",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Przykręć nową blachę śrubami",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Wymień okablowanie"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Wymień okablowanie",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Dorób kluczyk",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Usuń połączenie na krótko"
 }

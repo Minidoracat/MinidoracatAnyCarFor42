@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "Condition: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Removes every part you are able to remove, one by one, then dismantles the vehicle. This takes a long time.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Broken parts work too. Higher skills find more.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Repairs a damaged tire. One can, one repair."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Repairs a damaged tire. One can, one repair.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Turn the engine off first",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Needs this vehicle's key"
 }

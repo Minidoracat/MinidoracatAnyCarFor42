@@ -1,7 +1,7 @@
 <!-- 指南網址：https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195 -->
 <!-- Steam 指南稿源（英文）：MOD 的完整說明以本指南為準，簡介只放摘要。格式、版面與同步方式見 pz-family-docs/release.md「完整說明：Steam 指南」 -->
 <!-- 標題：📖 Minidoracat Repair & Dismantle Any Car MP Mod Guide: Part Repair, Dismantling and Sandbox Options -->
-<!-- 摘要：Full guide for the mod that repairs and dismantles any vehicle: how to repair parts, repair methods and materials for each part type, Repair All Parts, engine rebuild, part salvage, tire sealant, dismantling vehicles, what a multiplayer server checks, sandbox options, known limits and FAQ. -->
+<!-- 摘要：Full guide for the mod that repairs and dismantles any vehicle: how to repair parts, repair methods and materials for each part type, Repair All Parts, engine rebuild, part salvage, tire sealant, dismantling vehicles, making keys and removing hotwires, what a multiplayer server checks, sandbox options, known limits and FAQ. -->
 === 🚀 Quick Start
 [b]繁體中文版：[/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984184]Minidoracat Repair & Dismantle Any Car MP 完整說明[/url]
 
@@ -170,17 +170,50 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]If the item count goes up after you confirm[/b]: when the vehicle holds more items than you confirmed, the dismantle stops and the vehicle and items stay. Right-click and choose "Dismantle Vehicle" again to confirm the new count.
 [*] [b]Installed parts[/b]: tires, battery, seats and other parts still on the vehicle are destroyed too. Uninstall them first if you want them, or use "Remove Parts, Then Dismantle".
 [/list]
+=== 🔑 Vehicle Keys
+A hotwired vehicle can get its first key. Then remove the hotwire, and from then on the vehicle needs its key to start. You can also copy a vehicle key for a teammate.
+[h3]Make a Key[/h3]
+[list]
+[*] [b]Where[/b]: sit in the driver's seat, open the vehicle radial menu (V by default) and choose "Make a Key".
+[*] [b]When it shows up[/b]: the vehicle is hotwired, and there is no key for it in the vehicle (ignition or door) or on you.
+[*] [b]Result[/b]: you get a key for this vehicle, named and colored like a vanilla key. The vehicle stays hotwired, so anyone can still start it; choose "Remove Hotwire" next to make the key matter.
+[/list]
+[h3]Remove Hotwire[/h3]
+[list]
+[*] [b]Where[/b]: "Remove Hotwire" in the same radial menu.
+[*] [b]Result[/b]: the hotwire is gone and the dashboard shows the key ignition again. The vehicle now needs its key to start; anyone without the key has to hotwire it again.
+[/list]
+[h3]Copy Vehicle Key[/h3]
+[list]
+[*] [b]Where[/b]: right-click a vehicle key in your inventory and choose "Copy Vehicle Key", or use the crafting window. If you carry several vehicle keys, the one you right-clicked is copied.
+[*] [b]Result[/b]: one more identical key (same vehicle, name and color). The original stays.
+[/list]
+[table]
+[tr][th][/th][th]Make a Key[/th][th]Remove Hotwire[/th][th]Copy Vehicle Key[/th][/tr]
+[tr][td]Needs[/td][td]Engine off, vehicle hotwired, no key for it in the vehicle or on you[/td][td]Engine off, vehicle hotwired, its key on you or in the vehicle[/td][td]The vehicle key in hand (not used up)[/td][/tr]
+[tr][td]Skills[/td][td]Welding 3, Mechanics 3 (sandbox options)[/td][td]Electrical 1, Mechanics 2; Burglar needs no skills (same as vanilla hotwiring)[/td][td]Welding 2[/td][/tr]
+[tr][td]Tools (not used up)[/td][td]Screwdriver, File[/td][td]Screwdriver[/td][td]File[/td][/tr]
+[tr][td]Materials[/td][td]1 Small Metal Sheet[/td][td]None[/td][td]1 Small Metal Sheet[/td][/tr]
+[tr][td]Time[/td][td]Same as Rebuild Engine (600)[/td][td]About the same as hotwiring (200)[/td][td]200[/td][/tr]
+[/table]
+[list]
+[*] [b]When you are missing something[/b]: the radial menu item looks like vanilla's unavailable hotwire item and lists the missing tools, materials or skills, or says to turn the engine off or that you need the key.
+[*] [b]File[/b]: a File or a Small File Set both work.
+[*] [b]Keys on you[/b]: like starting the engine in vanilla, only keys in your main inventory or on a key ring count; keys inside a bag do not.
+[/list]
 === 🌐 Multiplayer Servers
 [list]
-[*] [b]Server re-check[/b]: the server re-checks every dismantle, part repair, engine rebuild, heater repair and part salvage before applying the result.
-[*] [b]If a check fails[/b]: a vehicle being dismantled stays and no materials drop; a part being repaired or rebuilt stays the same and no materials are used.
-[*] [b]Vanilla actions[/b]: this mod reuses the vanilla dismantle and repair actions and adds no network commands. Vehicle protection mods that guard those vanilla actions work without changes.
-[*] [b]Vehicle protection mods[/b]: with Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin.
+[*] [b]Server re-check[/b]: the server re-checks every dismantle, part repair, engine rebuild, heater repair, part salvage, key making, hotwire removal and key copy before applying the result.
+[*] [b]If a check fails[/b]: a vehicle being dismantled stays and no materials drop; a part being repaired or rebuilt stays the same and no materials are used; no key is made and no material is used; a hotwire being removed stays.
+[*] [b]Vanilla actions[/b]: this mod reuses the vanilla dismantle, repair and hotwire actions and adds no network commands. Vehicle protection mods that guard those vanilla actions work without changes.
+[*] [b]Vehicle protection mods[/b]: with Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin, and making a key or removing the hotwire needs permission to drive it.
 [*] [b]Server log[/b]: the server writes one line per event to the MinidoracatAnyCar log file in the Logs folder:
 [list]
 [*] Dismantle: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
 [*] Repairing an installed part with this mod's methods: account, vehicle type, vehicle id, part, method, and condition before and after.
 [*] Engine rebuild and heater repair: account, vehicle type, vehicle id, and the value before and after.
+[*] Make a Key and Remove Hotwire: account, vehicle type, vehicle id and key id.
+[*] Copy Vehicle Key: account and key id.
 [/list]
 [/list]
 === ⚙️ Sandbox Options and Defaults
@@ -197,6 +230,9 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [tr][td]Part Salvage: Loot Multiplier[/td][td]1.0[/td][td]Multiplies the number of extra material rolls, from 0 to 10. 1.0 is 3 rolls.[/td][/tr]
 [tr][td]Engine Rebuild[/td][td]On[/td][td]Raise engine quality with Spare Engine Parts once the engine is at full condition.[/td][/tr]
 [tr][td]Engine Rebuild: Spare Parts per Step[/td][td]10[/td][td]Spare Engine Parts used each time, from 1 to 50. Each step adds 10 quality.[/td][/tr]
+[tr][td]Vehicle Keys[/td][td]On[/td][td]Make a Key, Remove Hotwire and Copy Vehicle Key. Off hides all three.[/td][/tr]
+[tr][td]Make a Key: Welding Level Required[/td][td]3[/td][td]Welding level needed to make a key for a hotwired vehicle, from 0 to 10.[/td][/tr]
+[tr][td]Make a Key: Mechanics Level Required[/td][td]3[/td][td]Mechanics level needed to make a key for a hotwired vehicle, from 0 to 10.[/td][/tr]
 [/table]
 === ⚠️ Known Limits
 [list]
@@ -205,7 +241,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [*] [b]Only the item count is compared[/b]: if someone takes one item out and puts another in after you confirm, or fills a bag that was already inside, the count does not go up, the dismantle does not stop, and those items are destroyed with the vehicle.
 [*] [b]Part types come from names[/b]: parts from vehicle mods are sorted by name. Parts whose name gives no hint go to "Other accessories", so their repair methods may not fit the real part well.
 [*] [b]Repair Heater[/b]: only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition.
-[*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod.
+[*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod. Without one, anyone who can hotwire a vehicle can also make a key for it and remove the hotwire.
 [*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
 [/list]
 === ❓ FAQ
@@ -213,6 +249,12 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [list]
 [*] The part is already at full condition, or the "Part Repair" sandbox option is off.
 [*] Removed parts are repaired by right-clicking them in your inventory.
+[/list]
+[h3]No "Make a Key" in the radial menu?[/h3]
+[list]
+[*] Sit in the driver's seat. The vehicle has to be hotwired first.
+[*] If there is already a key for it in the vehicle or on you, only "Remove Hotwire" shows. Use "Copy Vehicle Key" for another key.
+[*] Check that the "Vehicle Keys" sandbox option is on.
 [/list]
 [h3]A repair option is red?[/h3]
 [list]

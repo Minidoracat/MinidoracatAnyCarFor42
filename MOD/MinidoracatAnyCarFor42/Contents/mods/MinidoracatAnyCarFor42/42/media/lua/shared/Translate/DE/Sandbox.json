@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Motorüberholung",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Erlaubt es, die Motorqualität mit Ersatzmotorteilen zu erhöhen, sobald der Motor in vollem Zustand ist.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Motorüberholung: Ersatzmotorteile pro Schritt",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Ersatzmotorteile, die jedes Mal verbraucht werden. Jeder Schritt erhöht die Qualität um 10."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Ersatzmotorteile, die jedes Mal verbraucht werden. Jeder Schritt erhöht die Qualität um 10.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Fahrzeugschlüssel",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Erlaubt es, für ein kurzgeschlossenes Fahrzeug einen Schlüssel anzufertigen, den Kurzschluss zu entfernen und Fahrzeugschlüssel zu kopieren. Aus = keins der drei möglich.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Schlüssel anfertigen: benötigte Schweißen-Stufe",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Schweißen-Stufe, die nötig ist, um für ein kurzgeschlossenes Fahrzeug einen Schlüssel anzufertigen.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Schlüssel anfertigen: benötigte Kfz-Mechanik-Stufe",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Kfz-Mechanik-Stufe, die nötig ist, um für ein kurzgeschlossenes Fahrzeug einen Schlüssel anzufertigen."
 }

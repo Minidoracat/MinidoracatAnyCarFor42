@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "Stan: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Zdejmuje po kolei każdą część, którą potrafisz zdjąć, a potem rozmontowuje pojazd. To trwa długo.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Zepsute części też pasują. Wyższe umiejętności dają więcej.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Naprawia uszkodzoną oponę. Jedna puszka, jedna naprawa."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Naprawia uszkodzoną oponę. Jedna puszka, jedna naprawa.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Najpierw wyłącz silnik",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Potrzebne kluczyki do tego pojazdu"
 }

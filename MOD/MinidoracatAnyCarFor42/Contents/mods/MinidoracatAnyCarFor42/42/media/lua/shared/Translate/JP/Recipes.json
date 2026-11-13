@@ -11,5 +11,6 @@
     "AnyCarSalvageAccessory": "車両アクセサリーを分解する",
     "AnyCarSalvageSeat": "シートを分解する",
     "AnyCarSalvageBattery": "車両バッテリーを分解する",
-    "AnyCarSalvageGloveBox": "グローブボックスを分解する"
+    "AnyCarSalvageGloveBox": "グローブボックスを分解する",
+    "AnyCarCopyCarKey": "車両の鍵を複製する"
 }

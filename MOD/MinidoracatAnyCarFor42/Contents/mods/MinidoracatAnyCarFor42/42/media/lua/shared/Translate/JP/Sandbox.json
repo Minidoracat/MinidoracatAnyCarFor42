@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "エンジンのオーバーホール",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "エンジンの状態が最大になったあと、予備のエンジン部品でエンジン品質を上げられるようにします。",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "エンジンのオーバーホール：1回に使う予備のエンジン部品数",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "1回ごとに使う予備のエンジン部品の数。1回ごとに品質が10上がります。"
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "1回ごとに使う予備のエンジン部品の数。1回ごとに品質が10上がります。",
+    "Sandbox_MinidoracatAnyCar_Keys": "車両の鍵",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "直結した車両の鍵を作る、直結を外す、車両の鍵を複製する、の3つを使えるようにします。オフにすると3つとも使えません。",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "鍵を作る：必要な溶接加工レベル",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "直結した車両の鍵を作るのに必要な溶接加工レベル。",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "鍵を作る：必要な車両整備レベル",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "直結した車両の鍵を作るのに必要な車両整備レベル。"
 }

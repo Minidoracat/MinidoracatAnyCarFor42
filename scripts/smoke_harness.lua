@@ -204,8 +204,9 @@ check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("x",
 -- ===== 修理、零件拆解、引擎：假的原版類別與 Java 物件 =====
 SandboxVars.MinidoracatAnyCar = {}
 local SB = SandboxVars.MinidoracatAnyCar
-Perks = { Mechanics = "Mechanics", MetalWelding = "MetalWelding", FromString = function(name) return name end }
-ItemTag = { WRENCH = "wrench", SCREWDRIVER = "screwdriver" }
+Perks = { Mechanics = "Mechanics", MetalWelding = "MetalWelding", Electricity = "Electricity", FromString = function(name) return name end }
+ItemTag = { WRENCH = "wrench", SCREWDRIVER = "screwdriver", FILE = "file", SMALL_FILES = "smallfiles", CAR_KEY = "carkey" }
+CharacterTrait = { BURGLAR = "burglar" }
 IsoObjectChange = { MECHANIC_ACTION_DONE = "done" }
 function instanceof(object, class) return type(object) == "table" and object.class == class end
 local xpGiven = {}
@@ -220,8 +221,20 @@ local function fakeItem(full, opts)
     function item:getCurrentUses() return self.uses end
     function item:getCondition() return self.cond end
     function item:getConditionMax() return self.max end
-    function item:isBroken() return false end
+    function item:isBroken() return self.broken == true end
     function item:getContainer() return self.container end
+    function item:hasTag(tag) return self.tag == tag end
+    function item:getKeyId() return self.keyId or -1 end
+    function item:setKeyId(id) self.keyId = id end
+    -- 原版 getName 會加損壞、磨損等前綴，getDisplayName 才是存著的名字
+    function item:getName() return "Worn, " .. (self.name or self.full) end
+    function item:getDisplayName() return self.name or self.full end
+    function item:setName(name) self.name = name end
+    function item:getColor() return self.color end
+    function item:setColor(color) self.color = color end
+    function item:setCustomColor(custom) self.customColor = custom end
+    function item:getWorldItem() return self.worldItem end
+    function item:setWorldItem(w) self.worldItem = w end
     return item
 end
 
@@ -254,6 +267,11 @@ local function fakeInventory(main, bag)
     end
     function inv:getFirstTagEvalRecurse(tag, fn)
         for _, item in ipairs(all()) do if item.tag == tag and fn(item) then return item end end
+        return nil
+    end
+    -- 原版只找主背包與鑰匙圈（ItemContainer.haveThisKeyId）
+    function inv:haveThisKeyId(id)
+        for _, item in ipairs(self.main) do if item.keyId == id then return item end end
         return nil
     end
     function inv:DoRemoveItem(item)
@@ -786,6 +804,200 @@ check(#todo == 2 and #skipped == 0, "膠帶共 6 次：兩扇窗都排進去（�
 todo, skipped = D.planRepairAll(tapes(3, 2), windowCar(), {})
 check(#todo == 1 and #skipped == 1 and skipped[1].reason == "Base.DuctTape 2/3", "膠帶共 5 次：第二扇略過，原因寫剩 2/3（" .. tostring(skipped[1] and skipped[1].reason) .. "）")
 
+print("情境十三：配鑰匙、拆除短接（包原版熱線動作）")
+local hotwireTries = 0
+ISHotwireVehicle = {}
+ISHotwireVehicle.__index = ISHotwireVehicle
+function ISHotwireVehicle:isValid()
+    local vehicle = self.character:getVehicle()
+    return vehicle ~= nil and vehicle:isDriver(self.character)
+end
+function ISHotwireVehicle:complete()
+    hotwireTries = hotwireTries + 1
+    self.character:getVehicle():tryHotwire(self.character:getPerkLevel(Perks.Electricity))
+    return true
+end
+function ISHotwireVehicle:getDuration()
+    if self.character:isTimedActionInstant() then return 1 end
+    return 200 - self.character:getPerkLevel(Perks.Electricity) * 3
+end
+function ISHotwireVehicle:new(character)
+    local o = setmetatable({ character = character }, self)
+    o.maxTime = o:getDuration()
+    return o
+end
+loaded["Vehicles/TimedActions/ISHotwireVehicle"] = true
+local given = {}
+Actions.addOrDropItem = function(_, item) given[#given + 1] = item end
+require "MinidoracatAnyCar/Keys"
+
+-- opts：hotwired（預設 true）、running、ignition、door、notDriver
+local function keyCar(opts)
+    opts = opts or {}
+    local v = fakeVehicle("CarNormal")
+    v.hotwired = opts.hotwired ~= false
+    function v:getKeyId() return 777 end
+    function v:isHotwired() return self.hotwired end
+    function v:isEngineRunning() return opts.running == true end
+    function v:isEngineStarted() return false end
+    function v:isKeysInIgnition() return opts.ignition == true end
+    function v:isKeyIsOnDoor() return opts.door == true end
+    function v:isDriver(chr) return not opts.notDriver and chr == self.driver end
+    function v:cheatHotwire(hotwired, broken) self.hotwired, self.broken = hotwired, broken end
+    function v:tryHotwire(level) self.triedLevel = level end
+    function v:createVehicleKey() local key = fakeItem("Base.CarKey", { tag = "carkey" }); key.keyId = 777; return key end
+    return v
+end
+local function carKey(id) local key = fakeItem("Base.CarKey", { tag = "carkey" }); key.keyId = id; return key end
+local function screwdriver() return fakeItem("Base.Screwdriver", { tag = "screwdriver" }) end
+local function file(tag) return fakeItem("Base.File", { tag = tag or "file" }) end
+local function sheet() return fakeItem("Base.SmallSheetMetal") end
+local function driver(car, perks, items, traits)
+    local p, inv = mechanic(perks, items)
+    function p:getVehicle() return car end
+    function p:hasTrait(trait) return traits ~= nil and traits[trait] == true end
+    car.driver = p
+    return p, inv
+end
+local function keyJob(player, job) return ISHotwireVehicle:new(player, { job = job }) end
+local function makeKey(car, perks, items, traits)
+    local p, inv = driver(car, perks, items, traits)
+    local n, g = #logLines, #given
+    local ok = keyJob(p, "make"):complete()
+    return ok, #given - g, #logLines - n, inv
+end
+local smith = { MetalWelding = 3, Mechanics = 3 }
+local function kit() return { screwdriver(), file(), sheet() } end
+
+local made = keyCar()
+local ok, gotKeys, logged, inv = makeKey(made, smith, kit())
+check(ok == true and gotKeys == 1 and given[#given].keyId == 777 and logged == 1 and inv:getCountTypeRecurse("Base.SmallSheetMetal") == 0
+    and made.hotwired == true, "配鑰匙：拿到這台車的鑰匙、用掉 1 片小金屬片、車還是熱線")
+check(logLines[#logLines] == "KEYMAKE player=tester vehicle=Base.CarNormal id=48213 keyid=777", "log：" .. tostring(logLines[#logLines]))
+check(inv:getCountTypeRecurse("Base.Screwdriver") == 1 and inv:getCountTypeRecurse("Base.File") == 1, "工具不消耗")
+check(makeKey(keyCar(), smith, { screwdriver(), file("smallfiles"), sheet() }) == true, "小銼刀組（base:smallfiles）也算銼刀")
+
+local function refusedMake(label, car, perks, items, traits)
+    local r, k, l, i = makeKey(car, perks, items, traits)
+    check(r == false and k == 0 and l == 0 and i:getCountTypeRecurse("Base.SmallSheetMetal") == 1, label)
+end
+refusedMake("沒有熱線", keyCar({ hotwired = false }), smith, kit())
+refusedMake("身上已經有這台車的鑰匙", keyCar(), smith, { screwdriver(), file(), sheet(), carKey(777) })
+check(makeKey(keyCar(), smith, { screwdriver(), file(), sheet(), carKey(778) }) == true, "身上是別台車的鑰匙：照做")
+refusedMake("鑰匙插在點火開關", keyCar({ ignition = true }), smith, kit())
+refusedMake("鑰匙插在車門上", keyCar({ door = true }), smith, kit())
+refusedMake("金工 2", keyCar(), { MetalWelding = 2, Mechanics = 3 }, kit())
+refusedMake("技工 2", keyCar(), { MetalWelding = 3, Mechanics = 2 }, kit())
+refusedMake("沒有螺絲起子", keyCar(), smith, { file(), sheet() })
+refusedMake("沒有銼刀", keyCar(), smith, { screwdriver(), sheet() })
+local brokenDriver = screwdriver()
+brokenDriver.broken = true
+refusedMake("只有壞掉的螺絲起子", keyCar(), smith, { brokenDriver, file(), sheet() })
+local r0, k0, l0 = makeKey(keyCar(), smith, { screwdriver(), file() })
+check(r0 == false and k0 == 0 and l0 == 0, "沒有小金屬片：不給鑰匙、不記錄")
+refusedMake("引擎在跑", keyCar({ running = true }), smith, kit())
+refusedMake("不是駕駛", keyCar({ notDriver = true }), smith, kit())
+SB.Keys = false
+refusedMake("沙盒關掉鑰匙功能", keyCar(), smith, kit())
+SB.Keys = nil
+SB.KeysWelding, SB.KeysMechanics = 5, 4
+refusedMake("沙盒門檻改成金工 5、技工 4：金工 3 不夠", keyCar(), smith, kit())
+check(makeKey(keyCar(), { MetalWelding = 5, Mechanics = 4 }, kit()) == true, "沙盒門檻 5／4：剛好夠就照做")
+SB.KeysWelding, SB.KeysMechanics = nil, nil
+
+local function unwire(car, perks, items, traits)
+    local p = driver(car, perks, items, traits)
+    local n = #logLines
+    local ok = keyJob(p, "unwire"):complete()
+    return ok, #logLines - n
+end
+local wire = { Electricity = 1, Mechanics = 2 }
+local cut = keyCar()
+ok, logged = unwire(cut, wire, { screwdriver(), carKey(777) })
+check(ok == true and logged == 1 and cut.hotwired == false and cut.broken == false, "拆除短接：身上有鑰匙，熱線取消")
+check(logLines[#logLines] == "UNWIRE player=tester vehicle=Base.CarNormal id=48213 keyid=777", "log：" .. tostring(logLines[#logLines]))
+local inIgnition = keyCar({ ignition = true })
+check(unwire(inIgnition, wire, { screwdriver() }) == true and inIgnition.hotwired == false, "鑰匙插在點火開關也可以")
+local burglar = keyCar()
+check(unwire(burglar, {}, { screwdriver(), carKey(777) }, { burglar = true }) == true and burglar.hotwired == false, "竊賊特質不看技能（和原版熱線相同）")
+local function refusedUnwire(label, car, perks, items, traits)
+    local wasHotwired = car.hotwired
+    local r, l = unwire(car, perks, items, traits)
+    check(r == false and l == 0 and car.hotwired == wasHotwired and car.broken == nil, label)
+end
+refusedUnwire("沒有鑰匙", keyCar(), wire, { screwdriver(), carKey(778) })
+refusedUnwire("沒有熱線", keyCar({ hotwired = false }), wire, { screwdriver(), carKey(777) })
+refusedUnwire("電工 0", keyCar(), { Mechanics = 2 }, { screwdriver(), carKey(777) })
+refusedUnwire("技工 1", keyCar(), { Electricity = 1, Mechanics = 1 }, { screwdriver(), carKey(777) })
+refusedUnwire("沒有螺絲起子", keyCar(), wire, { carKey(777) })
+refusedUnwire("引擎在跑", keyCar({ running = true }), wire, { screwdriver(), carKey(777) })
+SB.Keys = false
+refusedUnwire("沙盒關掉鑰匙功能", keyCar(), wire, { screwdriver(), carKey(777) })
+SB.Keys = nil
+
+local timer = driver(keyCar(), { Electricity = 4 }, {})
+check(keyJob(timer, "make").maxTime == 600 and keyJob(timer, "unwire").maxTime == 200 and ISHotwireVehicle:new(timer).maxTime == 188,
+    "時間：配鑰匙 600、拆除短接 200；原版熱線照原版（200 - 電工 × 3）")
+function timer:isTimedActionInstant() return true end
+check(keyJob(timer, "make"):getDuration() == 1, "瞬間完成（除錯）照原版回 1")
+
+local vanillaCar = keyCar({ hotwired = false })
+local thief = driver(vanillaCar, { Electricity = 2 }, {})
+local tries, logs1 = hotwireTries, #logLines
+check(ISHotwireVehicle:new(thief):complete() == true and hotwireTries == tries + 1 and vanillaCar.triedLevel == 2 and #logLines == logs1,
+    "沒有 anycar：原版熱線（tryHotwire 帶電工等級、不記錄）")
+check(ISHotwireVehicle:new(thief, 7).anycar == nil and ISHotwireVehicle:new(thief, { job = "x" }).anycar == nil, "第二個參數不是本 MOD 的工作：當成原版")
+check(debug.getlocal(ISHotwireVehicle.new, 2) == "character" and debug.getlocal(ISHotwireVehicle.new, 3) == "anycar",
+    "ISHotwireVehicle.new 的參數名和動作欄位同名")
+
+local synced = keyCar()
+local queued = keyJob(driver(synced, wire, { screwdriver(), carKey(777) }), "unwire")
+synced.hotwired = false -- 多人：結果比客戶端的動作先同步到
+check(queued:isValid() == true, "客戶端 isValid：結果先同步到（已不是熱線）不中止")
+SB.Keys = false
+check(queued:isValid() == false, "客戶端 isValid：沙盒關掉時中止")
+SB.Keys = nil
+check(keyJob(driver(keyCar({ notDriver = true }), wire, {}), "unwire"):isValid() == false, "客戶端 isValid：不是駕駛照原版中止")
+
+print("情境十四：複製鑰匙（craftRecipe OnCreate／OnTest）")
+local source = carKey(777)
+source.name, source.color = "Vehicle Key - Chevalier Nyala", "blue"
+local output = fakeItem("Base.CarKey", { tag = "carkey" })
+local copier, copierInv = mechanic({ MetalWelding = 2 }, { source, output })
+local recipeData = {
+    getFirstInputItemWithTag = function(_, tag) return tag == "carkey" and source or nil end,
+    getFirstCreatedItem = function() return output end,
+}
+local g0, n0 = #given, #logLines
+D.onCopyKey(recipeData, copier)
+local copy = given[#given]
+check(#given == g0 + 1 and copy.keyId == 777 and copy.name == source.name and copy.color == "blue" and copy.customColor == true,
+    "新鑰匙的編號、名稱、顏色照來源鑰匙")
+check(copierInv:getCountTypeRecurse("Base.CarKey") == 1 and copierInv.main[1] == source, "沒有編號的預設產出拿掉，來源鑰匙留著")
+check(#logLines == n0 + 1 and logLines[#logLines] == "KEYCOPY player=tester keyid=777", "log：" .. tostring(logLines[#logLines]))
+check(D.copyKeyTest(source, copier) == true and D.copyKeyTest(carKey(-1), copier) == false and D.copyKeyTest(file(), copier) == true,
+    "OnTest：有編號的車鑰匙與其他輸入可以，沒有編號的車鑰匙不行")
+SB.Keys = false
+check(D.copyKeyTest(source, copier) == false and D.copyKeyTest(file(), copier) == false and MinidoracatAnyCar_keysInMenu() == false,
+    "沙盒關掉：OnTest 全部不行、不列在製作清單")
+SB.Keys = nil
+check(MinidoracatAnyCar_keysInMenu() == true, "沙盒開著：列在製作清單")
+-- 背包超重：預設產出被 addOrDropItem 放在地上（沒有容器、有 worldItem）
+local floorCalls = {}
+local floorSquare = {
+    transmitRemoveItemFromSquare = function(_, w) floorCalls[#floorCalls + 1] = "transmit:" .. tostring(w.tag) end,
+    removeWorldObject = function(_, w) floorCalls[#floorCalls + 1] = "remove:" .. tostring(w.tag) end,
+}
+local dropped = fakeItem("Base.CarKey", { tag = "carkey" })
+dropped.worldItem = { tag = "w1", getSquare = function() return floorSquare end }
+local heavyInv
+copier, heavyInv = mechanic({ MetalWelding = 2 }, { source })
+recipeData.getFirstCreatedItem = function() return dropped end
+g0 = #given
+D.onCopyKey(recipeData, copier)
+check(#given == g0 + 1 and given[#given].keyId == 777, "超重：照樣給設好編號的鑰匙")
+check(table.concat(floorCalls, ",") == "transmit:w1,remove:w1" and dropped.worldItem == nil and heavyInv.main[1] == source,
+    "超重：地上那把沒有編號的預設產出移除並同步（" .. table.concat(floorCalls, ",") .. "）")
 print()
 if failures > 0 then
     print(failures .. " 項失敗")

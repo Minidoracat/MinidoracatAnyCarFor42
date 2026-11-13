@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "Condición: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Saca una por una todas las piezas que puedas sacar y después desmonta el vehículo. Lleva mucho tiempo.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Las piezas rotas también sirven. Más habilidad, más botín.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Arregla una rueda dañada. Una lata, una reparación."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Arregla una rueda dañada. Una lata, una reparación.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Primero apagá el motor",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Necesitás la llave de este vehículo"
 }

@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "Состояние: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Снимает по одной все детали, которые вы можете снять, затем разбирает автомобиль. Это занимает много времени.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Годятся и сломанные детали. Выше навык - больше.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Чинит повреждённую шину. Один баллон - один ремонт."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Чинит повреждённую шину. Один баллон - один ремонт.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Сначала заглушите двигатель",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Нужен ключ от этой машины"
 }

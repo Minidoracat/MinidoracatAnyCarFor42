@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "État : %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Retire une à une toutes les pièces que vous pouvez retirer, puis démonte le véhicule. Cela prend beaucoup de temps.",
     "Tooltip_MinidoracatAnyCar_Salvage": "Pièces cassées acceptées. Plus de compétence, plus de gain.",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "Répare un pneu endommagé. Une bombe, une réparation."
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Répare un pneu endommagé. Une bombe, une réparation.",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "Coupez d'abord le moteur",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "Il faut la clé de ce véhicule"
 }

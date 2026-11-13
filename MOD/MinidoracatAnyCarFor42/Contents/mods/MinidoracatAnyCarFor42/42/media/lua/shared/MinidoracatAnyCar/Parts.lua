@@ -24,6 +24,23 @@ function D.rolls(base, mult)
     return rolls
 end
 
+-- 伺服器拒絕：console 記一行，回 false 給 complete
+function D.refuse(what, why, character)
+    print(D.LOG .. what .. " refused (" .. why .. "): " .. D.who(character))
+    return false
+end
+
+-- 從玩家身上（含袋子）拿走 count 個 fullType，並同步給客戶端
+function D.takeItems(inventory, fullType, count)
+    local items = inventory:getSomeTypeRecurse(fullType, count)
+    for i = 0, items:size() - 1 do
+        local item = items:get(i)
+        local container = item:getContainer()
+        container:DoRemoveItem(item)
+        sendRemoveItemFromContainer(container, item)
+    end
+end
+
 -- 照順序比對物品短名（小寫）裡的字，第一個符合的就是類別；都不符合的歸 Accessory
 D.RULES = {
     { "Armor", { "armor", "armour", "protection" } },

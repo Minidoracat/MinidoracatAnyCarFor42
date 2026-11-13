@@ -11,5 +11,6 @@
     "AnyCarSalvageAccessory": "拆解車輛配件",
     "AnyCarSalvageSeat": "拆解座椅",
     "AnyCarSalvageBattery": "拆解汽車電池",
-    "AnyCarSalvageGloveBox": "拆解手套箱"
+    "AnyCarSalvageGloveBox": "拆解手套箱",
+    "AnyCarCopyCarKey": "複製車鑰匙"
 }

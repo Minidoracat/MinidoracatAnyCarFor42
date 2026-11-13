@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Remont silnika",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Pozwala poprawić stan techniczny silnika za pomocą części silnikowych, gdy silnik jest w pełni naprawiony.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Remont silnika: części silnikowe na krok",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Części silnikowe zużywane za każdym razem. Każdy krok dodaje 10 punktów stanu technicznego."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Części silnikowe zużywane za każdym razem. Każdy krok dodaje 10 punktów stanu technicznego.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Kluczyki do pojazdów",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Pozwala dorobić kluczyk do pojazdu odpalonego na krótko, usunąć połączenie na krótko i kopiować kluczyki. Wyłączone = żadna z trzech rzeczy.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Dorabianie kluczyka: wymagany poziom Spawania",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Poziom Spawania potrzebny, aby dorobić kluczyk do pojazdu odpalonego na krótko.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Dorabianie kluczyka: wymagany poziom Naprawy pojazdów",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Poziom Naprawy pojazdów potrzebny, aby dorobić kluczyk do pojazdu odpalonego na krótko."
 }

@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Motor Revizyonu",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Motorun durumu tam olduğunda yedek motor parçalarıyla motor kalitesini artırmanızı sağlar.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Motor Revizyonu: Adım Başına Yedek Parça",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Her seferinde kullanılan yedek motor parçası sayısı. Her adım 10 kalite ekler."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Her seferinde kullanılan yedek motor parçası sayısı. Her adım 10 kalite ekler.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Araç Anahtarları",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Düz kontak yapılmış bir araca anahtar yapmayı, düz kontağı sökmeyi ve araç anahtarlarını kopyalamayı sağlar. Kapalı = üçü de kullanılamaz.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Anahtar Yap: Gereken Metal İşleme Seviyesi",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Düz kontak yapılmış bir araca anahtar yapmak için gereken Metal İşleme seviyesi.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Anahtar Yap: Gereken Tamircilik Seviyesi",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Düz kontak yapılmış bir araca anahtar yapmak için gereken Tamircilik seviyesi."
 }

@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Reifen flicken",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Reifendichtmittel verwenden",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Neues Blech mit Bolzen befestigen",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Neu verkabeln"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Neu verkabeln",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Schlüssel anfertigen",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Kurzschluss entfernen"
 }

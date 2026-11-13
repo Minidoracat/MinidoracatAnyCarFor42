@@ -84,10 +84,7 @@ function D.repairBlocked(character, part, fixing, fixer)
     return nil
 end
 
-local function refuse(what, why, character)
-    print(D.LOG .. what .. " refused (" .. why .. "): " .. D.who(character))
-    return false
-end
+local refuse = D.refuse
 
 -- 修理成功後照沙盒 RepairXPMult 多給經驗
 local function bonusXp(character, fixer)
@@ -261,15 +258,7 @@ function D.engineWork(character, part, job)
     if why then return refuse(job, why, character) end
     local spec, vehicle, inventory = D.ENGINE[job], part:getVehicle(), character:getInventory()
     for _, entry in ipairs(rows) do
-        if entry.item and not entry.keep then
-            local items = inventory:getSomeTypeRecurse(entry.item, entry.need)
-            for i = 0, items:size() - 1 do
-                local item = items:get(i)
-                local container = item:getContainer()
-                container:DoRemoveItem(item)
-                sendRemoveItemFromContainer(container, item)
-            end
-        end
+        if entry.item and not entry.keep then D.takeItems(inventory, entry.item, entry.need) end
     end
     local before, after
     if job == "rebuild" then

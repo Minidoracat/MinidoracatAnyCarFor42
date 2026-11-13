@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "状態：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "取り外せる部品をひとつずつすべて外してから、車両を解体します。とても時間がかかります。",
     "Tooltip_MinidoracatAnyCar_Salvage": "壊れた部品も分解可能。スキルが高いほど多く入手。",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "損傷したタイヤを修理します。1缶で1回修理できます。"
+    "Tooltip_MinidoracatAnyCar_TireSealant": "損傷したタイヤを修理します。1缶で1回修理できます。",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "先にエンジンを切る",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "この車両の鍵が必要"
 }

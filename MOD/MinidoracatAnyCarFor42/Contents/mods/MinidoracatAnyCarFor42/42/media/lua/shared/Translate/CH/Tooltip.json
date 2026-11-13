@@ -9,5 +9,7 @@
     "Tooltip_MinidoracatAnyCar_heater": "狀況：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "把卸得動的零件一個一個卸下來，再拆解這台車。需要很長的時間。",
     "Tooltip_MinidoracatAnyCar_Salvage": "壞掉的零件也能拆。技能越高，拆到的越多。",
-    "Tooltip_MinidoracatAnyCar_TireSealant": "修補受損的輪胎。一罐補一次。"
+    "Tooltip_MinidoracatAnyCar_TireSealant": "修補受損的輪胎。一罐補一次。",
+    "Tooltip_MinidoracatAnyCar_EngineOff": "先熄火",
+    "Tooltip_MinidoracatAnyCar_NeedKey": "需要這台車的鑰匙"
 }

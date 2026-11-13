@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "補胎",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "使用補胎劑",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "螺栓固定",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "重接線路"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "重接線路",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "配鑰匙",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "拆除短接"
 }

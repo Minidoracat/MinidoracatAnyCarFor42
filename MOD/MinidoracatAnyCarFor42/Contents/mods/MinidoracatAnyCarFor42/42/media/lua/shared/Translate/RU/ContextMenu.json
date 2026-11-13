@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Заклеить шину",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Использовать герметик для шин",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Прикрутить новый металл болтами",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Заменить проводку"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Заменить проводку",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Сделать ключ",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Убрать перемычку зажигания"
 }

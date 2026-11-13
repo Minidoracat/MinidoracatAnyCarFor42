@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Engine Rebuild",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Lets you raise engine quality with spare engine parts once the engine is at full condition.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Engine Rebuild: Spare Parts per Step",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Spare engine parts used each time. Each step adds 10 quality."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Spare engine parts used each time. Each step adds 10 quality.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Vehicle Keys",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Lets you make a key for a hotwired vehicle, remove the hotwire, and copy vehicle keys. Off = none of the three.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Make a Key: Welding Level Required",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Welding level needed to make a key for a hotwired vehicle.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Make a Key: Mechanics Level Required",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Mechanics level needed to make a key for a hotwired vehicle."
 }

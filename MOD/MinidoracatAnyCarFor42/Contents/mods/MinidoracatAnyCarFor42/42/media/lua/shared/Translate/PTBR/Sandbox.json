@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Retífica do Motor",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permite aumentar a qualidade do motor com peças de reposição do motor quando o motor está com a condição máxima.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Retífica do Motor: Peças de Reposição por Etapa",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Peças de reposição do motor gastas a cada vez. Cada etapa adiciona 10 de qualidade."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Peças de reposição do motor gastas a cada vez. Cada etapa adiciona 10 de qualidade.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Chaves de Veículo",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Permite fazer uma chave para um veículo com ligação direta, desfazer a ligação direta e copiar chaves de veículo. Desligado = nenhuma das três.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Fazer uma Chave: Nível de Soldagem Necessário",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Nível de Soldagem necessário para fazer uma chave para um veículo com ligação direta.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Fazer uma Chave: Nível de Mecânica Necessário",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Nível de Mecânica necessário para fazer uma chave para um veículo com ligação direta."
 }

@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Reconstrucción de motor",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permite subir la calidad del motor con repuestos de motor cuando el motor está en perfecta condición.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Reconstrucción de motor: repuestos de motor por paso",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Cantidad de repuestos de motor que se gasta cada vez. Cada paso suma 10 de calidad."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Cantidad de repuestos de motor que se gasta cada vez. Cada paso suma 10 de calidad.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Llaves de vehículos",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Permite hacer una llave para un vehículo puenteado, quitar el puente y copiar llaves de vehículos. Desactivado = no se puede hacer ninguna de las tres cosas.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Hacer una llave: nivel de Metalistería requerido",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Nivel de Metalistería necesario para hacer una llave para un vehículo puenteado.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Hacer una llave: nivel de Mecánica requerido",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Nivel de Mecánica necesario para hacer una llave para un vehículo puenteado."
 }

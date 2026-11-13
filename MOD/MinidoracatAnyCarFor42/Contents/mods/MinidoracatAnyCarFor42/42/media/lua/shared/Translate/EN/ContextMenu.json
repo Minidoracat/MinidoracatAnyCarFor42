@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Patch the Tire",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Use Tire Sealant",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Bolt On New Metal",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rewire"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rewire",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Make a Key",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Remove Hotwire"
 }

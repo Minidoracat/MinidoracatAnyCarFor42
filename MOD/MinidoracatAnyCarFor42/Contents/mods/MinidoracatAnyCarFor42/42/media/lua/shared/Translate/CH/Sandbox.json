@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "翻新引擎",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "引擎狀況修滿後，可以用引擎零件提高引擎品質。",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "翻新引擎：每次用的引擎零件數",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "每次翻新用掉的引擎零件數。每次提高 10 點品質。"
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "每次翻新用掉的引擎零件數。每次提高 10 點品質。",
+    "Sandbox_MinidoracatAnyCar_Keys": "車鑰匙",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "可以替已短接的車配鑰匙、拆除短接，以及複製車鑰匙。關閉後三項都不能用。",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "配鑰匙：金工等級門檻",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "替已短接的車配鑰匙需要的金工等級。",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "配鑰匙：技工等級門檻",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "替已短接的車配鑰匙需要的技工等級。"
 }

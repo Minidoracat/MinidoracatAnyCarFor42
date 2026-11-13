@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "타이어 패치 붙이기",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "타이어 실런트 사용하기",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "새 금속판을 볼트로 고정하기",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "배선 다시 하기"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "배선 다시 하기",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "열쇠 만들기",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "딴 배선 원래대로 하기"
 }

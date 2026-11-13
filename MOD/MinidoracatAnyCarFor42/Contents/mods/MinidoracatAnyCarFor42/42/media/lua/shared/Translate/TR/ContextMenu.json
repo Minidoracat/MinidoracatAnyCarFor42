@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Lastiğe Yama Yap",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Lastik Tamir Spreyi Kullan",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Yeni Metali Cıvatala",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Kabloları Yeniden Bağla"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Kabloları Yeniden Bağla",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Anahtar Yap",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Düz Kontağı Sök"
 }

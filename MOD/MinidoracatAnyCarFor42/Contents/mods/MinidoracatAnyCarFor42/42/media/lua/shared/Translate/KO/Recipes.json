@@ -11,5 +11,6 @@
     "AnyCarSalvageAccessory": "차량 액세서리 분해하기",
     "AnyCarSalvageSeat": "좌석 분해하기",
     "AnyCarSalvageBattery": "차량 배터리 분해하기",
-    "AnyCarSalvageGloveBox": "조수석 수납함 분해하기"
+    "AnyCarSalvageGloveBox": "조수석 수납함 분해하기",
+    "AnyCarCopyCarKey": "차 열쇠 복제하기"
 }

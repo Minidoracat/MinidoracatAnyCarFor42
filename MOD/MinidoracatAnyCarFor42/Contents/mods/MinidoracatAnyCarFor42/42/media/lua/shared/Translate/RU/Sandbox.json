@@ -19,5 +19,11 @@
     "Sandbox_MinidoracatAnyCar_EngineRebuild": "Переборка двигателя",
     "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Позволяет повышать качество двигателя запасными деталями двигателя, когда состояние двигателя полное.",
     "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Переборка двигателя: запасных деталей за шаг",
-    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Сколько запасных деталей двигателя расходуется за раз. Каждый шаг добавляет 10 качества."
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Сколько запасных деталей двигателя расходуется за раз. Каждый шаг добавляет 10 качества.",
+    "Sandbox_MinidoracatAnyCar_Keys": "Ключи от автомобилей",
+    "Sandbox_MinidoracatAnyCar_Keys_tooltip": "Позволяет сделать ключ для машины, заведённой в обход замка зажигания, убрать перемычку и копировать ключи от автомобилей. Выкл. = ничего из трёх.",
+    "Sandbox_MinidoracatAnyCar_KeysWelding": "Сделать ключ: нужный уровень газосварки",
+    "Sandbox_MinidoracatAnyCar_KeysWelding_tooltip": "Уровень газосварки, нужный, чтобы сделать ключ для машины, заведённой в обход замка зажигания.",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics": "Сделать ключ: нужный уровень автомеханики",
+    "Sandbox_MinidoracatAnyCar_KeysMechanics_tooltip": "Уровень автомеханики, нужный, чтобы сделать ключ для машины, заведённой в обход замка зажигания."
 }

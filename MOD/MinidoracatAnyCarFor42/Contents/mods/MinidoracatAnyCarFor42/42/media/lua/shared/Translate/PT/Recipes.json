@@ -11,5 +11,6 @@
     "AnyCarSalvageAccessory": "Desmontar Acessório de Veículo",
     "AnyCarSalvageSeat": "Desmontar Assento de Carro",
     "AnyCarSalvageBattery": "Desmontar Bateria de Carro",
-    "AnyCarSalvageGloveBox": "Desmontar Porta-luvas"
+    "AnyCarSalvageGloveBox": "Desmontar Porta-luvas",
+    "AnyCarCopyCarKey": "Copiar Chave de Veículo"
 }

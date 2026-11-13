@@ -33,6 +33,7 @@ Adds repair methods for every vehicle part, so you can repair parts while they a
 [*] [b]Engine rebuild[/b]: Raise engine quality with spare engine parts
 [*] [b]Tire Sealant[/b]: A new item that repairs a tire once per can
 [*] [b]Dismantle any vehicle[/b]: Intact cars and trailers can be cut up with a propane torch
+[*] [b]Vehicle keys[/b]: Make a key for a hotwired vehicle, remove the hotwire, and copy vehicle keys
 [*] [b]Works on multiplayer servers[/b]: The server re-checks every result before applying it
 [/list]
 📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]

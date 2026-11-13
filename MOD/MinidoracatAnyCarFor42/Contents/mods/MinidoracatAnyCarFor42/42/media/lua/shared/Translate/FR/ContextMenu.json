@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Rustiner le pneu",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Utiliser de l'anti-crevaison",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Boulonner du métal neuf",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Refaire le câblage"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Refaire le câblage",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Faire une clé",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Défaire les fils"
 }

@@ -13,5 +13,7 @@
     "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Parchar el neumático",
     "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Usar sellador de neumáticos",
     "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Fijar metal nuevo con pernos",
-    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rehacer el cableado"
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rehacer el cableado",
+    "ContextMenu_MinidoracatAnyCar_KeyMake": "Hacer una llave",
+    "ContextMenu_MinidoracatAnyCar_KeyUnwire": "Quitar el puente"
 }
