@@ -8,6 +8,6 @@
     "Tooltip_MinidoracatAnyCar_rebuild": "Qualité du moteur : %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "État : %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Retire une à une toutes les pièces que vous pouvez retirer, puis démonte le véhicule. Cela prend beaucoup de temps.",
-    "Tooltip_MinidoracatAnyCar_Salvage": "Les pièces cassées aussi. Plus vos compétences sont élevées, plus vous récupérez.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Pièces cassées acceptées. Plus de compétence, plus de matériaux.",
     "Tooltip_MinidoracatAnyCar_TireSealant": "Répare un pneu endommagé. Une bombe, une réparation."
 }

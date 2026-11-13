@@ -8,6 +8,6 @@
     "Tooltip_MinidoracatAnyCar_rebuild": "Качество двигателя: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Состояние: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Снимает по одной все детали, которые вы можете снять, затем разбирает автомобиль. Это занимает много времени.",
-    "Tooltip_MinidoracatAnyCar_Salvage": "Сломанные детали тоже подходят. Чем выше навыки, тем больше добыча.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Сломанные детали тоже подходят. Выше навыки - больше добычи.",
     "Tooltip_MinidoracatAnyCar_TireSealant": "Чинит повреждённую шину. Один баллон - один ремонт."
 }
