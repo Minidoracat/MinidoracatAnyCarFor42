@@ -1,6 +1,7 @@
 -- 完好車的右鍵選單「拆解車輛」。燒毀與撞毀的車原版已有選項（ISVehicleMenu.lua:618-648），不重複加。
 require "Vehicles/ISUI/ISVehicleMenu"
 require "MinidoracatAnyCar/Dismantle"
+require "TimedActions/ISTimedActionQueue"
 
 local D = MinidoracatAnyCar
 
@@ -59,23 +60,44 @@ function D.onDismantle(playerObj, vehicle)
     end
 end
 
--- 排了一個動作之後：等它離開佇列，再等結果真的出現（done() 成立）才接下一步。
--- 單人是 perform 先、complete 後；多人的結果要等伺服器同步，也可能先同步到、動作才被中止（不會呼叫 perform）。
--- 超過 CHAIN_TIMEOUT 還沒有結果（玩家取消、動作被擋）就不接下去
+-- 佇列被取消的次數（佇列裡還有動作時才算）：玩家取消、動作被中止都會經過 cancelQueue（ISTimedActionQueue.lua:46-56、101-113）
+local vanillaCancelQueue = ISTimedActionQueue.cancelQueue
+function ISTimedActionQueue:cancelQueue()
+    if #self.queue > 0 then self.anycarCancels = (self.anycarCancels or 0) + 1 end
+    return vanillaCancelQueue(self)
+end
+
+-- 排了一個動作之後，等它離開佇列再決定要不要接下一步：
+--   做完（perform）：等結果出現（done()）；結果一直沒變（例：狀況 0 的零件擲骰失敗）過 CHAIN_NOCHANGE 也算試過，接下去
+--   沒做完但結果出現：多人時同步先到、動作被自動中止，接下去
+--   沒做完也沒結果：玩家取消或伺服器拒絕，過 CHAIN_TIMEOUT 停下
+-- 動作離開佇列之後佇列又被取消（玩家取消後面的開關門等動作）、或玩家死了，就停下。
+-- 單人是 perform 先、complete 後；多人的結果要等伺服器同步
 D.CHAIN_TIMEOUT = 5000
+D.CHAIN_NOCHANGE = 1500
 D.CHAIN_SETTLE = 500 -- 結果出現後再等一下，讓同一次的其他同步（材料、背包）也到
 function D.afterAction(playerObj, action, done, nextStep)
-    local leftAt, doneAt
-    local function tick()
+    local queue = ISTimedActionQueue.getTimedActionQueue(playerObj)
+    local perform = action.perform
+    action.perform = function(self)
+        self.anycarPerformed = true
+        return perform(self)
+    end
+    local leftAt, cancels, doneAt, tick
+    tick = function()
         local now = getTimestampMs()
         if not leftAt then
-            for _, queued in ipairs(ISTimedActionQueue.getTimedActionQueue(playerObj).queue) do
+            for _, queued in ipairs(queue.queue) do
                 if queued == action then return end
             end
-            leftAt = now
+            leftAt, cancels = now, queue.anycarCancels or 0 -- 動作自己結束時的取消不算
+        end
+        if (queue.anycarCancels or 0) ~= cancels or playerObj:isDead() then
+            Events.OnTick.Remove(tick)
+            return
         end
         if not doneAt then
-            if done() then
+            if done() or (action.anycarPerformed and now - leftAt >= D.CHAIN_NOCHANGE) then
                 doneAt = now
             elseif now - leftAt >= D.CHAIN_TIMEOUT then
                 Events.OnTick.Remove(tick)

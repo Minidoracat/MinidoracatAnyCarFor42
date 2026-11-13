@@ -630,9 +630,12 @@ print("情境十一：拆車前先卸零件，等上一個零件真的卸下才�
 -- 單人的順序是 perform（動作離開佇列）→ complete（零件離開車）；多人時結果由伺服器同步，時間不定
 ISVehicleMenu = { FillMenuOutsideVehicle = function() end }
 loaded["Vehicles/ISUI/ISVehicleMenu"] = true
+ISTimedActionQueue = { cancelQueue = function() end }
+loaded["TimedActions/ISTimedActionQueue"] = true
 require "MinidoracatAnyCar/Menu"
-local queue, dismantled = {}, 0
-ISTimedActionQueue = { getTimedActionQueue = function() return { queue = queue } end }
+local q = setmetatable({ queue = {} }, { __index = ISTimedActionQueue })
+ISTimedActionQueue.getTimedActionQueue = function() return q end
+local dismantled = 0
 D.onDismantle = function() dismantled = dismantled + 1 end
 local stripCar, stripParts = fakeVehicle("CarNormal"), {}
 local function stripPart(id)
@@ -649,29 +652,69 @@ brake.needs = tire
 function stripCar:getPartCount() return #stripParts end
 function stripCar:getPartByIndex(i) return stripParts[i + 1] end
 function stripCar:canUninstallPart(_, part) return part.needs == nil or part.needs.item == nil end
-ISVehiclePartMenu = { onUninstallPart = function(_, part) queue[#queue + 1] = { Type = "ISUninstallVehiclePart", part = part } end }
+local function removeFromQueue(action)
+    for i = #q.queue, 1, -1 do if q.queue[i] == action then table.remove(q.queue, i) end end
+end
+ISVehiclePartMenu = { onUninstallPart = function(_, part)
+    q.queue[#q.queue + 1] = { Type = "ISUninstallVehiclePart", part = part, perform = removeFromQueue }
+end }
+local mech = { dead = false }
+function mech:isDead() return self.dead end
 local function step(ms) nowMs = nowMs + ms; runTicks(1) end
-D.onStrip(near, stripCar, {})
-check(#queue == 1 and queue[1].part == tire, "先排輪胎（煞車被擋住）")
-table.remove(queue, 1) -- perform：動作離開佇列，零件還在車上
+local function settle() step(100); step(D.CHAIN_SETTLE) end
+local function cancelAll() q:cancelQueue(); q.queue = {} end -- 玩家取消：經過 cancelQueue、佇列清空
+
+D.onStrip(mech, stripCar, {})
+check(#q.queue == 1 and q.queue[1].part == tire, "先排輪胎（煞車被擋住）")
+q.queue[1]:perform() -- 動作離開佇列，零件還在車上（complete 還沒跑）
 step(100)
-check(#queue == 0 and dismantled == 0, "動作結束但輪胎還沒卸下：不排下一個、不拆車")
+check(#q.queue == 0 and dismantled == 0, "做完但輪胎還沒卸下：不排下一個、不拆車")
 tire.item = nil -- complete
-step(100)
-step(D.CHAIN_SETTLE)
-check(#queue == 1 and queue[1].part == brake and dismantled == 0, "輪胎卸下後才排煞車")
-table.remove(queue, 1)
+settle()
+check(#q.queue == 1 and q.queue[1].part == brake and dismantled == 0, "輪胎卸下後才排煞車")
+q.queue[1]:perform()
 brake.cond = 93 -- 卸失敗：扣了狀況、零件留在車上
-step(100)
-step(D.CHAIN_SETTLE)
-check(#queue == 0 and dismantled == 1, "煞車卸失敗不重試，零件都試過才拆車")
+settle()
+check(#q.queue == 0 and dismantled == 1, "煞車卸失敗不重試，零件都試過才拆車")
+
 tire.item, brake.cond = fakeItem("Base.TireFrontLeft"), 100
-D.onStrip(near, stripCar, {})
-queue = {}
+D.onStrip(mech, stripCar, {})
+cancelAll()
 step(100)
 step(D.CHAIN_TIMEOUT)
+settle()
+check(#q.queue == 0 and dismantled == 1, "玩家取消（沒做完、沒結果）：逾時後停下，不拆車")
+
+D.onStrip(mech, stripCar, {})
+q.queue = {} -- 多人：同步先到、動作被自動中止（沒有 perform）
+tire.item = nil
+settle()
+check(#q.queue == 1 and q.queue[1].part == brake, "沒有 perform 但結果出現（多人同步先到）：接下一個")
+q.queue[1]:perform()
+step(100)
+brake.item = nil
+step(100)
+cancelAll() -- 結果出現後、接下一步之前玩家取消
+q.queue[#q.queue + 1] = { Type = "Other" }
+cancelAll()
 step(D.CHAIN_SETTLE)
-check(#queue == 0 and dismantled == 1, "玩家取消（沒有結果）：逾時後停下，不拆車")
+step(D.CHAIN_SETTLE)
+check(#q.queue == 0 and dismantled == 1, "結果出現後玩家取消：不接下一步、不拆車")
+
+tire.item, brake.item, tire.cond = fakeItem("Base.TireFrontLeft"), fakeItem("Base.BrakeFrontLeft"), 0
+brake.needs = nil
+D.onStrip(mech, stripCar, {})
+q.queue[1]:perform() -- 狀況 0 的零件卸失敗：狀況與零件都沒變
+step(100)
+step(D.CHAIN_NOCHANGE)
+settle()
+check(#q.queue == 1 and q.queue[1].part == brake, "做完但結果沒變（狀況 0 卸失敗）：算試過，接下一個")
+mech.dead = true
+q.queue[1]:perform()
+brake.item = nil
+settle()
+check(dismantled == 1, "玩家死了：不接下一步")
+mech.dead = false
 
 print("情境十二：修理全部零件的規劃（兩個零件共用材料）")
 ISVehicleMechanics = { doPartContextMenu = function() end, ghs = "<GHC>", bhs = "<BHC>" }

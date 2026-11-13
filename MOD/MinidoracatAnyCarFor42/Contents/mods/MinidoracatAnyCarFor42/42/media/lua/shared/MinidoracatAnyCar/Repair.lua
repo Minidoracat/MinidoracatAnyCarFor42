@@ -50,9 +50,9 @@ end
 -- 材料在主背包而且技能夠
 function D.fixerReady(character, fixing, fixer, broken)
     local inventory = character:getInventory()
-    if uses(inventory, fixer:getFixerName(), broken) < fixer:getNumberOfUse() then return false end
+    if uses(inventory, fixer:getFixerName(), broken, false) < fixer:getNumberOfUse() then return false end
     local global = fixing:getGlobalItem()
-    if global and uses(inventory, global:getFixerName(), broken) < global:getNumberOfUse() then return false end
+    if global and uses(inventory, global:getFixerName(), broken, false) < global:getNumberOfUse() then return false end
     local skills = fixer:getFixerSkills()
     for i = 0, skills and skills:size() - 1 or -1 do
         local skill = skills:get(i)
