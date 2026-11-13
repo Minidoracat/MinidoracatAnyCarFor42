@@ -1,0 +1,297 @@
+module Base
+{
+    /* 每一類零件一個拆解配方。零件那一列輸入由 Parts.lua 在載入時加上；固定產出一件，其餘由 OnCreate 在伺服器抽 */
+
+    craftRecipe AnyCarSalvageDoor
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Door,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 3 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.SmallSheetMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageHood
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Hood,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 3 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.SmallSheetMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageTrunkLid
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.TrunkLid,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 3 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.SmallSheetMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageTrunk
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Trunk,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 3 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.SmallSheetMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageArmor
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:3,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Armor,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 3 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.SmallSheetMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageGasTank
+    {
+        timedAction = Welding,
+        time = 200,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.GasTank,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 2 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageMuffler
+    {
+        timedAction = Welding,
+        time = 150,
+        SkillRequired = MetalWelding:1,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Muffler,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 2 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageBrake
+    {
+        timedAction = Welding,
+        time = 100,
+        SkillRequired = MetalWelding:1,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Brake,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 1 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageSuspension
+    {
+        timedAction = Welding,
+        time = 150,
+        SkillRequired = MetalWelding:2,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Suspension,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 2 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageAccessory
+    {
+        timedAction = Welding,
+        time = 100,
+        SkillRequired = MetalWelding:1,
+        Tags = InHandCraft;Welding,
+        category = Metalworking,
+        xpAward = MetalWelding:10,
+        OnTest = MinidoracatAnyCar.salvageTest.Accessory,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 1 [Base.BlowTorch],
+            item 1 tags[base:weldingmask] mode:keep,
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+
+    craftRecipe AnyCarSalvageSeat
+    {
+        timedAction = CutClothing,
+        time = 120,
+        Tags = InHandCraft,
+        category = Tailoring,
+        xpAward = Tailoring:5,
+        OnTest = MinidoracatAnyCar.salvageTest.Seat,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 1 tags[base:scissors;base:sharpknife] mode:keep flags[MayDegradeLight;IsNotDull],
+        }
+        outputs
+        {
+            item 1 Base.RippedSheets,
+        }
+    }
+
+    craftRecipe AnyCarSalvageBattery
+    {
+        timedAction = DismantleElectrical,
+        time = 100,
+        Tags = InHandCraft;Electrical,
+        category = Electrical,
+        xpAward = Electricity:5,
+        OnTest = MinidoracatAnyCar.salvageTest.Battery,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 1 tags[base:screwdriver] mode:keep flags[NoBrokenItems],
+        }
+        outputs
+        {
+            item 1 Base.ElectronicsScrap,
+        }
+    }
+
+    craftRecipe AnyCarSalvageGloveBox
+    {
+        timedAction = DismantleElectrical,
+        time = 80,
+        Tags = InHandCraft,
+        category = Metalworking,
+        xpAward = Mechanics:3,
+        OnTest = MinidoracatAnyCar.salvageTest.GloveBox,
+        OnAddToMenu = MinidoracatAnyCar_salvageInMenu,
+        OnCreate = MinidoracatAnyCar.onSalvage,
+        Tooltip = Tooltip_MinidoracatAnyCar_Salvage,
+        inputs
+        {
+            item 1 tags[base:screwdriver] mode:keep flags[NoBrokenItems],
+        }
+        outputs
+        {
+            item 1 Base.ScrapMetal,
+        }
+    }
+}

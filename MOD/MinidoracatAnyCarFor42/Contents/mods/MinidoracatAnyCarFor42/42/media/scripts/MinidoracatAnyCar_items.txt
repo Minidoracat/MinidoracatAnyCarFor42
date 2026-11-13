@@ -1,0 +1,14 @@
+module MinidoracatAnyCar
+{
+    /* 補胎劑：一罐補一次輪胎（修法 AnyCar_Tire_Sealant） */
+    item TireSealant
+    {
+        DisplayCategory = VehicleMaintenance,
+        ItemType = base:normal,
+        Weight = 0.5,
+        Icon = MinidoracatAnyCar_TireSealant,
+        StaticModel = TireSealant,
+        WorldStaticModel = TireSealant_Ground,
+        Tooltip = Tooltip_MinidoracatAnyCar_TireSealant,
+    }
+}

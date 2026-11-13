@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Démontage de véhicules",
+    "Sandbox_MinidoracatAnyCar": "Réparation et démontage de véhicules",
     "Sandbox_MinidoracatAnyCar_LootMult": "Multiplicateur de butin au démontage",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplie le matériel obtenu en démontant un véhicule ou une épave. 1.0 = jeu de base. En multijoueur, le serveur l'applique."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplie le matériel obtenu en démontant un véhicule ou une épave. 1.0 = jeu de base. En multijoueur, le serveur l'applique.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Démontage : niveau de Travail des métaux requis",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Niveau de Travail des métaux requis pour démonter un véhicule intact. 0 = aucune exigence. Les épaves restent comme dans le jeu de base.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Démontage : multiplicateur de durée",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Multiplie la durée du démontage d'un véhicule intact. 1.0 = comme une épave.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Réparation des pièces",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Ajoute des méthodes de réparation pour toutes les pièces de véhicule et permet de les réparer sans les retirer. Désactivé = réparations du jeu de base uniquement.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Réparation des pièces : multiplicateur de durée",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Multiplie la durée des méthodes de réparation ajoutées par ce mod.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Réparation des pièces : multiplicateur d'EXP",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Multiplie l'EXP gagnée lors d'une réparation réussie avec les méthodes ajoutées par ce mod. 1.0 = jeu de base.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Démontage des pièces",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Permet de démonter les pièces de véhicule retirées pour en tirer des matériaux.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Démontage des pièces : multiplicateur de butin",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Multiplie le nombre de tirages de matériaux supplémentaires lors du démontage d'une pièce. 1.0 = 3 tirages.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Réfection du moteur",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permet d'augmenter la qualité du moteur avec des pièces de rechange moteur une fois le moteur en parfait état.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Réfection du moteur : pièces de rechange par étape",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Pièces de rechange moteur utilisées à chaque fois. Chaque étape ajoute 10 de qualité."
 }

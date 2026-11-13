@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "車両を解体する"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "車両を解体する",
+    "ContextMenu_MinidoracatAnyCar_Strip": "部品を外してから解体する",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "すべての部品を修理する",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "エンジンをオーバーホールする",
+    "ContextMenu_MinidoracatAnyCar_heater": "エアコンを修理する",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "テープで補強する",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "当て板をネジ留めする",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "溶接する",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "エポキシ樹脂で埋める",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "縫う",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "ガラスを交換する",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "タイヤにパッチを貼る",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "パンク修理剤を使う",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "新しい金属板をボルト留めする",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "配線をやり直す"
 }

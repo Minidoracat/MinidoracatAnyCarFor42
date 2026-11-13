@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "拆解车辆"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "拆解车辆",
+    "ContextMenu_MinidoracatAnyCar_Strip": "卸下零件后拆解",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "修理全部零件",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "翻新引擎",
+    "ContextMenu_MinidoracatAnyCar_heater": "修理加热器",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "用胶带加固",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "用螺丝固定铁片",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "焊接",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "用环氧树脂修补",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "缝补",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "更换玻璃",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "补胎",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "使用补胎液",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "用螺栓固定新铁板",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "重新接线"
 }

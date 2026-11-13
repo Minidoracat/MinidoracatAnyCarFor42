@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Разобрать автомобиль"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Разобрать автомобиль",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Снять детали, затем разобрать",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Починить все детали",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Перебрать двигатель",
+    "ContextMenu_MinidoracatAnyCar_heater": "Починить обогреватель",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Замотать изолентой",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Привинтить заплатку",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Заварить",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Заделать эпоксидной смолой",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Зашить",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Заменить стекло",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Заклеить шину",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Использовать герметик для шин",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Прикрутить новый металл болтами",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Заменить проводку"
 }

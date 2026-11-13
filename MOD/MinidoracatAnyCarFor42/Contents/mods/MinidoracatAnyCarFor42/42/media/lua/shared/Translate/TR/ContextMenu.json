@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Aracı Sök"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Aracı Sök",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Parçaları Çıkar, Sonra Sök",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Tüm Parçaları Onar",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Motoru Revize Et",
+    "ContextMenu_MinidoracatAnyCar_heater": "Kaloriferi Onar",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Bantla Sağlamlaştır",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Yama Vidala",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Kaynak Yap",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Epoksiyle Kapat",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Dik",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Camı Değiştir",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Lastiğe Yama Yap",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Lastik Tamir Spreyi Kullan",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Yeni Metali Cıvatala",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Kabloları Yeniden Bağla"
 }

@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Dismantle Vehicle"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Dismantle Vehicle",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Remove Parts, Then Dismantle",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Repair All Parts",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Rebuild Engine",
+    "ContextMenu_MinidoracatAnyCar_heater": "Repair Heater",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Tape It Up",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Screw On a Patch",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Weld",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Seal with Epoxy",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Sew",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Replace the Glass",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Patch the Tire",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Use Tire Sealant",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Bolt On New Metal",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rewire"
 }

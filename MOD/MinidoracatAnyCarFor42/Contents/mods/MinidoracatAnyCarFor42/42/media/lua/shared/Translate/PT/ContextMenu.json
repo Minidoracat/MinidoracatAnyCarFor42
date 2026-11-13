@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Desmontar Veículo"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Desmontar Veículo",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Retirar Peças e Desmontar",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Reparar Todas as Peças",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Recondicionar Motor",
+    "ContextMenu_MinidoracatAnyCar_heater": "Reparar Chauffage",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Remendar com Fita-cola",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Aparafusar um Remendo",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Soldar",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Vedar com Epóxi",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Coser",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Substituir o Vidro",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Remendar o Pneu",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Usar Vedante de Pneus",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Fixar Metal Novo com Porcas",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Refazer a Cablagem"
 }

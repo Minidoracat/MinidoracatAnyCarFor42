@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Desmontar vehículos",
+    "Sandbox_MinidoracatAnyCar": "Reparar y desmontar vehículos",
     "Sandbox_MinidoracatAnyCar_LootMult": "Multiplicador de botín al desmontar",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplica los materiales que obtienes al desmontar un vehículo o sus restos. 1.0 = original. En multijugador lo aplica el servidor."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplica los materiales que obtienes al desmontar un vehículo o sus restos. 1.0 = original. En multijugador lo aplica el servidor.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Desmontar: nivel de metalistería requerido",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Nivel de metalistería necesario para desmontar un vehículo intacto. 0 = sin requisito. Los restos quedan como en el original.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Desmontar: multiplicador de tiempo",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Multiplica el tiempo necesario para desmontar un vehículo intacto. 1.0 = igual que unos restos.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Reparación de piezas",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Añade métodos de reparación para todas las piezas del vehículo y permite repararlas sin quitarlas. Desactivado = solo las reparaciones originales.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Reparación de piezas: multiplicador de tiempo",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Multiplica el tiempo de los métodos de reparación que añade este mod.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Reparación de piezas: multiplicador de XP",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Multiplica la XP de una reparación exitosa con los métodos que añade este mod. 1.0 = original.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Desmontaje de piezas",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Permite convertir en materiales las piezas de vehículo ya quitadas.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Desmontaje de piezas: multiplicador de botín",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Multiplica el número de tiradas de materiales extra al desmontar una pieza. 1.0 = 3 tiradas.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Reconstrucción de motor",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permite subir la calidad del motor con piezas de repuesto para motor cuando el motor está en perfecta condición.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Reconstrucción de motor: piezas de repuesto para motor por paso",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Cantidad de piezas de repuesto para motor que se gasta cada vez. Cada paso suma 10 de calidad."
 }

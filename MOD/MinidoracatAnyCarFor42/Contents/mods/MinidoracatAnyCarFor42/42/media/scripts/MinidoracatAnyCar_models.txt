@@ -1,0 +1,18 @@
+module MinidoracatAnyCar
+{
+    /* 補胎劑噴罐：頂點是公尺、節點單位矩陣，scale 1.0 即實物大小（高 14.8 cm、直徑 5.6 cm，和原版 SprayPaint 相當）。
+       原版 SprayPaint 手上與地上共用同一個 model；這裡分兩個名字，之後要調手持姿勢時不動地上的。 */
+    model TireSealant
+    {
+        mesh = WorldItems/MinidoracatAnyCar_TireSealant,
+        texture = WorldItems/MinidoracatAnyCar_TireSealant,
+        scale = 1.0,
+    }
+
+    model TireSealant_Ground
+    {
+        mesh = WorldItems/MinidoracatAnyCar_TireSealant,
+        texture = WorldItems/MinidoracatAnyCar_TireSealant,
+        scale = 1.0,
+    }
+}

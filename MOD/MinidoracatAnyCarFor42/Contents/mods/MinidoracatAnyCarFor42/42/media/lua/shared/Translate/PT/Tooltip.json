@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "Transforma este veículo em materiais de metalurgia. O veículo desaparece para sempre. <LINE> Quanto maior a habilidade de Soldadura, mais sucata aproveitável será recuperada.",
     "Tooltip_MinidoracatAnyCar_Occupied": "Há alguém dentro do veículo",
-    "Tooltip_MinidoracatAnyCar_Animals": "Há animais no reboque"
+    "Tooltip_MinidoracatAnyCar_Animals": "Há animais no reboque",
+    "Tooltip_MinidoracatAnyCar_Short": "(insuficiente)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "Retirar primeiro: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "Ignorar %1: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "Qualidade do Motor: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "Condição: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "Retira uma a uma todas as peças que consegues retirar e depois desmonta o veículo. Demora muito tempo.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Desmonta uma peça de veículo retirada em materiais. Também funciona com peças partidas. Quanto maiores as habilidades, mais encontras.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Repara um pneu danificado. Uma lata, uma reparação."
 }

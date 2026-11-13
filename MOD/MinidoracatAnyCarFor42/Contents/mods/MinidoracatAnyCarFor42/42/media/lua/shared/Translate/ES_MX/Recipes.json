@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "Desmontar puerta de auto",
+    "AnyCarSalvageHood": "Desmontar capó",
+    "AnyCarSalvageTrunkLid": "Desmontar puerta de la cajuela",
+    "AnyCarSalvageTrunk": "Desmontar cajuela o portaequipaje",
+    "AnyCarSalvageArmor": "Desmontar blindaje de vehículo",
+    "AnyCarSalvageGasTank": "Desmontar tanque de gasolina",
+    "AnyCarSalvageMuffler": "Desmontar mofle",
+    "AnyCarSalvageBrake": "Desmontar freno",
+    "AnyCarSalvageSuspension": "Desmontar suspensión",
+    "AnyCarSalvageAccessory": "Desmontar accesorio de vehículo",
+    "AnyCarSalvageSeat": "Desmontar asiento",
+    "AnyCarSalvageBattery": "Desmontar batería de coche",
+    "AnyCarSalvageGloveBox": "Desmontar guantera"
+}

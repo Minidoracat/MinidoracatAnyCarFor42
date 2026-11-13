@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Desmontar Veículos",
+    "Sandbox_MinidoracatAnyCar": "Reparar e Desmontar Veículos",
     "Sandbox_MinidoracatAnyCar_LootMult": "Multiplicador de itens ao desmontar",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplica os materiais obtidos ao desmontar um veículo ou uma carcaça. 1.0 = original. No multijogador, é aplicado pelo servidor."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplica os materiais obtidos ao desmontar um veículo ou uma carcaça. 1.0 = original. No multijogador, é aplicado pelo servidor.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Desmontar: Nível de Soldagem Necessário",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Nível de Soldagem necessário para desmontar um veículo inteiro. 0 = sem requisito. Carcaças continuam como no original.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Desmontar: Multiplicador de Tempo",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Multiplica o tempo para desmontar um veículo inteiro. 1.0 = igual a uma carcaça.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Reparo de Peças",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Adiciona métodos de reparo para todas as peças do veículo e permite reparar peças instaladas. Desligado = só os reparos originais.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Reparo de Peças: Multiplicador de Tempo",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Multiplica o tempo dos métodos de reparo que este mod adiciona.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Reparo de Peças: Multiplicador de XP",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Multiplica o XP de um reparo bem-sucedido com os métodos que este mod adiciona. 1.0 = original.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Desmontagem de Peças",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Permite desmontar peças de veículo removidas em materiais.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Desmontagem de Peças: Multiplicador de Itens",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Multiplica o número de sorteios de materiais extras ao desmontar uma peça. 1.0 = 3 sorteios.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Retífica do Motor",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Permite aumentar a qualidade do motor com peças de reposição do motor quando o motor está com a condição máxima.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Retífica do Motor: Peças de Reposição por Etapa",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Peças de reposição do motor gastas a cada vez. Cada etapa adiciona 10 de qualidade."
 }

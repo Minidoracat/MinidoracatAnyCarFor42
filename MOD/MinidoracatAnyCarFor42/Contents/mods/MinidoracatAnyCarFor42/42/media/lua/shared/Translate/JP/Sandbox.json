@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "車両解体",
+    "Sandbox_MinidoracatAnyCar": "あらゆる車両の修理と解体",
     "Sandbox_MinidoracatAnyCar_LootMult": "解体の入手量倍率",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "車両や残骸を解体したときに得られる資材の倍率。1.0 = バニラ。マルチプレイではサーバーが適用します。"
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "車両や残骸を解体したときに得られる資材の倍率。1.0 = バニラ。マルチプレイではサーバーが適用します。",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "車両解体：必要な溶接加工レベル",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "無傷の車両を解体するのに必要な溶接加工レベル。0 = 制限なし。残骸はバニラのままです。",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "車両解体：時間倍率",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "無傷の車両を解体するのにかかる時間の倍率。1.0 = 残骸と同じ。",
+    "Sandbox_MinidoracatAnyCar_Repair": "部品修理",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "すべての車両部品に修理方法を追加し、取り付けたままでも修理できるようにします。オフ = バニラの修理のみ。",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "部品修理：時間倍率",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "このMODで追加される修理方法にかかる時間の倍率。",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "部品修理：XP倍率",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "このMODで追加される修理方法で修理に成功したときに得られるXPの倍率。1.0 = バニラ。",
+    "Sandbox_MinidoracatAnyCar_Salvage": "部品分解",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "取り外した車両部品を分解して資材にできるようにします。",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "部品分解：入手量倍率",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "部品を分解したときの追加資材の抽選回数の倍率。1.0 = 3回。",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "エンジンのオーバーホール",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "エンジンの状態が最大になったあと、予備のエンジン部品でエンジン品質を上げられるようにします。",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "エンジンのオーバーホール：1回に使う予備のエンジン部品数",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "1回ごとに使う予備のエンジン部品の数。1回ごとに品質が10上がります。"
 }

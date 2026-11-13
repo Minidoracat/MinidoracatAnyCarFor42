@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "차량 분해하기"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "차량 분해하기",
+    "ContextMenu_MinidoracatAnyCar_Strip": "부품을 떼어낸 뒤 분해하기",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "모든 부품 수리하기",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "엔진 오버홀하기",
+    "ContextMenu_MinidoracatAnyCar_heater": "히터 수리하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "테이프로 보강하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "덧댄 판을 나사로 고정하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "용접하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "에폭시로 메우기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "꿰매기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "유리 교체하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "타이어 패치 붙이기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "타이어 실런트 사용하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "새 금속판을 볼트로 고정하기",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "배선 다시 하기"
 }

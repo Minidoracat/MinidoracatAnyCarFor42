@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Rozmontuj pojazd"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Rozmontuj pojazd",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Zdejmij części, potem rozmontuj",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Napraw wszystkie części",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Wyremontuj silnik",
+    "ContextMenu_MinidoracatAnyCar_heater": "Napraw ogrzewanie",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Wzmocnij taśmą",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Przykręć łatę wkrętami",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Spawaj",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Uszczelnij żywicą epoksydową",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Zszyj",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Wymień szybę",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Załataj oponę",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Użyj uszczelniacza do opon",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Przykręć nową blachę śrubami",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Wymień okablowanie"
 }

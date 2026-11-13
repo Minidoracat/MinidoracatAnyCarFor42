@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "拆解车门",
+    "AnyCarSalvageHood": "拆解引擎盖",
+    "AnyCarSalvageTrunkLid": "拆解后备箱盖",
+    "AnyCarSalvageTrunk": "拆解后备箱与行李架",
+    "AnyCarSalvageArmor": "拆解车辆装甲",
+    "AnyCarSalvageGasTank": "拆解油箱",
+    "AnyCarSalvageMuffler": "拆解消声器",
+    "AnyCarSalvageBrake": "拆解制动器",
+    "AnyCarSalvageSuspension": "拆解悬挂",
+    "AnyCarSalvageAccessory": "拆解车辆配件",
+    "AnyCarSalvageSeat": "拆解座椅",
+    "AnyCarSalvageBattery": "拆解汽车电池",
+    "AnyCarSalvageGloveBox": "拆解手套箱"
+}

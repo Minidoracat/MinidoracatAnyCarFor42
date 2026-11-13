@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "この車両を解体して金属資材にします。車両は完全に消えます。 <LINE> 溶接加工のスキルが高いほど、より多くの資材を回収できます。",
     "Tooltip_MinidoracatAnyCar_Occupied": "車内に人がいます",
-    "Tooltip_MinidoracatAnyCar_Animals": "トレーラーに動物がいます"
+    "Tooltip_MinidoracatAnyCar_Animals": "トレーラーに動物がいます",
+    "Tooltip_MinidoracatAnyCar_Short": "（不足）",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "先に取り外す：%1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "%1をスキップ：%2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "エンジン品質：%1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "状態：%1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "取り外せる部品をひとつずつすべて外してから、車両を解体します。とても時間がかかります。",
+    "Tooltip_MinidoracatAnyCar_Salvage": "取り外した車両部品を分解して資材にします。壊れた部品も分解できます。スキルが高いほど多く手に入ります。",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "損傷したタイヤを修理します。1缶で1回修理できます。"
 }

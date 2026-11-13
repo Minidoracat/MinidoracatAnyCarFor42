@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "車のドアを分解する",
+    "AnyCarSalvageHood": "ボンネットを分解する",
+    "AnyCarSalvageTrunkLid": "トランクフードを分解する",
+    "AnyCarSalvageTrunk": "トランクやキャリアを分解する",
+    "AnyCarSalvageArmor": "車両の装甲を分解する",
+    "AnyCarSalvageGasTank": "燃料タンクを分解する",
+    "AnyCarSalvageMuffler": "マフラーを分解する",
+    "AnyCarSalvageBrake": "ブレーキを分解する",
+    "AnyCarSalvageSuspension": "サスペンションを分解する",
+    "AnyCarSalvageAccessory": "車両アクセサリーを分解する",
+    "AnyCarSalvageSeat": "シートを分解する",
+    "AnyCarSalvageBattery": "車両バッテリーを分解する",
+    "AnyCarSalvageGloveBox": "グローブボックスを分解する"
+}

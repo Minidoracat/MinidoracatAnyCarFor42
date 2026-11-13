@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "Autotür zerlegen",
+    "AnyCarSalvageHood": "Motorhaube zerlegen",
+    "AnyCarSalvageTrunkLid": "Kofferraumdeckel zerlegen",
+    "AnyCarSalvageTrunk": "Kofferraum oder Dachträger zerlegen",
+    "AnyCarSalvageArmor": "Fahrzeugpanzerung zerlegen",
+    "AnyCarSalvageGasTank": "Kraftstofftank zerlegen",
+    "AnyCarSalvageMuffler": "Auspuff zerlegen",
+    "AnyCarSalvageBrake": "Bremse zerlegen",
+    "AnyCarSalvageSuspension": "Federung zerlegen",
+    "AnyCarSalvageAccessory": "Fahrzeugzubehör zerlegen",
+    "AnyCarSalvageSeat": "Autositz zerlegen",
+    "AnyCarSalvageBattery": "Autobatterie zerlegen",
+    "AnyCarSalvageGloveBox": "Handschuhfach zerlegen"
+}

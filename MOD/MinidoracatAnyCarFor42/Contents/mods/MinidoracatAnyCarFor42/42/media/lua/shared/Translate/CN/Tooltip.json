@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "把这辆车拆成金属材料，车会永久消失。 <LINE> 金工技能越高，回收的材料越多。",
     "Tooltip_MinidoracatAnyCar_Occupied": "车上有人",
-    "Tooltip_MinidoracatAnyCar_Animals": "拖车上有动物"
+    "Tooltip_MinidoracatAnyCar_Animals": "拖车上有动物",
+    "Tooltip_MinidoracatAnyCar_Short": "（不足）",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "先卸下：%1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "跳过 %1：%2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "引擎品质：%1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "状态：%1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "把能卸下的零件逐个卸下，再拆解这辆车。需要很长时间。",
+    "Tooltip_MinidoracatAnyCar_Salvage": "把卸下来的车辆零件拆成材料，坏掉的零件也可以拆。技能越高，拆出的材料越多。",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "修补受损的轮胎。一罐补一次。"
 }

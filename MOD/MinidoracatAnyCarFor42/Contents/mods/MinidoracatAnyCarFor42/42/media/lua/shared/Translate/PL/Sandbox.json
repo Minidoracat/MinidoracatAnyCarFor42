@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Rozmontowanie pojazdów",
+    "Sandbox_MinidoracatAnyCar": "Naprawa i rozmontowanie pojazdów",
     "Sandbox_MinidoracatAnyCar_LootMult": "Mnożnik łupów z rozmontowania",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Mnoży materiały uzyskiwane z rozmontowania pojazdu lub wraku. 1.0 = jak w oryginale. W grze wieloosobowej stosuje go serwer."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Mnoży materiały uzyskiwane z rozmontowania pojazdu lub wraku. 1.0 = jak w oryginale. W grze wieloosobowej stosuje go serwer.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Rozmontowanie: wymagany poziom spawania",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Poziom spawania potrzebny do rozmontowania sprawnego pojazdu. 0 = brak wymagań. Wraki jak w oryginale.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Rozmontowanie: mnożnik czasu",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Mnoży czas rozmontowania sprawnego pojazdu. 1.0 = tyle samo co wrak.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Naprawa części",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Dodaje metody naprawy dla każdej części pojazdu i pozwala naprawiać części bez ich zdejmowania. Wyłączone = tylko naprawy z oryginału.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Naprawa części: mnożnik czasu",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Mnoży czas metod naprawy dodanych przez ten mod.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Naprawa części: mnożnik doświadczenia",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Mnoży doświadczenie za udaną naprawę metodami dodanymi przez ten mod. 1.0 = jak w oryginale.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Rozbiórka części",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Pozwala rozmontowywać zdjęte części pojazdów na materiały.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Rozbiórka części: mnożnik łupów",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Mnoży liczbę losowań dodatkowych materiałów przy rozbiórce części. 1.0 = 3 losowania.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Remont silnika",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Pozwala poprawić stan techniczny silnika za pomocą części silnikowych, gdy silnik jest w pełni naprawiony.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Remont silnika: części silnikowe na krok",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Części silnikowe zużywane za każdym razem. Każdy krok dodaje 10 punktów stanu technicznego."
 }

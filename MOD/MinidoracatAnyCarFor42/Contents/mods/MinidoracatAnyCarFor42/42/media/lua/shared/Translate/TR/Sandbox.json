@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Araç Sökümü",
+    "Sandbox_MinidoracatAnyCar": "Araç Onarımı ve Sökümü",
     "Sandbox_MinidoracatAnyCar_LootMult": "Söküm ganimet çarpanı",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Bir aracı veya hurdayı sökünce elde edilen malzemeleri çarpar. 1.0 = orijinal. Çok oyunculuda sunucu uygular."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Bir aracı veya hurdayı sökünce elde edilen malzemeleri çarpar. 1.0 = orijinal. Çok oyunculuda sunucu uygular.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Söküm: Gereken Metal İşleme Seviyesi",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Sağlam bir aracı sökmek için gereken Metal İşleme seviyesi. 0 = gereksinim yok. Hurdalar orijinaldeki gibi kalır.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Söküm: Süre Çarpanı",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Sağlam bir aracı sökme süresini çarpar. 1.0 = hurdayla aynı.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Parça Onarımı",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Her araç parçasına onarım yöntemleri ekler ve parçaları takılıyken onarmanızı sağlar. Kapalı = yalnızca orijinal onarımlar.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Parça Onarımı: Süre Çarpanı",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Bu modun eklediği onarım yöntemlerinin süresini çarpar.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Parça Onarımı: TP Çarpanı",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Bu modun eklediği yöntemlerle başarılı bir onarımdan gelen TP'yi çarpar. 1.0 = orijinal.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Parça Sökümü",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Çıkarılmış araç parçalarını malzemelere ayırmanızı sağlar.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Parça Sökümü: Ganimet Çarpanı",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Bir parçayı sökerken yapılan ek malzeme zarı sayısını çarpar. 1.0 = 3 zar.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Motor Revizyonu",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Motorun durumu tam olduğunda yedek motor parçalarıyla motor kalitesini artırmanızı sağlar.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Motor Revizyonu: Adım Başına Yedek Parça",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Her seferinde kullanılan yedek motor parçası sayısı. Her adım 10 kalite ekler."
 }

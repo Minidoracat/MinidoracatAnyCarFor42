@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "이 차량을 금속 자재로 분해합니다. 차량은 영구적으로 사라집니다. <LINE> 용접 기술이 높을수록 쓸만한 자재를 많이 얻을 수 있습니다.",
     "Tooltip_MinidoracatAnyCar_Occupied": "차량 안에 사람이 있습니다",
-    "Tooltip_MinidoracatAnyCar_Animals": "트레일러에 동물이 있습니다"
+    "Tooltip_MinidoracatAnyCar_Animals": "트레일러에 동물이 있습니다",
+    "Tooltip_MinidoracatAnyCar_Short": "(부족)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "먼저 떼어내기: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "%1 건너뜀: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "엔진 품질: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "상태: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "떼어낼 수 있는 부품을 하나씩 모두 떼어낸 뒤 차량을 분해합니다. 시간이 오래 걸립니다.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "떼어낸 차량 부품을 분해해 자재로 만듭니다. 망가진 부품도 분해할 수 있습니다. 기술이 높을수록 더 많이 얻습니다.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "손상된 타이어를 수리합니다. 한 캔에 한 번 수리합니다."
 }

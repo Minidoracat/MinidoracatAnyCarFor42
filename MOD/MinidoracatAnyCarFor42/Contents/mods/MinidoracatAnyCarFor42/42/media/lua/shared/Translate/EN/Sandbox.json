@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Dismantle Any Car",
+    "Sandbox_MinidoracatAnyCar": "Repair & Dismantle Any Car",
     "Sandbox_MinidoracatAnyCar_LootMult": "Dismantle Loot Multiplier",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplies the materials you get from dismantling a vehicle or a wreck. 1.0 = vanilla. In multiplayer the server applies it."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multiplies the materials you get from dismantling a vehicle or a wreck. 1.0 = vanilla. In multiplayer the server applies it.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Dismantle: Welding Level Required",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Welding level needed to dismantle a working vehicle. 0 = no requirement. Wrecks stay vanilla.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Dismantle: Time Multiplier",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Multiplies the time it takes to dismantle a working vehicle. 1.0 = same as a wreck.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Part Repair",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Adds repair methods for every vehicle part, and lets you repair parts while they are installed. Off = vanilla repairs only.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Part Repair: Time Multiplier",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Multiplies the time of the repair methods this mod adds.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Part Repair: XP Multiplier",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Multiplies the XP from a successful repair with the methods this mod adds. 1.0 = vanilla.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Part Salvage",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Lets you break removed vehicle parts down into materials.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Part Salvage: Loot Multiplier",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Multiplies the number of extra material rolls when salvaging a part. 1.0 = 3 rolls.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Engine Rebuild",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Lets you raise engine quality with spare engine parts once the engine is at full condition.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Engine Rebuild: Spare Parts per Step",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Spare engine parts used each time. Each step adds 10 quality."
 }

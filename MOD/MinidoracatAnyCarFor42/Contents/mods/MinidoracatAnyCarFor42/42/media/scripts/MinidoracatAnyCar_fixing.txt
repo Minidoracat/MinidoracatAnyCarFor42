@@ -1,0 +1,260 @@
+module Base
+{
+    /* 名稱是 AnyCar_<零件類別>_<修法>。Require 留空：載入時由 Parts.lua 填入這一類的零件 */
+    /* 修復量：第一種材料 50%、第二種 20%、第三種 10%，再乘 ConditionModifier（FixingManager.getCondRepaired） */
+
+    fixing AnyCar_Door_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_Door_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=6,
+        ConditionModifier = 0.6,
+        Fixer = Base.SheetMetal; Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; Mechanics=2,
+    }
+    fixing AnyCar_Door_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=2;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=2;Mechanics=2,
+    }
+
+    fixing AnyCar_Hood_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_Hood_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=6,
+        ConditionModifier = 0.6,
+        Fixer = Base.SheetMetal; Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; Mechanics=2,
+    }
+    fixing AnyCar_Hood_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=1;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=1;Mechanics=2,
+    }
+
+    fixing AnyCar_TrunkLid_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_TrunkLid_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=6,
+        ConditionModifier = 0.6,
+        Fixer = Base.SheetMetal; Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; Mechanics=2,
+    }
+    fixing AnyCar_TrunkLid_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=1;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=1;Mechanics=2,
+    }
+
+    fixing AnyCar_Trunk_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_Trunk_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=6,
+        ConditionModifier = 0.6,
+        Fixer = Base.SheetMetal; Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; Mechanics=2,
+    }
+    fixing AnyCar_Trunk_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=3;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=3;Mechanics=2,
+    }
+
+    fixing AnyCar_GasTank_Epoxy
+    {
+        Require = ,
+        ConditionModifier = 0.5,
+        Fixer = Base.Epoxy=2; Mechanics=2,
+    }
+    fixing AnyCar_GasTank_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=3;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=3;Mechanics=2,
+    }
+
+    fixing AnyCar_Armor_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=6,
+        ConditionModifier = 0.5,
+        Fixer = Base.SheetMetal; Mechanics=2,
+        Fixer = Base.ScrapMetal=3; Mechanics=2,
+    }
+    fixing AnyCar_Armor_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=3,
+        ConditionModifier = 1.2,
+        Fixer = Base.SheetMetal; MetalWelding=4;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=4;Mechanics=2,
+    }
+
+    fixing AnyCar_Muffler_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=3; Mechanics=1,
+    }
+    fixing AnyCar_Muffler_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.1,
+        Fixer = Base.MetalPipe; MetalWelding=2;Mechanics=2,
+        Fixer = Base.SmallSheetMetal=2; MetalWelding=2;Mechanics=2,
+    }
+
+    fixing AnyCar_Seat_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.4,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_Seat_Sewing
+    {
+        Require = ,
+        GlobalItem = Base.Thread=2,
+        ConditionModifier = 0.9,
+        Fixer = Base.LeatherStrips=3; Tailoring=2,
+        Fixer = Base.DenimStrips=3; Tailoring=1,
+        Fixer = Base.RippedSheets=4; Tailoring=1,
+    }
+
+    fixing AnyCar_GloveBox_Tape
+    {
+        Require = ,
+        ConditionModifier = 1.0,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+        Fixer = Base.Glue=2; Mechanics=1,
+    }
+
+    fixing AnyCar_Window_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=3; Mechanics=1,
+    }
+    fixing AnyCar_Window_Glass
+    {
+        Require = ,
+        GlobalItem = Base.Glue=2,
+        ConditionModifier = 1.6,
+        Fixer = Base.GlassPanel; Mechanics=3,
+    }
+
+    fixing AnyCar_Tire_Patch
+    {
+        Require = ,
+        GlobalItem = Base.Glue=1,
+        ConditionModifier = 0.8,
+        Fixer = Base.TirePiece; Mechanics=2,
+        Fixer = Base.DuctTape=3; Mechanics=1,
+    }
+    fixing AnyCar_Tire_Sealant
+    {
+        Require = ,
+        ConditionModifier = 1.4,
+        Fixer = MinidoracatAnyCar.TireSealant; Mechanics=1,
+    }
+
+    fixing AnyCar_Brake_Bolts
+    {
+        Require = ,
+        GlobalItem = Base.NutsBolts=2,
+        ConditionModifier = 0.8,
+        Fixer = Base.SmallSheetMetal; Mechanics=3,
+        Fixer = Base.ScrapMetal=3; Mechanics=3,
+    }
+    fixing AnyCar_Brake_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=1,
+        ConditionModifier = 1.3,
+        Fixer = Base.SmallSheetMetal; MetalWelding=2;Mechanics=3,
+    }
+
+    fixing AnyCar_Suspension_Bolts
+    {
+        Require = ,
+        GlobalItem = Base.NutsBolts=4,
+        ConditionModifier = 0.8,
+        Fixer = Base.MetalBar; Mechanics=4,
+        Fixer = Base.MetalPipe; Mechanics=4,
+    }
+    fixing AnyCar_Suspension_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=2,
+        ConditionModifier = 1.3,
+        Fixer = Base.MetalBar; MetalWelding=3;Mechanics=4,
+        Fixer = Base.MetalPipe; MetalWelding=3;Mechanics=4,
+    }
+
+    fixing AnyCar_Battery_Wiring
+    {
+        Require = ,
+        ConditionModifier = 0.6,
+        Fixer = Base.ElectricWire=2; Electricity=2;Mechanics=1,
+        Fixer = Base.ElectronicsScrap=3; Electricity=2;Mechanics=1,
+    }
+
+    fixing AnyCar_Accessory_Tape
+    {
+        Require = ,
+        ConditionModifier = 0.3,
+        Fixer = Base.DuctTape=2; Mechanics=1,
+    }
+    fixing AnyCar_Accessory_Screws
+    {
+        Require = ,
+        GlobalItem = Base.Screws=4,
+        ConditionModifier = 0.6,
+        Fixer = Base.SmallSheetMetal; Mechanics=1,
+        Fixer = Base.ScrapMetal=2; Mechanics=1,
+    }
+    fixing AnyCar_Accessory_Welding
+    {
+        Require = ,
+        GlobalItem = Base.BlowTorch=1,
+        ConditionModifier = 1.1,
+        Fixer = Base.SmallSheetMetal; MetalWelding=2;Mechanics=1,
+    }
+}

@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Fahrzeugdemontage",
+    "Sandbox_MinidoracatAnyCar": "Fahrzeuge reparieren und demontieren",
     "Sandbox_MinidoracatAnyCar_LootMult": "Beute-Multiplikator beim Demontieren",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multipliziert die Materialien, die du beim Demontieren eines Fahrzeugs oder Wracks erhältst. 1.0 = Originalspiel. Im Mehrspielermodus wendet der Server ihn an."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Multipliziert die Materialien, die du beim Demontieren eines Fahrzeugs oder Wracks erhältst. 1.0 = Originalspiel. Im Mehrspielermodus wendet der Server ihn an.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Demontage: benötigte Stufe in Schweißen",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Stufe in Schweißen, die zum Demontieren eines intakten Fahrzeugs nötig ist. 0 = keine Voraussetzung. Wracks bleiben wie im Originalspiel.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Demontage: Zeit-Multiplikator",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Multipliziert die Dauer der Demontage eines intakten Fahrzeugs. 1.0 = wie bei einem Wrack.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Teilereparatur",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Fügt Reparaturmethoden für jedes Fahrzeugteil hinzu und erlaubt Reparaturen an eingebauten Teilen. Aus = nur Reparaturen des Originalspiels.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Teilereparatur: Zeit-Multiplikator",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Multipliziert die Dauer der Reparaturmethoden, die diese Mod hinzufügt.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Teilereparatur: EP-Multiplikator",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Multipliziert die EP für eine erfolgreiche Reparatur mit den Methoden, die diese Mod hinzufügt. 1.0 = Originalspiel.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Teilezerlegung",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Erlaubt es, ausgebaute Fahrzeugteile in Materialien zu zerlegen.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Teilezerlegung: Beute-Multiplikator",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Multipliziert die Anzahl der Würfe für zusätzliche Materialien beim Zerlegen eines Teils. 1.0 = 3 Würfe.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Motorüberholung",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Erlaubt es, die Motorqualität mit Ersatzmotorteilen zu erhöhen, sobald der Motor in vollem Zustand ist.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Motorüberholung: Ersatzmotorteile pro Schritt",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Ersatzmotorteile, die jedes Mal verbraucht werden. Jeder Schritt erhöht die Qualität um 10."
 }

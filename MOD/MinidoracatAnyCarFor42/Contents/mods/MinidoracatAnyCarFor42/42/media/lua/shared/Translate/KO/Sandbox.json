@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "차량 분해",
+    "Sandbox_MinidoracatAnyCar": "모든 차량 수리 및 분해",
     "Sandbox_MinidoracatAnyCar_LootMult": "분해 획득량 배율",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "차량이나 잔해를 분해할 때 얻는 자재의 배율입니다. 1.0 = 바닐라. 멀티플레이에서는 서버가 적용합니다."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "차량이나 잔해를 분해할 때 얻는 자재의 배율입니다. 1.0 = 바닐라. 멀티플레이에서는 서버가 적용합니다.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "차량 분해: 필요한 금속용접 레벨",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "멀쩡한 차량을 분해하는 데 필요한 금속용접 레벨입니다. 0 = 제한 없음. 잔해는 바닐라 그대로입니다.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "차량 분해: 시간 배율",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "멀쩡한 차량을 분해하는 데 걸리는 시간의 배율입니다. 1.0 = 잔해와 같음.",
+    "Sandbox_MinidoracatAnyCar_Repair": "부품 수리",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "모든 차량 부품에 수리 방법을 추가하고, 장착된 상태로도 수리할 수 있게 합니다. 끄면 바닐라 수리만 남습니다.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "부품 수리: 시간 배율",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "이 모드가 추가하는 수리 방법에 걸리는 시간의 배율입니다.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "부품 수리: 경험치 배율",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "이 모드가 추가하는 수리 방법으로 수리에 성공했을 때 얻는 경험치의 배율입니다. 1.0 = 바닐라.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "부품 분해",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "떼어낸 차량 부품을 분해해 자재로 만들 수 있게 합니다.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "부품 분해: 획득량 배율",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "부품을 분해할 때 추가 자재를 뽑는 횟수의 배율입니다. 1.0 = 3회.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "엔진 오버홀",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "엔진 상태가 최대일 때 예비 엔진 부품으로 엔진 품질을 올릴 수 있게 합니다.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "엔진 오버홀: 1회당 예비 엔진 부품 수",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "한 번에 쓰는 예비 엔진 부품 수입니다. 한 번에 품질이 10 오릅니다."
 }

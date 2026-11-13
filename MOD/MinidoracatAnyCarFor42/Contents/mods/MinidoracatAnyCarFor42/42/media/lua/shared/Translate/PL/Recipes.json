@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "Rozmontuj drzwi samochodu",
+    "AnyCarSalvageHood": "Rozmontuj maskę",
+    "AnyCarSalvageTrunkLid": "Rozmontuj klapę bagażnika",
+    "AnyCarSalvageTrunk": "Rozmontuj bagażnik lub bagażnik dachowy",
+    "AnyCarSalvageArmor": "Rozmontuj opancerzenie pojazdu",
+    "AnyCarSalvageGasTank": "Rozmontuj zbiornik paliwa",
+    "AnyCarSalvageMuffler": "Rozmontuj tłumik wydechu",
+    "AnyCarSalvageBrake": "Rozmontuj hamulec",
+    "AnyCarSalvageSuspension": "Rozmontuj zawieszenie",
+    "AnyCarSalvageAccessory": "Rozmontuj akcesorium pojazdu",
+    "AnyCarSalvageSeat": "Rozmontuj fotel",
+    "AnyCarSalvageBattery": "Rozmontuj akumulator",
+    "AnyCarSalvageGloveBox": "Rozmontuj schowek"
+}

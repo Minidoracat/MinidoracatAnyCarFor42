@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "Разборка автомобилей",
+    "Sandbox_MinidoracatAnyCar": "Ремонт и разборка автомобилей",
     "Sandbox_MinidoracatAnyCar_LootMult": "Множитель добычи при разборке",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Множитель материалов, получаемых при разборке автомобиля или остова. 1.0 = как в оригинале. В сетевой игре применяется сервером."
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "Множитель материалов, получаемых при разборке автомобиля или остова. 1.0 = как в оригинале. В сетевой игре применяется сервером.",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "Разборка: требуемый уровень Газосварки",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "Уровень Газосварки, нужный для разборки целого автомобиля. 0 = без требований. Остовы - как в оригинале.",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "Разборка: множитель времени",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "Множитель времени разборки целого автомобиля. 1.0 = как у остова.",
+    "Sandbox_MinidoracatAnyCar_Repair": "Ремонт деталей",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "Добавляет способы ремонта для всех деталей автомобиля и позволяет чинить детали, не снимая их. Выкл. = только ремонт из оригинала.",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "Ремонт деталей: множитель времени",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "Множитель времени способов ремонта, добавленных этим модом.",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "Ремонт деталей: множитель опыта",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "Множитель опыта за успешный ремонт способами, добавленными этим модом. 1.0 = как в оригинале.",
+    "Sandbox_MinidoracatAnyCar_Salvage": "Разборка деталей",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "Позволяет разбирать снятые детали автомобиля на материалы.",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "Разборка деталей: множитель добычи",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "Множитель числа бросков на дополнительные материалы при разборке детали. 1.0 = 3 броска.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "Переборка двигателя",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "Позволяет повышать качество двигателя запасными деталями двигателя, когда состояние двигателя полное.",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "Переборка двигателя: запасных деталей за шаг",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "Сколько запасных деталей двигателя расходуется за раз. Каждый шаг добавляет 10 качества."
 }

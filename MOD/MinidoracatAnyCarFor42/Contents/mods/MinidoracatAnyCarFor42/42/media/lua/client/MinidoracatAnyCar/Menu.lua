@@ -59,6 +59,31 @@ function D.onDismantle(playerObj, vehicle)
     end
 end
 
+-- 拆車前先卸零件：一次排一個卸得動的零件，卸完再找下一個（卸了輪胎之後煞車才卸得動），都卸完才拆車。
+-- tried：這一輪試過的零件 id；卸失敗的不重試
+function D.onStrip(playerObj, vehicle, tried)
+    if vehicle:isRemovedFromWorld() then return end
+    for i = 0, vehicle:getPartCount() - 1 do
+        local part = vehicle:getPartByIndex(i)
+        if part:getInventoryItem() and not tried[part:getId()] and part:getTable("uninstall")
+            and vehicle:canUninstallPart(playerObj, part) then
+            tried[part:getId()] = true
+            ISVehiclePartMenu.onUninstallPart(playerObj, part)
+            local queue = ISTimedActionQueue.getTimedActionQueue(playerObj).queue
+            local last = queue[#queue]
+            if last then
+                local perform = last.perform
+                last.perform = function(self)
+                    perform(self)
+                    D.onStrip(playerObj, vehicle, tried)
+                end
+                return
+            end
+        end
+    end
+    D.onDismantle(playerObj, vehicle)
+end
+
 local vanillaFill = ISVehicleMenu.FillMenuOutsideVehicle
 function ISVehicleMenu.FillMenuOutsideVehicle(player, context, vehicle, test)
     local result = vanillaFill(player, context, vehicle, test)
@@ -82,6 +107,13 @@ function ISVehicleMenu.FillMenuOutsideVehicle(player, context, vehicle, test)
     description = description .. requirementLine(uses >= 10,
         getItemName("Base.BlowTorch") .. " " .. getText("ContextMenu_Uses") .. " " .. uses .. "/10")
 
+    local need = D.dismantleSkill(vehicle)
+    local level = playerObj:getPerkLevel(Perks.MetalWelding)
+    if need > 0 then
+        description = description .. requirementLine(level >= need,
+            PerkFactory.getPerk(Perks.MetalWelding):getName() .. " " .. level .. "/" .. need)
+    end
+
     local why = D.blocked(playerObj, vehicle, nil)
     if why == "occupied" then
         description = description .. requirementLine(false, getText("Tooltip_MinidoracatAnyCar_Occupied"))
@@ -90,6 +122,18 @@ function ISVehicleMenu.FillMenuOutsideVehicle(player, context, vehicle, test)
     end
 
     toolTip.description = description
-    if not hasMask or uses < 10 or why == "occupied" or why == "animals" then option.notAvailable = true end
+    local unavailable = not hasMask or uses < 10 or level < need or why == "occupied" or why == "animals"
+    option.notAvailable = unavailable
+
+    -- 先把卸得動的零件卸下來，再拆車
+    local stripName = getText("ContextMenu_MinidoracatAnyCar_Strip")
+    local strip = context:addOption(stripName, playerObj, D.onStrip, vehicle, {})
+    local stripTip = ISToolTip:new()
+    stripTip:initialise()
+    stripTip:setVisible(false)
+    stripTip:setName(stripName)
+    stripTip.description = getText("Tooltip_MinidoracatAnyCar_Strip") .. " <LINE> <LINE> " .. description
+    strip.toolTip = stripTip
+    strip.notAvailable = unavailable
     return result
 end

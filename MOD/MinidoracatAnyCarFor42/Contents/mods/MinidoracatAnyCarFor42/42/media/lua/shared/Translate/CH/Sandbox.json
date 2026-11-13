@@ -1,5 +1,23 @@
 {
-    "Sandbox_MinidoracatAnyCar": "拆車",
+    "Sandbox_MinidoracatAnyCar": "修理與拆解任何車輛",
     "Sandbox_MinidoracatAnyCar_LootMult": "拆車產出倍率",
-    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "拆解車輛或殘骸時掉落材料的倍率。1.0 = 原版。多人遊戲由伺服器套用。"
+    "Sandbox_MinidoracatAnyCar_LootMult_tooltip": "拆解車輛或殘骸時掉落材料的倍率。1.0 = 原版。多人遊戲由伺服器套用。",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding": "拆解車輛：金工等級門檻",
+    "Sandbox_MinidoracatAnyCar_DismantleWelding_tooltip": "拆解完好車輛需要的金工等級。0＝不限制。殘骸照原版。",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult": "拆解車輛：時間倍率",
+    "Sandbox_MinidoracatAnyCar_DismantleTimeMult_tooltip": "拆解完好車輛的時間倍率。1.0＝和拆殘骸一樣。",
+    "Sandbox_MinidoracatAnyCar_Repair": "零件修理",
+    "Sandbox_MinidoracatAnyCar_Repair_tooltip": "替所有車輛零件加上修法，裝在車上也能直接修。關閉後只剩原版的修法。",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult": "零件修理：時間倍率",
+    "Sandbox_MinidoracatAnyCar_RepairTimeMult_tooltip": "本 MOD 加入的修法所需時間的倍率。",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult": "零件修理：經驗倍率",
+    "Sandbox_MinidoracatAnyCar_RepairXPMult_tooltip": "用本 MOD 加入的修法修理成功時的經驗倍率。1.0＝原版。",
+    "Sandbox_MinidoracatAnyCar_Salvage": "零件拆解",
+    "Sandbox_MinidoracatAnyCar_Salvage_tooltip": "可以把卸下來的車輛零件拆成材料。",
+    "Sandbox_MinidoracatAnyCar_SalvageMult": "零件拆解：產出倍率",
+    "Sandbox_MinidoracatAnyCar_SalvageMult_tooltip": "拆解零件時額外材料的抽取次數倍率。1.0＝抽 3 次。",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild": "翻新引擎",
+    "Sandbox_MinidoracatAnyCar_EngineRebuild_tooltip": "引擎狀況修滿後，可以用引擎零件提高引擎品質。",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts": "翻新引擎：每次用的引擎零件數",
+    "Sandbox_MinidoracatAnyCar_EngineRebuildParts_tooltip": "每次翻新用掉的引擎零件數。每次提高 10 點品質。"
 }

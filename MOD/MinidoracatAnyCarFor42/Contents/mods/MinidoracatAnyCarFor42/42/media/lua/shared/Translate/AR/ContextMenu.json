@@ -1,3 +1,17 @@
 {
-    "ContextMenu_MinidoracatAnyCar_Dismantle": "Desmontar vehículo"
+    "ContextMenu_MinidoracatAnyCar_Dismantle": "Desmontar vehículo",
+    "ContextMenu_MinidoracatAnyCar_Strip": "Sacar piezas y desmontar",
+    "ContextMenu_MinidoracatAnyCar_RepairAll": "Arreglar todas las piezas",
+    "ContextMenu_MinidoracatAnyCar_rebuild": "Reconstruir motor",
+    "ContextMenu_MinidoracatAnyCar_heater": "Arreglar la calefacción",
+    "ContextMenu_MinidoracatAnyCar_Fix_Tape": "Reforzar con cinta",
+    "ContextMenu_MinidoracatAnyCar_Fix_Screws": "Atornillar un parche",
+    "ContextMenu_MinidoracatAnyCar_Fix_Welding": "Soldar",
+    "ContextMenu_MinidoracatAnyCar_Fix_Epoxy": "Sellar con resina epoxi",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sewing": "Coser",
+    "ContextMenu_MinidoracatAnyCar_Fix_Glass": "Cambiar el vidrio",
+    "ContextMenu_MinidoracatAnyCar_Fix_Patch": "Emparchar la rueda",
+    "ContextMenu_MinidoracatAnyCar_Fix_Sealant": "Usar sellador de ruedas",
+    "ContextMenu_MinidoracatAnyCar_Fix_Bolts": "Fijar metal nuevo con bulones",
+    "ContextMenu_MinidoracatAnyCar_Fix_Wiring": "Rehacer el cableado"
 }

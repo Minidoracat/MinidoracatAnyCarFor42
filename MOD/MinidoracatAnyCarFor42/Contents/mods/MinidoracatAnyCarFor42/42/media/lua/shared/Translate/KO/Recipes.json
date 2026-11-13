@@ -1,0 +1,15 @@
+{
+    "AnyCarSalvageDoor": "차량 문 분해하기",
+    "AnyCarSalvageHood": "후드 분해하기",
+    "AnyCarSalvageTrunkLid": "트렁크 문 분해하기",
+    "AnyCarSalvageTrunk": "트렁크 및 루프랙 분해하기",
+    "AnyCarSalvageArmor": "차량 장갑 분해하기",
+    "AnyCarSalvageGasTank": "연료 탱크 분해하기",
+    "AnyCarSalvageMuffler": "머플러 분해하기",
+    "AnyCarSalvageBrake": "브레이크 분해하기",
+    "AnyCarSalvageSuspension": "서스펜션 분해하기",
+    "AnyCarSalvageAccessory": "차량 액세서리 분해하기",
+    "AnyCarSalvageSeat": "좌석 분해하기",
+    "AnyCarSalvageBattery": "차량 배터리 분해하기",
+    "AnyCarSalvageGloveBox": "조수석 수납함 분해하기"
+}

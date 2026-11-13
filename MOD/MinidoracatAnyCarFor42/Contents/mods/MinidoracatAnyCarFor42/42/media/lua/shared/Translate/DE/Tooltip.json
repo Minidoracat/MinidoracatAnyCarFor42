@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "Zerlegt dieses Fahrzeug in Metallbaumaterialien. Das Fahrzeug ist danach endgültig weg. <LINE> Höhere Schweißfertigkeit führt zu einer besseren Verwertung.",
     "Tooltip_MinidoracatAnyCar_Occupied": "Jemand sitzt im Fahrzeug",
-    "Tooltip_MinidoracatAnyCar_Animals": "Im Anhänger sind Tiere"
+    "Tooltip_MinidoracatAnyCar_Animals": "Im Anhänger sind Tiere",
+    "Tooltip_MinidoracatAnyCar_Short": "(nicht genug)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "Zuerst ausbauen: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "%1 übersprungen: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "Motorqualität: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "Zustand: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "Baut nacheinander jedes Teil aus, das du ausbauen kannst, und demontiert dann das Fahrzeug. Das dauert lange.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Zerlegt ein ausgebautes Fahrzeugteil in Materialien. Kaputte Teile gehen auch. Höhere Fertigkeiten bringen mehr.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Repariert einen beschädigten Reifen. Eine Dose, eine Reparatur."
 }

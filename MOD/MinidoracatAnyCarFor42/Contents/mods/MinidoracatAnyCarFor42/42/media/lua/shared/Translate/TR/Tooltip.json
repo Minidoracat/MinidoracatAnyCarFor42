@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "Bu aracı metal işleme malzemelerine dönüştürür. Araç kalıcı olarak yok olur. <LINE> Yüksek metal işleme becerisi, daha fazla kullanışlı malzeme elde etmenizi sağlar.",
     "Tooltip_MinidoracatAnyCar_Occupied": "Aracın içinde biri var",
-    "Tooltip_MinidoracatAnyCar_Animals": "Römorkta hayvanlar var"
+    "Tooltip_MinidoracatAnyCar_Animals": "Römorkta hayvanlar var",
+    "Tooltip_MinidoracatAnyCar_Short": "(yetersiz)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "Önce çıkarılmalı: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "%1 atlandı: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "Motor Kalitesi: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "Durum: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "Çıkarabildiğiniz her parçayı tek tek çıkarır, ardından aracı söker. Bu uzun sürer.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Çıkarılmış bir araç parçasını malzemelere ayırır. Bozuk parçalar da olur. Beceriniz yükseldikçe daha fazla malzeme çıkar.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Hasarlı bir lastiği onarır. Bir kutu, bir onarım."
 }

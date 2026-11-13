@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "Convierte este vehículo en materiales de metalistería. El vehículo desaparece para siempre. <LINE> Un alto nivel de soldadura de metales te permitirá obtener más recursos.",
     "Tooltip_MinidoracatAnyCar_Occupied": "Hay alguien dentro del vehículo",
-    "Tooltip_MinidoracatAnyCar_Animals": "Hay animales en el remolque"
+    "Tooltip_MinidoracatAnyCar_Animals": "Hay animales en el remolque",
+    "Tooltip_MinidoracatAnyCar_Short": "(insuficiente)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "Primero hay que sacar: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "Se omite %1: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "Calidad del motor: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "Condición: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "Saca una por una todas las piezas que puedas sacar y después desmonta el vehículo. Lleva mucho tiempo.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Convierte en materiales una pieza de vehículo ya sacada. También sirven las piezas rotas. Cuanta más habilidad, más se obtiene.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Arregla una rueda dañada. Una lata, una reparación."
 }

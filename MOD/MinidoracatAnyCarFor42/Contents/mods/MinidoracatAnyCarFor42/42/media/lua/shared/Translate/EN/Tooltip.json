@@ -1,5 +1,13 @@
 {
     "Tooltip_MinidoracatAnyCar_Dismantle": "Cuts this vehicle into metalworking materials. The vehicle is gone for good. <LINE> Higher Welding skills will retrieve more usable salvage.",
     "Tooltip_MinidoracatAnyCar_Occupied": "Someone is inside the vehicle",
-    "Tooltip_MinidoracatAnyCar_Animals": "There are animals in the trailer"
+    "Tooltip_MinidoracatAnyCar_Animals": "There are animals in the trailer",
+    "Tooltip_MinidoracatAnyCar_Short": "(not enough)",
+    "Tooltip_MinidoracatAnyCar_RemoveFirst": "Remove first: %1",
+    "Tooltip_MinidoracatAnyCar_Skipped": "Skip %1: %2",
+    "Tooltip_MinidoracatAnyCar_rebuild": "Engine quality: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_heater": "Condition: %1 -> %2",
+    "Tooltip_MinidoracatAnyCar_Strip": "Removes every part you are able to remove, one by one, then dismantles the vehicle. This takes a long time.",
+    "Tooltip_MinidoracatAnyCar_Salvage": "Breaks a removed vehicle part down into materials. Broken parts work too. Higher skills find more.",
+    "Tooltip_MinidoracatAnyCar_TireSealant": "Repairs a damaged tire. One can, one repair."
 }
