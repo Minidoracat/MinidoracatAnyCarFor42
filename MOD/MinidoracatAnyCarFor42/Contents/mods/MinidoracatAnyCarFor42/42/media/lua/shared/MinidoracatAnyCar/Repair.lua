@@ -304,6 +304,15 @@ function ISRepairEngine:getDuration()
     return D.ENGINE[self.anycar.job].time
 end
 
+-- 客戶端：本 MOD 的工作條件不符時直接中止。材料與「已滿」不在這裡擋：工作做完時伺服器扣材料、改狀況，
+-- 這些同步可能比完成通知早到，做完的動作會被當成無效而中止，排在後面的關引擎蓋也一起被清掉；這兩項由伺服器在 complete 重新檢查
+local vanillaEngineIsValid = ISRepairEngine.isValid
+function ISRepairEngine:isValid()
+    if not self.anycar then return vanillaEngineIsValid(self) end
+    local why = D.engineNeeds(self.character, self.part, self.anycar.job)
+    return why == nil or why == "materials" or why == "full"
+end
+
 local vanillaEngineStart = ISRepairEngine.start
 function ISRepairEngine:start()
     vanillaEngineStart(self)

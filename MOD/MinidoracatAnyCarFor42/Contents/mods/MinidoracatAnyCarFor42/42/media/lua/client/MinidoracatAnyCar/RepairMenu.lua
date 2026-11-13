@@ -81,7 +81,7 @@ local function walkTo(playerObj, part)
     if area then
         ISTimedActionQueue.add(ISPathFindAction:pathToVehicleArea(playerObj, part:getVehicle(), area))
     else
-        luautils.walkAdj(playerObj, part:getVehicle():getSquare())
+        luautils.walkAdj(playerObj, part:getVehicle():getSquare(), true) -- 保留剛排的搬材料動作
     end
 end
 
@@ -279,6 +279,14 @@ local function addEngineJob(context, playerObj, part, job)
     if why then option.notAvailable = true end
 end
 
+local function allOurs(fixes)
+    if fixes:isEmpty() then return false end
+    for i = 0, fixes:size() - 1 do
+        if not D.fixName(fixes:get(i)) then return false end
+    end
+    return true
+end
+
 local vanillaPartMenu = ISVehicleMechanics.doPartContextMenu
 function ISVehicleMechanics:doPartContextMenu(part, x, y)
     self.context = nil -- 原版在遊戲暫停或人在車上時不開選單，這時留著 nil
@@ -290,8 +298,15 @@ function ISVehicleMechanics:doPartContextMenu(part, x, y)
     if part:getId() == "Engine" then addEngineJob(context, playerObj, part, "rebuild") end
     if part:getId() == "Heater" then addEngineJob(context, playerObj, part, "heater") end
     addRepairAll(context, playerObj, part:getVehicle())
-    -- 原版沒有選項時把選單藏起來（ISVehicleMechanics.lua:408-415）；這裡加了選項就再打開
-    if context.numOptions > 1 and not context:getIsVisible() then
+    -- 關掉零件修理時，修法全是本 MOD 的零件不留原版那個空的「修理」
+    local item = part:getInventoryItem()
+    if item and not D.sandbox("Repair", true) and part:getScriptPart():isRepairMechanic() and allOurs(FixingManager.getFixes(item)) then
+        context:removeOptionByName(getText("ContextMenu_Repair"))
+    end
+    -- 原版沒有選項時把選單藏起來（ISVehicleMechanics.lua:408-415）；這裡依最後的選項數再判一次
+    if context.numOptions <= 1 then
+        context:setVisible(false)
+    elseif not context:getIsVisible() then
         context:setVisible(true)
         if JoypadState.players[self.playerNum + 1] then
             context.mouseOver = 1
@@ -308,3 +323,16 @@ ISInventoryPaneContextMenu.buildFixingMenu = function(brokenObject, player, fixi
     if D.fixName(fixing) and not D.sandbox("Repair", true) then return end
     return vanillaFixingMenu(brokenObject, player, fixing, fixingNum, fixOption, subMenuFix, vehiclePart)
 end
+
+-- 背包右鍵：關掉零件修理時，只有本 MOD 修法的零件會剩一個空的「修理 <物品>」（ISInventoryPaneContextMenu.lua:903-911），拿掉
+Events.OnFillInventoryObjectContextMenu.Add(function(player, context, items)
+    if D.sandbox("Repair", true) then return end
+    local prefix = getText("ContextMenu_Repair") .. " "
+    for i = context.numOptions - 1, 1, -1 do
+        local option = context.options[i]
+        if option and option.subOption and string.sub(option.name, 1, #prefix) == prefix then
+            local sub = context:getSubMenu(option.subOption)
+            if not sub or sub.numOptions <= 1 then context:removeOptionByName(option.name) end
+        end
+    end
+end)

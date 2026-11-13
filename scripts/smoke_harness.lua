@@ -247,6 +247,11 @@ local function fakeInventory(main, bag)
         for _, item in ipairs(all()) do if item.full == full and #list < count then list[#list + 1] = item end end
         return javaList(list)
     end
+    function inv:getAllTypeRecurse(full)
+        local list = {}
+        for _, item in ipairs(all()) do if item.full == full then list[#list + 1] = item end end
+        return javaList(list)
+    end
     function inv:getFirstTagEvalRecurse(tag, fn)
         for _, item in ipairs(all()) do if item.tag == tag and fn(item) then return item end end
         return nil
@@ -584,6 +589,12 @@ local quick = ISRepairEngine:new(ace, parts2.Engine, nil, 0, { job = "rebuild" }
 check(quick.maxTime == 600 and quick:getDuration() == 600 and ISRepairEngine:new(ace, parts2.Heater, nil, 0, { job = "heater" }).maxTime == 300,
     "本 MOD 的工作用規格的時間，不看傳進來的 maxTimeInit（0）與 item（nil）")
 check(ISRepairEngine:new(ace, parts2.Engine, nil, 0).maxTime == 0, "原版修引擎的時間照原版")
+check(ISRepairEngine:new(ace, parts2.Engine, nil, 1, { job = "rebuild" }).maxTime == 600, "maxTimeInit 給 1 也照規格 600")
+local farAce = mechanic({ Mechanics = 6 }, engineParts(12), nil, 120)
+check(ISRepairEngine:new(ace, parts2.Engine, nil, 600, { job = "rebuild" }):isValid() == true
+    and ISRepairEngine:new(farAce, parts2.Engine, nil, 600, { job = "rebuild" }):isValid() == false
+    and ISRepairEngine:new(mechanic({ Mechanics = 6 }, engineParts(1)), parts2.Engine, nil, 600, { job = "rebuild" }):isValid() == true,
+    "客戶端 isValid：太遠就中止；材料不夠交給伺服器（做完那一刻的同步不會把動作打斷）")
 
 print("情境九：零件拆解的額外材料")
 local function salvage(mult, perks)
@@ -656,6 +667,41 @@ step(100)
 step(D.CHAIN_TIMEOUT)
 step(D.CHAIN_SETTLE)
 check(#queue == 0 and dismantled == 1, "玩家取消（沒有結果）：逾時後停下，不拆車")
+
+print("情境十二：修理全部零件的規劃（兩個零件共用材料）")
+ISVehicleMechanics = { doPartContextMenu = function() end, ghs = "<GHC>", bhs = "<BHC>" }
+ISInventoryPaneContextMenu = { buildFixingMenu = function() end }
+loaded["Vehicles/ISUI/ISVehicleMechanics"] = true
+loaded["ISUI/ISInventoryPaneContextMenu"] = true
+function getItemName(full) return full end
+PerkFactory = { getPerk = function(perk) return { getName = function() return perk end } end }
+local windowTape = fakeFixing("AnyCar_Window_Tape", { fakeFixer("Base.DuctTape", 3, { Mechanics = 1 }) })
+FixingManager.getFixes = function(item)
+    local list = javaList(item.full == "Base.FrontWindow1" and { windowTape } or {})
+    function list:isEmpty() return self:size() == 0 end
+    return list
+end
+FixingManager.getCondRepaired = function() return 30 end
+require "MinidoracatAnyCar/RepairMenu"
+local function windowCar()
+    local v, list = fakeVehicle("CarNormal"), {}
+    for _, id in ipairs({ "WindowFrontLeft", "WindowRearLeft" }) do
+        local item = fakeItem("Base.FrontWindow1", { cond = 40 })
+        list[#list + 1] = { getId = function() return id end, getInventoryItem = function() return item end, getTable = function() return nil end }
+    end
+    function v:getPartCount() return #list end
+    function v:getPartByIndex(i) return list[i + 1] end
+    return v
+end
+local function tapes(...)
+    local items = {}
+    for _, uses in ipairs({ ... }) do items[#items + 1] = fakeItem("Base.DuctTape", { uses = uses }) end
+    return mechanic({ Mechanics = 2 }, items)
+end
+local todo, skipped = D.planRepairAll(tapes(3, 3), windowCar(), {})
+check(#todo == 2 and #skipped == 0, "膠帶共 6 次：兩扇窗都排進去（不是只數到夠第一個就停）")
+todo, skipped = D.planRepairAll(tapes(3, 2), windowCar(), {})
+check(#todo == 1 and #skipped == 1 and skipped[1].reason == "Base.DuctTape 2/3", "膠帶共 5 次：第二扇略過，原因寫剩 2/3（" .. tostring(skipped[1] and skipped[1].reason) .. "）")
 
 print()
 if failures > 0 then
