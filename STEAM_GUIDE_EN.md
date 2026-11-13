@@ -26,6 +26,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Done[/b]: the vehicle is gone for good and the materials drop where it stood.
 [/olist]
 === 🧰 Part Repair
+{{img:03-repair-en.jpg}}
 [list]
 [*] [b]Which parts[/b]: every vehicle part has repair methods, including parts from vehicle mods. When the game starts, parts are sorted into 15 types by name, so new vehicles do not need a mod update.
 [*] [b]Repair while installed[/b]: in Vehicle Mechanics, right-click a part and choose "Repair". The option does not appear when the part is at full condition.
@@ -84,6 +85,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Other accessories[/b]: any part whose name does not match one of the types above.
 [/list]
 === 🧰 Repair All Parts
+{{img:04-repair-all-en.jpg}}
 [list]
 [*] [b]Where[/b]: in Vehicle Mechanics, right-click any part and choose "Repair All Parts".
 [*] [b]Check the list first[/b]: the tooltip lists the parts it will repair and the method for each (green), then the parts it skips and why (red), such as a missing material or a tire that must come off first. Each list shows up to 12 parts; the rest are counted.
@@ -91,9 +93,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Which method[/b]: for each part, the method that repairs the most with the materials and skills you have right now.
 [*] [b]One at a time[/b]: it repairs one part, then picks the next, counting the materials already used. Parts you no longer have materials for are skipped.
 [*] [b]Once per part[/b]: each part is repaired once. If some are still not full, choose "Repair All Parts" again.
+[*] [b]If it stops[/b]: if you cancel one of the repairs, or the server rejects one, the remaining parts are not repaired. Choose "Repair All Parts" again.
 [/list]
 === 🧰 Engine Rebuild and Heater Repair
 [h3]Rebuild Engine[/h3]
+{{img:05-rebuild-en.jpg}}
 [list]
 [*] [b]When it appears[/b]: the engine condition is at 100 (use the vanilla "Repair Engine" first) and engine quality is below 100.
 [*] [b]Where[/b]: in Vehicle Mechanics, right-click the engine and choose "Rebuild Engine".
@@ -147,11 +151,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=XXXX
 [*] [b]Materials[/b]: the same metal materials and Welding XP as a vanilla wreck. Higher Welding gives more.
 [/list]
 [h3]Remove Parts, Then Dismantle[/h3]
+{{img:06-strip-en.jpg}}
 [list]
 [*] [b]Where[/b]: right-click an intact vehicle and choose "Remove Parts, Then Dismantle".
 [*] [b]What it does[/b]: removes every part you are able to remove, one by one, then dismantles the vehicle. This takes a long time.
-[*] [b]Parts you cannot remove[/b]: removing follows the vanilla rules. Parts you lack the tools or skills for stay on the vehicle and are destroyed with it.
+[*] [b]Parts you cannot remove[/b]: removing follows the vanilla rules. Parts you lack the tools, skills or recipe for, and parts vanilla never lets you remove (such as the gas tank and glove box), stay on the vehicle and are destroyed with it.
 [*] [b]Dismantle requirements[/b]: the same as "Dismantle Vehicle", so bring a welding mask and a full propane torch.
+[*] [b]If it stops[/b]: if you cancel one of the removals, the rest do not continue and the vehicle is not dismantled. Parts already removed stay with you or on the ground.
 [/list]
 === 📦 When Items Are Still Inside
 {{img:02-confirm-en.jpg}}
