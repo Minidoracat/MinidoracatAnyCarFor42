@@ -110,16 +110,21 @@ function ISFixVehiclePartAction:isValid()
     return D.repairBlocked(self.character, self.vehiclePart, self.fixing, self.fixer) == nil
 end
 
--- 焊接的修法拿噴燈、播焊接動畫與聲音；其他修法用修車的動作
+-- 用噴燈的修法（GlobalItem 是噴燈）：本 MOD、原版與別的 MOD 的都算
+function D.usesTorch(fixing)
+    local global = fixing:getGlobalItem()
+    return global ~= nil and global:getFixerName() == "Base.BlowTorch"
+end
+
+-- 噴燈的修法拿噴燈、播焊接動畫與聲音；本 MOD 其他修法用修車的動作；原版的其他修法照原版
 local vanillaPartStart = ISFixVehiclePartAction.start
 function ISFixVehiclePartAction:start()
     vanillaPartStart(self)
-    local _, method = D.fixName(self.fixing)
-    if method == "Welding" then
+    if D.usesTorch(self.fixing) then
         self:setActionAnim("BlowTorch")
         self:setOverrideHandModels(self.character:getPrimaryHandItem(), nil)
         self.sound = self.character:playSound("BlowTorch")
-    elseif method then
+    elseif D.fixName(self.fixing) then
         self:setActionAnim("VehicleWorkOnMid")
     end
 end

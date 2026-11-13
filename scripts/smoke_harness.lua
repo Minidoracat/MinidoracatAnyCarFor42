@@ -439,6 +439,7 @@ SB.Salvage = nil
 
 print("情境七：伺服器修理裝在車上的零件")
 local function torch() return fakeItem("Base.BlowTorch", { uses = 10 }) end
+check(D.usesTorch(doorWeld) and D.usesTorch(vanillaDoor) and not D.usesTorch(tirePatch), "噴燈修法：本 MOD 與原版的焊接都算，補胎不算")
 local function repair(player, part, fixing)
     local n, calls = #logLines, fixCalls
     local action = ISFixVehiclePartAction:new(player, part, fixing, fixing:getFixers():get(0))

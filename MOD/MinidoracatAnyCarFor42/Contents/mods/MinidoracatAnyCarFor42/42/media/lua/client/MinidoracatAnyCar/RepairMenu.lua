@@ -94,8 +94,7 @@ local function queueFix(playerObj, part, fixingNum, fixerNum)
     if playerObj:getVehicle() then ISVehicleMenu.onExit(playerObj) end
     ISInventoryPaneContextMenu.transferIfNeeded(playerObj, items)
     walkTo(playerObj, part)
-    local _, method = D.fixName(fixing)
-    if method == "Welding" then
+    if D.usesTorch(fixing) then
         local torchType = fixing:getGlobalItem():getFixerName()
         for i = 0, items:size() - 1 do
             if items:get(i):getFullType() == torchType then
