@@ -186,6 +186,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [h3]Copy Vehicle Key[/h3]
 [list]
 [*] [b]Where[/b]: right-click a vehicle key in your inventory and choose "Copy Vehicle Key", or use the crafting window. If you carry several vehicle keys, the one you right-clicked is copied.
+[*] [b]Using the crafting window[/b]: the key slot under the needed items starts with the first vehicle key you carry. Check that it is the key you want to copy; if not, press the ⇄ button at the top right of that slot to swap it.
 [*] [b]Result[/b]: one more identical key (same vehicle, name and color). The original stays.
 [/list]
 [table]
@@ -243,6 +244,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [*] [b]Repair Heater[/b]: only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod. Without one, anyone who can hotwire a vehicle can also make a key for it and remove the hotwire.
 [*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
+[*] [b]Crafting right after leaving a vehicle[/b]: if you craft from the crafting window or an inventory right-click right after getting out, before opening your inventory, vanilla may finish the action without making anything or using materials (vanilla recipes too). Open your inventory once first.
 [/list]
 === ❓ FAQ
 [h3]There is no "Repair" on a part?[/h3]
