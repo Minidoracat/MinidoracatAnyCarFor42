@@ -471,6 +471,17 @@ SB.Salvage = nil
 print("情境七：伺服器修理裝在車上的零件")
 local function torch() return fakeItem("Base.BlowTorch", { uses = 10 }) end
 check(D.usesTorch(doorWeld) and D.usesTorch(vanillaDoor) and not D.usesTorch(tirePatch), "噴燈修法：本 MOD 與原版的焊接都算，補胎不算")
+local function startAnim(hand, fixing)
+    local chr = { getPrimaryHandItem = function() return hand and fakeItem(hand) end, playSound = function() return 1 end }
+    local a = setmetatable({ fixing = fixing, character = chr }, ISFixVehiclePartAction)
+    function a:setActionAnim(name) self.anim = name end
+    function a:setOverrideHandModels() end
+    a:start()
+    return a.anim
+end
+check(startAnim("Base.BlowTorch", vanillaDoor) == "BlowTorch" and startAnim("Base.Hammer", vanillaDoor) == nil
+    and startAnim(nil, doorWeld) == "VehicleWorkOnMid" and startAnim("Base.BlowTorch", tirePatch) == "VehicleWorkOnMid",
+    "焊接動畫只在主手拿著噴燈時播（原版焊接也算）；沒拿噴燈照原版或用修車動作")
 local function repair(player, part, fixing)
     local n, calls = #logLines, fixCalls
     local action = ISFixVehiclePartAction:new(player, part, fixing, fixing:getFixers():get(0))

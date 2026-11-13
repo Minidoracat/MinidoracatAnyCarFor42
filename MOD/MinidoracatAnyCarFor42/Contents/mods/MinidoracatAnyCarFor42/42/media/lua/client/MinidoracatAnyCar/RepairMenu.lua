@@ -304,15 +304,21 @@ function ISVehicleMechanics:doPartContextMenu(part, x, y)
         context:removeOptionByName(getText("ContextMenu_Repair"))
     end
     -- 原版沒有選項時把選單藏起來（ISVehicleMechanics.lua:408-415）；這裡依最後的選項數再判一次
+    local joypad = JoypadState.players[self.playerNum + 1]
     if context.numOptions <= 1 then
         context:setVisible(false)
+        -- 原版開著選單時已把手把焦點交給它（ISVehicleMechanics.lua:410-415）；藏起來就還給機械視窗
+        if joypad and joypad.focus == context then
+            joypad.focus = self
+            updateJoypadFocus(joypad)
+        end
     elseif not context:getIsVisible() then
         context:setVisible(true)
-        if JoypadState.players[self.playerNum + 1] then
+        if joypad then
             context.mouseOver = 1
             context.origin = self
-            JoypadState.players[self.playerNum + 1].focus = context
-            updateJoypadFocus(JoypadState.players[self.playerNum + 1])
+            joypad.focus = context
+            updateJoypadFocus(joypad)
         end
     end
 end

@@ -126,13 +126,14 @@ function D.usesTorch(fixing)
     return global ~= nil and global:getFixerName() == "Base.BlowTorch"
 end
 
--- 噴燈的修法拿噴燈、播焊接動畫與聲音；本 MOD 其他修法用修車的動作；原版的其他修法照原版
+-- 噴燈的修法而且主手拿著噴燈：焊接動畫、手上模型與聲音；本 MOD 其他修法用修車的動作；其餘照原版
 local vanillaPartStart = ISFixVehiclePartAction.start
 function ISFixVehiclePartAction:start()
     vanillaPartStart(self)
-    if D.usesTorch(self.fixing) then
+    local hand = self.character:getPrimaryHandItem()
+    if D.usesTorch(self.fixing) and hand and hand:getFullType() == self.fixing:getGlobalItem():getFixerName() then
         self:setActionAnim("BlowTorch")
-        self:setOverrideHandModels(self.character:getPrimaryHandItem(), nil)
+        self:setOverrideHandModels(hand, nil)
         self.sound = self.character:playSound("BlowTorch")
     elseif D.fixName(self.fixing) then
         self:setActionAnim("VehicleWorkOnMid")
