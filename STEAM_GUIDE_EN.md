@@ -155,6 +155,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Where they go[/b]: all materials are in one garbage bag where the vehicle stood. The bag name ends with the account name of the player who dismantled the vehicle. With many materials the bag is too heavy to pick up. Stand next to it, open your inventory, click the bag icon and take the materials out.
 [*] [b]With Minidoracat Cleaner[/b]: if the server runs it with "Track who dropped and handled items" on, the bag and every material in it record that player. Hover over an item to see it. The mod also works without it.
 [/list]
+{{img:11-bag-en.jpg}}
 [h3]Remove Parts, Then Dismantle[/h3]
 {{img:06-strip-en.jpg}}
 [list]
