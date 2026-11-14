@@ -199,6 +199,6 @@ function ISRemoveBurntVehicle:checkAddItem(item, baseChance)
     self.vehicle = loot.vehicle
     local ok, got = pcall(roll, self, item, baseChance)
     self.vehicle = vehicle
-    if not ok then error(got, 0) end
+    if not ok then error(got) end
     return got
 end

@@ -141,6 +141,7 @@ local function fakeLootItem(name)
     function item:getModData() return self.modData end
     function item:hasModData() return next(self.modData) ~= nil end
     function item:isCustomName() return self.renamed == true end
+    function item:getFullType() return self.name end
     return item
 end
 local function fakeBag(full)
@@ -264,15 +265,36 @@ check(scrap(1, fakePlayer(101.5, 201.5, 0, "a b=c"))[1].modData.MinidoracatAnyCa
 -- 客戶端：物品清單重整前，用這台客戶端的語言替拆車袋子取名
 local refreshed = 0
 ISInventoryPane = { refreshContainer = function() refreshed = refreshed + 1 end }
-loaded["ISUI/ISInventoryPane"] = true
+ISInventoryPage = { refreshBackpacks = function() refreshed = refreshed + 1 end }
+loaded["ISUI/ISInventoryPane"], loaded["ISUI/ISInventoryPage"] = true, true
 function getItemName() return "垃圾袋" end
 require "MinidoracatAnyCar/ScrapBag"
 local plain, renamed = fakeBag("Base.Garbagebag"), scrap(1)[1]
 renamed.renamed, renamed.custom = true, "我的袋子"
 local listed = { dropped[1], plain, renamed }
-ISInventoryPane.refreshContainer({ inventory = { getAllTypeRecurse = function() return javaList(listed) end } })
+ISInventoryPane.refreshContainer({ inventory = { getAllTypeRecurse = function() return javaList(listed) end, getContainingItem = function() return nil end } })
 check(dropped[1].custom == "垃圾袋 (tester)" and refreshed == 1, "拆車袋子：客戶端語言的名稱加拆車人，再照原版重整")
 check(plain.custom == nil and renamed.custom == "我的袋子", "一般垃圾袋與玩家自己改過名字的不動")
+-- 原版會直接選中地上的袋子：清單列的是袋子裡的東西，袋子自己也要取名
+local opened = scrap(1)[1]
+ISInventoryPane.refreshContainer({ inventory = { getAllTypeRecurse = function() return javaList({}) end, getContainingItem = function() return opened end } })
+check(opened.custom == "垃圾袋 (tester)", "清單開的是拆車袋子本身：袋子也取名")
+-- 建袋子按鈕之前，腳邊九格的袋子先取名
+local onFloor = scrap(1)[1]
+local floorAt = { getX = function() return 5 end, getY = function() return 5 end, getZ = function() return 0 end }
+function getSpecificPlayer() return { getCurrentSquare = function() return floorAt end } end
+function getCell()
+    return { getGridSquare = function(_, x, y)
+        if x ~= 6 or y ~= 4 then return nil end
+        return { getWorldObjects = function() return javaList({ { getItem = function() return onFloor end }, { getItem = function() return nil end } }) end }
+    end }
+end
+local before = refreshed
+ISInventoryPage.refreshBackpacks({ player = 0 })
+check(onFloor.custom == "垃圾袋 (tester)" and refreshed == before + 1, "物品欄重建袋子按鈕前：腳邊的拆車袋子已經取名")
+onFloor.custom = nil
+ISInventoryPage.refreshBackpacks({ player = 0, onCharacter = true })
+check(onFloor.custom == nil and refreshed == before + 2, "玩家自己的物品欄：不掃地上")
 
 local logsBefore = #logLines
 local stuck = fakeVehicle("CarNormal")
