@@ -89,6 +89,7 @@ function ISRemoveBurntVehicle:isValid() return self.vehicle ~= nil and not self.
 function ISRemoveBurntVehicle:checkAddItem(item)
     rolls = rolls + 1
     self.vehicle:getSquare():AddWorldInventoryItem(item, 0.1, 0.2, 0)
+    if vanillaBoom and item == "SteelBar" then error("vanilla roll broke") end
     return true
 end
 function ISRemoveBurntVehicle:complete()
@@ -284,7 +285,19 @@ for _, at in ipairs(stampLog) do late = late or at > 0 end
 check(onGround == 1 and not late, "都在袋子落地前記好")
 traceOn = false
 check(next(scrap(1)[1].stamps) == nil, "Item Cleaner 關掉搬移紀錄：不記")
+traceOn = true
+MinidoracatCleaner.stampDrop = function() error("cleaner broke") end
+check(#scrap(1)[1].items == 3, "Item Cleaner 記錄時出錯：袋子與材料照樣落地")
+MinidoracatCleaner.getOption = function() error("cleaner broke") end
+check(#scrap(1)[1].items == 3, "Item Cleaner 讀選項出錯：不記，袋子照樣落地")
 MinidoracatCleaner = nil
+
+vanillaBoom = true
+local boomCar = fakeVehicle("CarNormal")
+local boom = ISRemoveBurntVehicle:new(near, boomCar)
+check(pcall(function() return boom:complete() end) == false and boom.vehicle == boomCar and not boomCar.removed and #boomCar.square.dropped == 0,
+    "擲骰途中出錯：錯誤照樣往外傳、動作上的車換回來、車還在、沒有袋子")
+vanillaBoom = false
 
 -- ===== 修理、零件拆解、引擎：假的原版類別與 Java 物件 =====
 SandboxVars.MinidoracatAnyCar = {}

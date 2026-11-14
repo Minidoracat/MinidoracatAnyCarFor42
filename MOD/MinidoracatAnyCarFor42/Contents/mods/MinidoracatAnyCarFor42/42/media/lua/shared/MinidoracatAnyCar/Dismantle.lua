@@ -118,7 +118,8 @@ end
 local function stamper(character)
     local C = MinidoracatCleaner
     if not C or not C.stampDrop or not C.stampMove or not C.getOption then return nil end
-    if C.getOption("TouchTraceEnabled") == false then return nil end
+    local ok, on = pcall(C.getOption, "TouchTraceEnabled")
+    if not ok or on == false then return nil end
     local name = character:getUsername()
     return function(item)
         C.stampDrop(item, name)
@@ -132,15 +133,22 @@ function D.dropBag(character, square, loot)
     local bag = instanceItem(D.BAG)
     local inventory = bag:getInventory()
     local stamp = stamper(character)
+    -- 車已經移除了：記不上搬移紀錄不能擋住材料落地
+    local function mark(item)
+        if stamp and not pcall(stamp, item) then
+            print(D.LOG .. "item trace skipped: Item Cleaner call failed")
+            stamp = nil
+        end
+    end
     for _, name in ipairs(loot.names) do
         for _ = 1, loot.count[name] do
             local item = inventory:AddItem(name)
-            if item and stamp then stamp(item) end
+            if item then mark(item) end
         end
     end
     if inventory:getItems():isEmpty() then return end
     bag:setName(bag:getDisplayName() .. " (" .. D.who(character) .. ")")
-    if stamp then stamp(bag) end
+    mark(bag)
     square:AddWorldInventoryItem(bag, 0.5, 0.5, 0)
 end
 
@@ -169,16 +177,23 @@ function ISRemoveBurntVehicle:complete()
     return ok
 end
 
--- 產出倍率：每次擲骰重複 LootMult 次，小數部分當成多擲一次的機率。只有 complete 會呼叫，所以在伺服器生效。
--- 經過本 MOD 的 complete 時，擲骰期間把車換成收產出的假車，材料不落地
+-- 產出倍率：每次擲骰重複 LootMult 次，小數部分當成多擲一次的機率。只有 complete 會呼叫，所以在伺服器生效
 local vanillaCheckAddItem = ISRemoveBurntVehicle.checkAddItem
-function ISRemoveBurntVehicle:checkAddItem(item, baseChance)
-    local loot, vehicle = self.anycarLoot, self.vehicle
-    if loot then self.vehicle = loot.vehicle end
+local function roll(action, item, baseChance)
     local got = false
     for _ = 1, D.rolls(1, D.sandbox("LootMult", 1)) do
-        if vanillaCheckAddItem(self, item, baseChance) then got = true end
+        if vanillaCheckAddItem(action, item, baseChance) then got = true end
     end
+    return got
+end
+
+-- 經過本 MOD 的 complete 時，擲骰期間把車換成收產出的假車，材料不落地；擲骰出錯也把車換回來
+function ISRemoveBurntVehicle:checkAddItem(item, baseChance)
+    local loot, vehicle = self.anycarLoot, self.vehicle
+    if not loot then return roll(self, item, baseChance) end
+    self.vehicle = loot.vehicle
+    local ok, got = pcall(roll, self, item, baseChance)
     self.vehicle = vehicle
+    if not ok then error(got, 0) end
     return got
 end
