@@ -511,8 +511,17 @@ local function garage(opts)
     opts = opts or {}
     local v = fakeVehicle("CarNormal")
     local parts = {}
+    -- 設計上就沒有物品的零件（車輛腳本沒寫 itemType）；其他零件就算沒裝物品也有 itemType
+    local bare = { Engine = true, Heater = true, RoofLight = true, Frunk = true, lightbar = true, CabinGlass = true }
     local function part(id, item, tables, container)
         local p = { cond = opts.cond or 100 }
+        function p:getItemType()
+            if bare[id] then return nil end
+            local types = javaList({ "Base.Any" })
+            function types:isEmpty() return false end
+            return types
+        end
+        function p:getCategory() return id == "CabinGlass" and "nodisplay" or nil end
         function p:getId() return id end
         function p:getVehicle() return v end
         function p:getInventoryItem() return item end
@@ -534,6 +543,10 @@ local function garage(opts)
     part("BrakeFrontRight", fakeItem("Base.ModBrake2", { cond = 30 }), { uninstall = { requireUninstalled = "TireFrontRight" } })
     part("Engine", nil)
     part("Heater", nil)
+    part("RoofLight", nil)
+    part("Frunk", nil, nil, true)
+    part("lightbar", nil)
+    part("CabinGlass", nil)
     part("SpareTireRoof", fakeItem("Base.ModTire2"))
     part("Roofrack", fakeItem("Base.ModRoofrack2", { cond = 50 }), { uninstall = { requireUninstalled = "SpareTireRoof" } })
     function v:getPartById(id) return parts[id] end
@@ -581,14 +594,19 @@ vanillaDoor:addRequiredItem("Base.FrontCarDoor1")
 doorWeld:addRequiredItem("") -- 腳本裡 Require 留空時引擎放進去的空字串
 -- 每個配方自己的輸入列數：車門照腳本是 2 列工具；消音器的腳本工具列數和 D.SALVAGE 對不上；引擎蓋 Load 丟例外
 local recipeLoads, recipeInputs = {}, { AnyCarSalvageDoor = 2, AnyCarSalvageMuffler = 5, AnyCarSalvageHood = 2 }
-local function scriptItem(module, name, mechanic, vehicleType)
+local function scriptItem(module, name, mechanic, vehicleType, conditionMax)
     return { getFullName = function() return module .. "." .. name end, getName = function() return name end,
-        isMechanicsLoot = function() return mechanic end, getConditionMax = function() return 100 end, vehicleType = vehicleType }
+        isMechanicsLoot = function() return mechanic end, getConditionMax = function() return conditionMax or 100 end,
+        vehicleType = vehicleType }
 end
+-- 沒寫 ConditionMax 的物品，引擎給 10（Item.java:133）
 local scriptItems = {
     scriptItem("Base", "FrontCarDoor1", true, 1), scriptItem("Base", "ModDoor2", true, 2), scriptItem("Base", "ModTire2", true, 2),
     scriptItem("Base", "ModMuffler2", true, 2), scriptItem("Base", "ModEngineDoor2", true, 2),
-    scriptItem("Base", "Jack", true, 0), scriptItem("Base", "Apple", false, 0),
+    scriptItem("Base", "Jack", true, 0, 10), scriptItem("Base", "Apple", false, 0),
+    -- 車輛 MOD 沒寫 VehicleType 的零件、別的 MOD 的機具零件、電動車的高壓電池、警示燈、沒寫 ConditionMax 的
+    scriptItem("Base", "ModRoofrack9", true, 0), scriptItem("Base", "PumpRotor", true, 0), scriptItem("Base", "EvPackBattery", true, 0),
+    scriptItem("Base", "LightbarBlue", true, 0), scriptItem("Base", "LooseTrunk", true, 0, 10),
 }
 function instanceItem(full)
     if full == "Base.Garbagebag" then return fakeBag(full) end
@@ -618,6 +636,8 @@ check(doorWeld:getRequiredItem():contains("Base.ModDoor2"), "MOD 車門填進本
 check(not doorWeld:getRequiredItem():contains("Base.FrontCarDoor1"), "原版已有修法的車門不再加一套")
 check(tirePatch:getRequiredItem():contains("Base.ModTire2") and not tirePatch:getRequiredItem():contains("Base.ModDoor2"), "輪胎只進輪胎的修法")
 check(#D.partsByClass.Door == 2 and D.partsByClass.Accessory == nil, "拆解清單含原版車門；千斤頂、蘋果不是車輛零件")
+check(#D.partsByClass.Trunk == 1 and D.partsByClass.Trunk[1] == "Base.ModRoofrack9" and D.partsByClass.Battery == nil,
+    "沒寫 VehicleType 的：名稱認得出類別才收（車頂架）；機具零件、高壓電池、警示燈、沒寫 ConditionMax 的不收")
 check(#recipeLoads == 1 and recipeLoads[1]:find("Base.FrontCarDoor1;Base.ModDoor2", 1, true) ~= nil, "車門拆解配方加上零件那一列")
 D.registerParts()
 check(#recipeLoads == 1 and doorWeld:getRequiredItem():size() == 2, "再跑一次不會重複加")
@@ -780,7 +800,39 @@ parts2.Heater.cond = 20
 local sparky = mechanic({ Mechanics = 4 }, { fakeItem("Base.Screwdriver", { tag = "screwdriver" }), fakeItem("Base.ElectronicsScrap"),
     fakeItem("Base.ElectronicsScrap"), fakeItem("Base.ElectricWire") })
 check(engineJob(sparky, parts2.Heater, "heater") == true and parts2.Heater.cond == 65, "修暖氣：20 -> 65（25 + 5 × 機械 4）")
+check(logLines[#logLines] == "HEATER player=tester vehicle=Base.CarNormal id=48213 value=20>65 part=Heater", "log：" .. tostring(logLines[#logLines]))
 check(engineJob(sparky, parts2.Heater, "heater") == false, "材料用完：拒絕")
+
+print("情境八之二：沒有物品的零件")
+check(D.partJob(parts2.Engine) == "rebuild" and D.partJob(parts2.Heater) == "heater" and D.partJob(parts2.RoofLight) == "heater"
+    and D.partJob(parts2.Frunk) == "bin", "引擎是翻新；沒有物品的零件照是不是容器分兩組")
+local _, noTireParts = garage({ noTire = true })
+check(D.partJob(parts2.lightbar) == nil and D.partJob(parts2.CabinGlass) == nil and D.partJob(parts2.DoorFrontLeft) == nil
+    and D.partJob(noTireParts.TireFrontRight) == nil, "警示燈、看不到的零件、有物品的零件、物品被卸掉的零件都不算")
+local function binKit(screws)
+    local list = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }), fakeItem("Base.SmallSheetMetal") }
+    for _ = 1, screws do list[#list + 1] = fakeItem("Base.Screws") end
+    return list
+end
+parts2.Frunk.cond = 20
+local tinker, tinkerInv = mechanic({ Mechanics = 4 }, binKit(5))
+check(engineJob(tinker, parts2.Frunk, "bin") == true and parts2.Frunk.cond == 65 and tinkerInv:getCountTypeRecurse("Base.Screws") == 1
+    and tinkerInv:getCountTypeRecurse("Base.SmallSheetMetal") == 0, "置物槽：用 1 片小金屬片、4 顆螺絲，20 -> 65")
+check(logLines[#logLines] == "BIN player=tester vehicle=Base.CarNormal id=48213 value=20>65 part=Frunk", "log：" .. tostring(logLines[#logLines]))
+check(engineJob(mechanic({ Mechanics = 4 }, binKit(3)), parts2.Frunk, "bin") == false and parts2.Frunk.cond == 65, "螺絲只有 3 顆：拒絕")
+check(engineJob(mechanic({ Mechanics = 3 }, binKit(4)), parts2.Frunk, "bin") == false, "機械低於這台車的引擎修理等級：拒絕")
+parts2.Heater.cond = 20
+local kit = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }), fakeItem("Base.ElectronicsScrap"), fakeItem("Base.ElectronicsScrap"),
+    fakeItem("Base.ElectricWire"), fakeItem("Base.SmallSheetMetal"), fakeItem("Base.Screws"), fakeItem("Base.Screws"),
+    fakeItem("Base.Screws"), fakeItem("Base.Screws") }
+local both = mechanic({ Mechanics = 4 }, kit)
+check(engineJob(both, parts2.Frunk, "heater") == false and engineJob(both, parts2.Heater, "bin") == false
+    and engineJob(both, parts2.Frunk, "rebuild") == false and engineJob(both, parts2.lightbar, "heater") == false
+    and engineJob(both, parts2.DoorFrontLeft, "bin") == false and parts2.Frunk.cond == 65 and parts2.Heater.cond == 20 and #kit == 9,
+    "工作和零件對不上（客戶端送錯的組別、警示燈、有物品的零件）：拒絕，不扣材料")
+check(ISRepairEngine:new(both, parts2.Frunk, nil, 0, { job = "bin" }).jobType == "ContextMenu_Repair"
+    and ISRepairEngine:new(both, parts2.Engine, nil, 0, { job = "rebuild" }).jobType == "ContextMenu_MinidoracatAnyCar_rebuild",
+    "進度條的字：沒有物品的零件用原版的「修理」，翻新引擎用自己的")
 before = vanillaEngineCompletes
 check(ISRepairEngine:new(ace, parts2.Engine, nil, 300):complete() == true and vanillaEngineCompletes == before + 1, "原版修引擎（四個參數）照原版")
 check(ISRepairEngine:new(ace, parts2.Engine, nil, 300, 7).anycar == nil, "第五個參數不是表：當成原版")
@@ -946,6 +998,35 @@ local todo, skipped = D.planRepairAll(tapes(3, 3), windowCar(), {})
 check(#todo == 2 and #skipped == 0, "膠帶共 6 次：兩扇窗都排進去（不是只數到夠第一個就停）")
 todo, skipped = D.planRepairAll(tapes(3, 2), windowCar(), {})
 check(#todo == 1 and #skipped == 1 and skipped[1].reason == "Base.DuctTape 2/3", "膠帶共 5 次：第二扇略過，原因寫剩 2/3（" .. tostring(skipped[1] and skipped[1].reason) .. "）")
+
+print("情境十二之二：修理全部零件也排沒有物品的零件")
+local function bareCar()
+    local v, parts = garage({ cond = 40 })
+    local order = { parts.Engine, parts.Heater, parts.RoofLight, parts.Frunk, parts.lightbar, parts.CabinGlass }
+    function v:getPartCount() return #order end
+    function v:getPartByIndex(i) return order[i + 1] end
+    return v
+end
+local function bareKit(scrap, screws)
+    local list = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }), fakeItem("Base.ElectricWire"), fakeItem("Base.ElectricWire"),
+        fakeItem("Base.SmallSheetMetal") }
+    for _ = 1, scrap do list[#list + 1] = fakeItem("Base.ElectronicsScrap") end
+    for _ = 1, screws do list[#list + 1] = fakeItem("Base.Screws") end
+    return (mechanic({ Mechanics = 4 }, list))
+end
+todo, skipped = D.planRepairAll(bareKit(4, 4), bareCar(), {})
+check(#todo == 3 and #skipped == 0 and todo[1].job == "heater" and todo[2].job == "heater" and todo[3].job == "bin"
+    and todo[3].label == "ContextMenu_Repair", "材料都夠：加熱器、車頂燈、置物槽都排進去；引擎、警示燈、看不到的零件不排")
+todo, skipped = D.planRepairAll(bareKit(3, 3), bareCar(), {})
+check(#todo == 1 and #skipped == 2 and skipped[1].reason == "Base.ElectronicsScrap 1/2" and skipped[2].reason == "Base.Screws 3/4",
+    "電子零件 3 個只夠一個、螺絲 3 顆：其餘略過並寫剩多少（" .. tostring(skipped[1] and skipped[1].reason) .. "、"
+    .. tostring(skipped[2] and skipped[2].reason) .. "）")
+todo, skipped = D.planRepairAll(mechanic({ Mechanics = 4 }, {}), bareCar(), { Heater = true })
+check(#todo == 0 and #skipped == 2 and skipped[1].reason == "Base.Screwdriver 0/1", "這一輪修過的不再排；沒有工具：略過並寫工具")
+SB.Repair = false
+todo, skipped = D.planRepairAll(bareKit(4, 4), bareCar(), {})
+check(#todo == 0 and #skipped == 0, "沙盒關掉零件修理：沒有物品的零件不排")
+SB.Repair = nil
 
 print("情境十三：配鑰匙、拆除短接（包原版熱線動作）")
 local hotwireTries = 0

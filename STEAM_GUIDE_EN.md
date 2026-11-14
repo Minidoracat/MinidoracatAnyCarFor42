@@ -90,7 +90,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [list]
 [*] [b]Where[/b]: in Vehicle Mechanics, right-click any part and choose "Repair All Parts".
 [*] [b]Check the list first[/b]: the tooltip lists the parts it will repair and the method for each (green), then the parts it skips and why (red), such as a missing material or a tire that must come off first. Each list shows up to 12 parts; the rest are counted.
-[*] [b]Which parts[/b]: installed parts that are not at full condition and have a repair method, vanilla methods included.
+[*] [b]Which parts[/b]: installed parts that are not at full condition and have a repair method, vanilla methods included. Parts with no part item, such as the heater, are repaired too (see the next section).
 [*] [b]Which method[/b]: for each part, the method that repairs the most with the materials and skills you have right now.
 [*] [b]One at a time[/b]: it repairs one part, then picks the next, counting the materials already used. Parts you no longer have materials for are skipped.
 [*] [b]Once per part[/b]: each part is repaired once. If some are still not full, choose "Repair All Parts" again.
@@ -106,10 +106,13 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Effect[/b]: +10 engine quality each time, up to 100. Engine power is recalculated from quality the vanilla way.
 [*] [b]Tooltip[/b]: shows "have/need" for the tool, materials and skill, and the quality before and after.
 [/list]
-[h3]Repair Heater[/h3]
+[h3]Repair the Heater and Other Parts With No Part Item[/h3]
 [list]
-[*] [b]Where[/b]: in Vehicle Mechanics, right-click the heater and choose "Repair Heater".
-[*] [b]Needs[/b]: a screwdriver (not used up), Scrap Electronics 2, Electrical Wire 1 and Mechanics 3. If this vehicle's vanilla engine repair level is higher than 3, that level is used.
+[*] [b]Which parts[/b]: parts you can see in Vehicle Mechanics that are not installed as a part item: the vanilla heater, and similar parts added by vehicle mods (for example an electric car's front trunk). The engine and the lightbar keep their vanilla repairs.
+[*] [b]Where[/b]: in Vehicle Mechanics, right-click the part and choose "Repair".
+[*] [b]Heater-type parts[/b]: a screwdriver (not used up), Scrap Electronics 2, Electrical Wire 1 and Mechanics 3.
+[*] [b]Storage parts[/b]: a screwdriver (not used up), Steel Sheet - Small 1, Screws 4 and Mechanics 2.
+[*] [b]Mechanics level[/b]: if this vehicle's vanilla engine repair level is higher than the level above, that level is used.
 [*] [b]Effect[/b]: restores 25 + 5 × your Mechanics level condition each time, up to 100.
 [*] [b]Note[/b]: the vanilla heater works the same at any condition. This option only restores the condition shown in Vehicle Mechanics; how warm the heater gets stays vanilla.
 [/list]
@@ -209,7 +212,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [/list]
 === 🌐 Multiplayer Servers
 [list]
-[*] [b]Server re-check[/b]: the server re-checks every dismantle, part repair, engine rebuild, heater repair, part salvage, key making, hotwire removal and key copy before applying the result.
+[*] [b]Server re-check[/b]: the server re-checks every dismantle, part repair (parts with no part item included), engine rebuild, part salvage, key making, hotwire removal and key copy before applying the result.
 [*] [b]If a check fails[/b]: a vehicle being dismantled stays and no materials drop; a part being repaired or rebuilt stays the same and no materials are used; no key is made and no material is used; a hotwire being removed stays.
 [*] [b]Vanilla actions[/b]: this mod reuses the vanilla dismantle, repair and hotwire actions and adds no network commands. Vehicle protection mods that guard those vanilla actions work without changes.
 [*] [b]Vehicle protection mods[/b]: with Minidoracat Vehicle Manager, a claimed vehicle can only be dismantled by its owner or an admin. Only the owner (someone with permission to manage it) can make a key for it, and removing the hotwire needs permission to drive it.
@@ -217,7 +220,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [list]
 [*] Dismantle: account, vehicle type, vehicle id, coordinates, number of parts and number of items inside.
 [*] Repairing an installed part with this mod's methods: account, vehicle type, vehicle id, part, method, and condition before and after.
-[*] Engine rebuild and heater repair: account, vehicle type, vehicle id, and the value before and after.
+[*] Engine rebuild and repairs of parts with no part item: account, vehicle type, vehicle id, and the value before and after; the latter also logs the part name.
 [*] Make a Key and Remove Hotwire: account, vehicle type, vehicle id and key id.
 [*] Copy Vehicle Key: account and key id.
 [/list]
@@ -229,7 +232,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [tr][td]Dismantle Loot Multiplier[/td][td]1.0[/td][td]Multiplies the materials you get from dismantling a vehicle or a wreck, from 0 to 10. 1.0 is vanilla.[/td][/tr]
 [tr][td]Dismantle: Welding Level Required[/td][td]0[/td][td]Welding level needed to dismantle an intact vehicle, from 0 to 10. 0 means no requirement. Wrecks stay vanilla.[/td][/tr]
 [tr][td]Dismantle: Time Multiplier[/td][td]1.0[/td][td]Multiplies the time to dismantle an intact vehicle, from 0.1 to 10. 1.0 is the same as a wreck.[/td][/tr]
-[tr][td]Part Repair[/td][td]On[/td][td]The repair methods from this mod, Repair All Parts and Repair Heater. Off leaves only vanilla repairs.[/td][/tr]
+[tr][td]Part Repair[/td][td]On[/td][td]The repair methods from this mod, Repair All Parts, and the repair of parts with no part item such as the heater. Off leaves only vanilla repairs.[/td][/tr]
 [tr][td]Part Repair: Time Multiplier[/td][td]1.0[/td][td]Multiplies the time of this mod's repair methods, from 0.1 to 10.[/td][/tr]
 [tr][td]Part Repair: XP Multiplier[/td][td]1.0[/td][td]Multiplies the XP from a successful repair with this mod's methods, from 1 to 10. 1.0 is vanilla.[/td][/tr]
 [tr][td]Part Salvage[/td][td]On[/td][td]Lets you break removed parts down into materials.[/td][/tr]
@@ -247,7 +250,8 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [*] [b]Only the item count is compared[/b]: if someone takes one item out and puts another in after you confirm, or fills a bag that was already inside, the count does not go up, the dismantle does not stop, and those items are destroyed with the vehicle.
 [*] [b]Material bags left behind[/b]: a bag that still has materials in it stays where it is. Minidoracat Cleaner does not remove bags that have items in them. Take all the materials out.
 [*] [b]Part types come from names[/b]: parts from vehicle mods are sorted by name. Parts whose name gives no hint go to "Other accessories", so their repair methods may not fit the real part well.
-[*] [b]Repair Heater[/b]: only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition.
+[*] [b]Parts with no part item[/b]: the repair only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition; whether a vehicle mod's part uses its condition is up to that mod.
+[*] [b]Parts with no vehicle type[/b]: some vehicle mods do not give their parts a vehicle type. Parts whose name shows what they are (trunks, roof racks, bullbars, armor, seats and so on) get repair methods. Parts whose name gives no hint, and electric car traction batteries, do not.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod. Without one, anyone who can hotwire a vehicle can also make a key for it and remove the hotwire.
 [*] [b]Other dismantling mods[/b]: do not enable other mods that change the dismantle action at the same time. The menu shows duplicates and the mods override each other.
 [*] [b]Crafting right after leaving a vehicle[/b]: if you craft from the crafting window or an inventory right-click right after getting out, before opening your inventory, vanilla finishes the action without making anything or using materials (vanilla recipes too). Open your inventory once, or walk a few steps away from the vehicle, first. Just waiting does not fix it.
@@ -275,7 +279,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [/list]
 [h3]I repaired the heater but the car is still cold?[/h3]
 [list]
-[*] The vanilla heater works the same at any condition. "Repair Heater" only restores the condition shown. Use the heater the vanilla way.
+[*] The vanilla heater works the same at any condition. "Repair" only restores the condition shown. Use the heater the vanilla way.
 [/list]
 [h3]There is no salvage option when I right-click a part in my inventory?[/h3]
 [list]

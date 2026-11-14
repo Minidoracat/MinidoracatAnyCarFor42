@@ -12,19 +12,41 @@ D.REPAIR_DIST = 12 -- 修理時玩家到車中心的格數上限；聯結車的�
 D.FIX_TIME = 150 -- 本 MOD 修法的動作時間（tick），再乘沙盒 RepairTimeMult；原版修法維持 60
 D.XP_BONUS = 4 -- 原版每項技能給 3–5 點（FixingManager.addXp）；RepairXPMult 多出來的部分照平均值補
 
--- 翻新引擎、修理暖氣的條件與效果。materials 是函式：數量可以來自沙盒
+-- 翻新引擎、修理沒有物品的零件的條件與效果。materials 是函式：數量可以來自沙盒
 D.ENGINE = {
     rebuild = {
-        part = "Engine", tool = "WRENCH", toolItem = "Base.Wrench", mechanics = 5, time = 600, xp = 10,
+        tool = "WRENCH", toolItem = "Base.Wrench", mechanics = 5, time = 600, xp = 10,
         step = 10, -- 每次加幾點品質，最高 100
         materials = function() return { { "Base.EngineParts", D.sandbox("EngineRebuildParts", 10) } } end,
     },
+    -- 沒有物品、不是容器的零件：加熱器
     heater = {
-        part = "Heater", tool = "SCREWDRIVER", toolItem = "Base.Screwdriver", mechanics = 3, time = 300, xp = 5,
+        tool = "SCREWDRIVER", toolItem = "Base.Screwdriver", mechanics = 3, time = 300, xp = 5,
         gain = 25, perLevel = 5, -- 每次修回 gain + perLevel × 機械等級
         materials = function() return { { "Base.ElectronicsScrap", 2 }, { "Base.ElectricWire", 1 } } end,
     },
+    -- 沒有物品的容器：車輛 MOD 自己加的置物槽
+    bin = {
+        tool = "SCREWDRIVER", toolItem = "Base.Screwdriver", mechanics = 2, time = 300, xp = 5,
+        gain = 25, perLevel = 5,
+        materials = function() return { { "Base.SmallSheetMetal", 1 }, { "Base.Screws", 4 } } end,
+    },
 }
+
+-- 這個零件用 D.ENGINE 的哪一組：引擎是翻新；沒有物品的零件照是不是容器分兩組；其他回 nil。
+-- 警示燈原版有自己的修理，機械介面不列的零件（nodisplay）玩家點不到
+function D.partJob(part)
+    local id = part:getId()
+    if id == "Engine" then return "rebuild" end
+    local types = part:getItemType()
+    if types and not types:isEmpty() or id == "lightbar" or part:getCategory() == "nodisplay" then return nil end
+    return part:isContainer() and "bin" or "heater"
+end
+
+-- 選單與進度條上的名稱：翻新引擎用自己的字，其他用原版的「修理」
+function D.jobName(job)
+    return getText(job == "rebuild" and "ContextMenu_MinidoracatAnyCar_rebuild" or "ContextMenu_Repair")
+end
 
 local function notBroken(item)
     return not item:isBroken()
@@ -215,14 +237,14 @@ function ISFixAction:complete()
     return ok
 end
 
--- ===== 翻新引擎、修理暖氣 =====
+-- ===== 翻新引擎、修理沒有物品的零件 =====
 
 -- 回傳：不能做的原因（可以做是 nil）、條件清單（給選單顯示；伺服器照它扣材料）。三個參數都要傳
 -- 清單每列 { item = 物品全名 | perk = 技能, have = 現有, need = 需要 }
 function D.engineNeeds(character, part, job)
     local spec = D.ENGINE[job]
     local vehicle = part and part:getVehicle()
-    if not spec or not vehicle or vehicle:isRemovedFromWorld() or part:getId() ~= spec.part then return "gone", {} end
+    if not spec or not vehicle or vehicle:isRemovedFromWorld() or D.partJob(part) ~= job then return "gone", {} end
     local inventory = character:getInventory()
     local rows, why = {}, nil
     local function row(entry)
@@ -274,19 +296,20 @@ function D.engineWork(character, part, job)
     end
     addXp(character, Perks.Mechanics, spec.xp)
     character:sendObjectChange(IsoObjectChange.MECHANIC_ACTION_DONE, { success = true })
-    writeLog("MinidoracatAnyCar", string.format("%s player=%s vehicle=%s id=%d value=%d>%d", string.upper(job),
-        D.who(character), tostring(vehicle:getScriptName()), vehicle:getSqlId(), before, after))
+    writeLog("MinidoracatAnyCar", string.format("%s player=%s vehicle=%s id=%d value=%d>%d%s", string.upper(job),
+        D.who(character), tostring(vehicle:getScriptName()), vehicle:getSqlId(), before, after,
+        job == "rebuild" and "" or " part=" .. tostring(part:getId())))
     return true
 end
 
--- 參數名要和動作表的欄位同名（多人照參數名送值）。anycar 是 { job = "rebuild" | "heater" }；
+-- 參數名要和動作表的欄位同名（多人照參數名送值）。anycar 是 { job = "rebuild" | "heater" | "bin" }；
 -- 原版與別的 MOD 只傳四個參數，這時不是表，照原版修引擎
 local vanillaEngineNew = ISRepairEngine.new
 function ISRepairEngine:new(character, part, item, maxTimeInit, anycar)
     local o = vanillaEngineNew(self, character, part, item, maxTimeInit)
     if type(anycar) == "table" and D.ENGINE[anycar.job] then
         o.anycar = anycar
-        o.jobType = getText("ContextMenu_MinidoracatAnyCar_" .. anycar.job)
+        o.jobType = D.jobName(anycar.job)
         o.maxTime = o:getDuration()
     end
     return o

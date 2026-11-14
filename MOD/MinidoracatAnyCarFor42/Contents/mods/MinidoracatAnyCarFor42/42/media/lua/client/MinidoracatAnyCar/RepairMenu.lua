@@ -1,4 +1,4 @@
--- 機械介面的零件右鍵選單：修理、修理全部零件、翻新引擎、修理暖氣。
+-- 機械介面的零件右鍵選單：修理、修理全部零件、翻新引擎、修理沒有物品的零件。
 -- 原版只對少數零件顯示「修理」（ISVehicleMechanics.lua:224），選項也只寫材料；這裡自己畫一份，寫修法名稱與缺的條件。
 require "Vehicles/ISUI/ISVehicleMechanics"
 require "ISUI/ISInventoryPaneContextMenu"
@@ -18,8 +18,15 @@ local function predicateWeldingMask(item)
     return item:hasTag(ItemTag.WELDING_MASK) or item:getType() == "WeldingMask"
 end
 
+-- 沒有翻譯的零件：有物品用物品名稱，沒有物品用零件 id
 local function partName(part)
-    return getTextOrNull("IGUI_VehiclePart" .. part:getId()) or part:getInventoryItem():getDisplayName()
+    local item = part:getInventoryItem()
+    return getTextOrNull("IGUI_VehiclePart" .. part:getId()) or item and item:getDisplayName() or part:getId()
+end
+
+-- D.engineNeeds 一列條件的名稱
+local function rowName(row)
+    return row.item and getItemName(row.item) or PerkFactory.getPerk(row.perk):getName()
 end
 
 local function newTooltip(option, name, description)
@@ -155,13 +162,32 @@ local function addRepair(context, playerObj, part)
     end
 end
 
--- 修理全部零件：每個零件挑現在材料與技能都夠、修最多的修法。
--- 回傳 todo（每列 { part, fixingNum, fixerNum, label }）與 skipped（每列 { part, reason }）。tried：這一輪修過的零件 id
+-- 修理全部零件：每個零件挑現在材料與技能都夠、修最多的修法；沒有物品的零件用 D.partJob 的那一組。
+-- 回傳 todo（每列 { part, label }，加上 fixingNum、fixerNum 或 job）與 skipped（每列 { part, reason }）。tried：這一輪修過的零件 id
 function D.planRepairAll(playerObj, vehicle, tried)
     local todo, skipped, reserved = {}, {}, {}
     for index = 0, vehicle:getPartCount() - 1 do
         local part = vehicle:getPartByIndex(index)
         local item = part:getInventoryItem()
+        local job = not item and D.partJob(part)
+        if job and job ~= "rebuild" and not tried[part:getId()] then
+            local why, rows = D.engineNeeds(playerObj, part, job)
+            if why ~= "gone" and why ~= "disabled" and why ~= "full" then
+                local short
+                for _, row in ipairs(rows) do
+                    local have = math.max(0, row.have - (row.item and not row.keep and reserved[row.item] or 0))
+                    if have < row.need and not short then short = { name = rowName(row), have = have, need = row.need } end
+                end
+                if short then
+                    table.insert(skipped, { part = part, reason = short.name .. " " .. short.have .. "/" .. short.need })
+                else
+                    for _, row in ipairs(rows) do
+                        if row.item and not row.keep then reserved[row.item] = (reserved[row.item] or 0) + row.need end
+                    end
+                    table.insert(todo, { part = part, job = job, label = D.jobName(job) })
+                end
+            end
+        end
         local fixes = item and item:getCondition() < item:getConditionMax() and FixingManager.getFixes(item)
         if fixes and not fixes:isEmpty() and not tried[part:getId()] then
             local cover = D.coveredBy(part)
@@ -206,10 +232,16 @@ function D.onRepairAll(playerObj, vehicle, tried)
     tried[entry.part:getId()] = true
     local part = entry.part
     local item = part:getInventoryItem()
-    local before = item:getCondition()
-    local action = queueFix(playerObj, part, entry.fixingNum, entry.fixerNum)
+    local before = item and item:getCondition() or part:getCondition()
+    local action
+    if entry.job then
+        action = D.onEngineJob(playerObj, part, entry.job)
+    else
+        action = queueFix(playerObj, part, entry.fixingNum, entry.fixerNum)
+    end
     if not action then return D.onRepairAll(playerObj, vehicle, tried) end
     D.afterAction(playerObj, action, function()
+        if not item then return part:getCondition() ~= before end
         return part:getInventoryItem() ~= item or item:getCondition() ~= before
     end, function() D.onRepairAll(playerObj, vehicle, tried) end)
 end
@@ -234,7 +266,8 @@ local function addRepairAll(context, playerObj, vehicle)
     if #todo == 0 then option.notAvailable = true end
 end
 
--- 排翻新引擎或修理暖氣；走位與開引擎蓋照 ISVehicleMechanics.onRepairEngine（ISVehicleMechanics.lua:418-447）
+-- 排翻新引擎或修理沒有物品的零件，回傳排進去的動作（沒有工具回 nil）；
+-- 走位與開引擎蓋照 ISVehicleMechanics.onRepairEngine（ISVehicleMechanics.lua:418-447）
 function D.onEngineJob(playerObj, part, job)
     local spec, vehicle = D.ENGINE[job], part:getVehicle()
     local tool = playerObj:getInventory():getFirstTagEvalRecurse(ItemTag[spec.tool], notBroken)
@@ -250,20 +283,21 @@ function D.onEngineJob(playerObj, part, job)
         end
         ISTimedActionQueue.add(ISOpenVehicleDoor:new(playerObj, vehicle, cover))
     end
-    ISTimedActionQueue.add(ISRepairEngine:new(playerObj, part, tool, spec.time, { job = job }))
+    local action = ISRepairEngine:new(playerObj, part, tool, spec.time, { job = job })
+    ISTimedActionQueue.add(action)
     if cover then ISTimedActionQueue.add(ISCloseVehicleDoor:new(playerObj, vehicle, cover)) end
+    return action
 end
 
 local function addEngineJob(context, playerObj, part, job)
     local why, rows = D.engineNeeds(playerObj, part, job)
     -- 關掉、已經滿了、引擎狀況還沒修滿（先用原版的修理引擎）時不列
     if why == "gone" or why == "disabled" or why == "full" or why == "condition" then return end
-    local name = getText("ContextMenu_MinidoracatAnyCar_" .. job)
+    local name = D.jobName(job)
     local option = context:addOption(name, playerObj, D.onEngineJob, part, job)
     local description = ""
     for _, row in ipairs(rows) do
-        local label = row.item and getItemName(row.item) or PerkFactory.getPerk(row.perk):getName()
-        description = description .. needLine(label, row.have, row.need)
+        description = description .. needLine(rowName(row), row.have, row.need)
     end
     local spec, vehicle = D.ENGINE[job], part:getVehicle()
     if job == "rebuild" then
@@ -295,8 +329,8 @@ function ISVehicleMechanics:doPartContextMenu(part, x, y)
     if not context then return end
     local playerObj = getSpecificPlayer(self.playerNum)
     addRepair(context, playerObj, part)
-    if part:getId() == "Engine" then addEngineJob(context, playerObj, part, "rebuild") end
-    if part:getId() == "Heater" then addEngineJob(context, playerObj, part, "heater") end
+    local job = D.partJob(part)
+    if job then addEngineJob(context, playerObj, part, job) end
     addRepairAll(context, playerObj, part:getVehicle())
     -- 關掉零件修理時，修法全是本 MOD 的零件不留原版那個空的「修理」
     local item = part:getInventoryItem()

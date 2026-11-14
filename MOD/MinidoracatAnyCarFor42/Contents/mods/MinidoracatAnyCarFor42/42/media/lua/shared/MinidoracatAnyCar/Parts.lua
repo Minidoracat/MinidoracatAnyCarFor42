@@ -102,12 +102,15 @@ function D.registerParts()
     local items = scripts:getAllItems()
     for i = 0, items:size() - 1 do
         local script = items:get(i)
-        -- 車輛零件：物品腳本有 VehicleType（工具、油桶、燈泡、收音機都沒有）
+        -- 車輛零件：物品腳本有 VehicleType 的都算（工具、油桶、燈泡、收音機都沒有）。
+        -- 車輛 MOD 沒寫 VehicleType 的零件：有寫 ConditionMax（沒寫時引擎給 10）而且名稱認得出類別才算。
+        -- 認不出類別的多半不是車的零件（別的 MOD 的機具、警示燈）；電池不收（電動車 MOD 的高壓電池）
         if script:isMechanicsLoot() and script:getConditionMax() > 0 then
             local full = script:getFullName()
+            local class = D.classify(script:getName())
             local item = instanceItem(full)
-            if item and item:getMechanicType() > 0 then
-                local class = D.classify(script:getName())
+            if item and (item:getMechanicType() > 0
+                or script:getConditionMax() > 10 and class ~= "Accessory" and class ~= "Battery") then
                 D.partsByClass[class] = D.partsByClass[class] or {}
                 table.insert(D.partsByClass[class], full)
                 if not taken[full] then
