@@ -117,7 +117,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Note[/b]: the vanilla heater works the same at any condition. This option only restores the condition shown in Vehicle Mechanics; how warm the heater gets stays vanilla.
 [/list]
 [list]
-[*] [b]Both[/b]: your character walks to the part, opens the hood first and closes it afterwards. A locked hood is unlocked first.
+[*] [b]Both[/b]: your character walks to the part. For a part in the engine bay it opens the hood first and closes it afterwards; a locked hood is unlocked first.
 [/list]
 === 🧰 Part Salvage
 {{img:07-salvage-en.jpg}}

@@ -177,7 +177,8 @@ function D.planRepairAll(playerObj, vehicle, tried)
         local job = not item and D.partJob(part)
         if job and job ~= "rebuild" and not tried[part:getId()] then
             local why, rows = D.engineNeeds(playerObj, part, job)
-            if why ~= "gone" and why ~= "disabled" and why ~= "full" then
+            -- 離車太遠時這一輪不排（選單上也不能選）：這時問不出動作有沒有被別的 MOD 擋下
+            if why ~= "gone" and why ~= "disabled" and why ~= "full" and why ~= "far" then
                 local short
                 for _, row in ipairs(rows) do
                     local have = math.max(0, row.have - (row.item and not row.keep and reserved[row.item] or 0))

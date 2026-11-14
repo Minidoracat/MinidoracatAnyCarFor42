@@ -1045,11 +1045,11 @@ local function mixedCar(first, second)
     function v:getPartByIndex(i) return order[i + 1] end
     return v
 end
-local function screwKit()
+local function screwKit(x)
     local list = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }) }
     for _ = 1, 3 do list[#list + 1] = fakeItem("Base.SmallSheetMetal") end
     for _ = 1, 8 do list[#list + 1] = fakeItem("Base.Screws") end
-    return (mechanic({ Mechanics = 4 }, list))
+    return (mechanic({ Mechanics = 4 }, list, nil, x))
 end
 todo, skipped = D.planRepairAll(screwKit(), mixedCar("Roofrack", "Frunk"), {})
 check(#todo == 1 and todo[1].part:getId() == "Roofrack" and #skipped == 1 and skipped[1].reason == "Base.Screws 2/4",
@@ -1065,6 +1065,8 @@ todo, skipped = D.planRepairAll(screwKit(), mixedCar("Frunk", "Roofrack"), {})
 check(#todo == 1 and todo[1].part:getId() == "Roofrack" and #skipped == 1 and skipped[1].part:getId() == "Frunk"
     and skipped[1].reason == "Tooltip_MinidoracatAnyCar_Blocked", "置物槽略過並寫原因、不佔材料，後面的車頂架照樣排")
 ISRepairEngine.isValid = openValid
+todo, skipped = D.planRepairAll(screwKit(120), mixedCar("Frunk", "Roofrack"), {})
+check(#todo == 1 and todo[1].part:getId() == "Roofrack" and #skipped == 0, "離車太遠：沒有物品的零件這一輪不排、不佔材料")
 
 print("情境十二之三：修理全部零件一次排一個沒有物品的零件，結果出現才排下一個")
 ISTimedActionQueue.add = function(action) q.queue[#q.queue + 1] = action end
