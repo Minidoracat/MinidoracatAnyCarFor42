@@ -24,7 +24,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Get the tools[/b]: a welding mask and a full propane torch (10 uses left).
 [*] [b]Right-click[/b]: right-click a vehicle and choose "Dismantle Vehicle".
 [*] [b]Confirm[/b]: if items are still inside, you are asked first.
-[*] [b]Done[/b]: the vehicle is gone for good and the materials drop where it stood.
+[*] [b]Done[/b]: the vehicle is gone for good and the materials are in one garbage bag where it stood.
 [/olist]
 === 🧰 Part Repair
 {{img:03-repair-en.jpg}}
@@ -152,6 +152,8 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Cost[/b]: each vehicle uses 10 torch uses, a whole torch.
 [*] [b]Time[/b]: the same as dismantling a wreck in vanilla. Higher Welding is faster. A sandbox option changes the time for intact vehicles.
 [*] [b]Materials[/b]: the same metal materials and Welding XP as a vanilla wreck. Higher Welding gives more.
+[*] [b]Where they go[/b]: all materials are in one garbage bag where the vehicle stood. The bag name ends with the account name of the player who dismantled the vehicle. With many materials the bag is too heavy to pick up. Stand next to it, open your inventory, click the bag icon and take the materials out.
+[*] [b]With Minidoracat Cleaner[/b]: if the server runs it with "Track who dropped and handled items" on, the bag and every material in it record that player. Hover over an item to see it. The mod also works without it.
 [/list]
 [h3]Remove Parts, Then Dismantle[/h3]
 {{img:06-strip-en.jpg}}
@@ -242,6 +244,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [*] [b]Stay close[/b]: you can move while dismantling, but the action stops if you go more than about 6 tiles away. For repairs the limit is about 12 tiles.
 [*] [b]Passengers and animals[/b]: a vehicle with someone inside, or a trailer with animals, cannot be dismantled. Get them out first.
 [*] [b]Only the item count is compared[/b]: if someone takes one item out and puts another in after you confirm, or fills a bag that was already inside, the count does not go up, the dismantle does not stop, and those items are destroyed with the vehicle.
+[*] [b]Material bags left behind[/b]: a bag that still has materials in it stays where it is. Minidoracat Cleaner does not remove bags that have items in them. Take all the materials out.
 [*] [b]Part types come from names[/b]: parts from vehicle mods are sorted by name. Parts whose name gives no hint go to "Other accessories", so their repair methods may not fit the real part well.
 [*] [b]Repair Heater[/b]: only restores the condition shown in Vehicle Mechanics. The vanilla heater works the same at any condition.
 [*] [b]No vehicle protection[/b]: this mod does not care who owns a vehicle. To protect your vehicles, use a vehicle protection mod. Without one, anyone who can hotwire a vehicle can also make a key for it and remove the hotwire.
