@@ -1,5 +1,5 @@
 -- 零件修理：沿用原版的修理動作（ISFixVehiclePartAction、ISFixAction），修法在 scripts/MinidoracatAnyCar_fixing.txt。
--- 翻新引擎與修理暖氣沿用原版修引擎的動作（ISRepairEngine），多帶一個表參數。
+-- 翻新引擎與修理沒有物品的零件沿用原版修引擎的動作（ISRepairEngine），多帶一個表參數。
 -- 放在 shared：多人時 complete 在伺服器執行，條件由伺服器重新檢查。
 require "TimedActions/ISFixVehiclePartAction"
 require "TimedActions/ISFixAction"

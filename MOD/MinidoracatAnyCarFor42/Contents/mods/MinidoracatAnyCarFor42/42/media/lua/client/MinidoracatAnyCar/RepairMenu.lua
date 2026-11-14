@@ -163,6 +163,11 @@ local function addRepair(context, playerObj, part)
 end
 
 -- 修理全部零件：每個零件挑現在材料與技能都夠、修最多的修法；沒有物品的零件用 D.partJob 的那一組。
+-- 條件都夠、動作卻不成立：別的 MOD 包住這個原版動作，不讓它用在這台車上。這時選項不能選、「修理全部零件」不排
+local function blocked(playerObj, part, job)
+    return not ISRepairEngine:new(playerObj, part, nil, 0, { job = job }):isValid()
+end
+
 -- 回傳 todo（每列 { part, label }，加上 fixingNum、fixerNum 或 job）與 skipped（每列 { part, reason }）。tried：這一輪修過的零件 id
 function D.planRepairAll(playerObj, vehicle, tried)
     local todo, skipped, reserved = {}, {}, {}
@@ -180,7 +185,7 @@ function D.planRepairAll(playerObj, vehicle, tried)
                 end
                 if short then
                     table.insert(skipped, { part = part, reason = short.name .. " " .. short.have .. "/" .. short.need })
-                else
+                elseif why or not blocked(playerObj, part, job) then
                     for _, row in ipairs(rows) do
                         if row.item and not row.keep then reserved[row.item] = (reserved[row.item] or 0) + row.need end
                     end
@@ -275,7 +280,7 @@ function D.onEngineJob(playerObj, part, job)
     if playerObj:getVehicle() then ISVehicleMenu.onExit(playerObj) end
     ISVehiclePartMenu.toPlayerInventory(playerObj, tool)
     walkTo(playerObj, part)
-    local cover = vehicle:getPartById("EngineDoor")
+    local cover = part:getArea() == "Engine" and vehicle:getPartById("EngineDoor")
     if cover and not (cover:getDoor() and cover:getInventoryItem() and not cover:getDoor():isOpen()) then cover = nil end
     if cover then
         if cover:getDoor():isLocked() and VehicleUtils.RequiredKeyNotFound(cover, playerObj) then
@@ -310,7 +315,7 @@ local function addEngineJob(context, playerObj, part, job)
             math.min(100, condition + spec.gain + spec.perLevel * playerObj:getPerkLevel(Perks.Mechanics)))
     end
     newTooltip(option, name, description)
-    if why then option.notAvailable = true end
+    if why or blocked(playerObj, part, job) then option.notAvailable = true end
 end
 
 local function allOurs(fixes)

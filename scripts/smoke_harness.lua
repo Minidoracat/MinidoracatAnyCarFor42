@@ -526,6 +526,7 @@ local function garage(opts)
         function p:getVehicle() return v end
         function p:getInventoryItem() return item end
         function p:getTable(name) return tables and tables[name] end
+        function p:getArea() return id == "RoofLight" and "SeatFrontLeft" or "Engine" end
         function p:isContainer() return container == true end
         function p:getItemContainer() return nil end
         function p:getCondition() return self.cond end
@@ -604,6 +605,8 @@ local scriptItems = {
     scriptItem("Base", "FrontCarDoor1", true, 1), scriptItem("Base", "ModDoor2", true, 2), scriptItem("Base", "ModTire2", true, 2),
     scriptItem("Base", "ModMuffler2", true, 2), scriptItem("Base", "ModEngineDoor2", true, 2),
     scriptItem("Base", "Jack", true, 0, 10), scriptItem("Base", "Apple", false, 0),
+    -- 有 VehicleType 的電池與認不出類別的零件照收：下面的名稱規則只用在沒寫 VehicleType 的
+    scriptItem("Base", "CarBattery1", true, 1), scriptItem("Base", "ModGizmo2", true, 2),
     -- 車輛 MOD 沒寫 VehicleType 的零件、別的 MOD 的機具零件、電動車的高壓電池、警示燈、沒寫 ConditionMax 的
     scriptItem("Base", "ModRoofrack9", true, 0), scriptItem("Base", "PumpRotor", true, 0), scriptItem("Base", "EvPackBattery", true, 0),
     scriptItem("Base", "LightbarBlue", true, 0), scriptItem("Base", "LooseTrunk", true, 0, 10),
@@ -635,8 +638,10 @@ D.registerParts()
 check(doorWeld:getRequiredItem():contains("Base.ModDoor2"), "MOD 車門填進本 MOD 的車門修法")
 check(not doorWeld:getRequiredItem():contains("Base.FrontCarDoor1"), "原版已有修法的車門不再加一套")
 check(tirePatch:getRequiredItem():contains("Base.ModTire2") and not tirePatch:getRequiredItem():contains("Base.ModDoor2"), "輪胎只進輪胎的修法")
-check(#D.partsByClass.Door == 2 and D.partsByClass.Accessory == nil, "拆解清單含原版車門；千斤頂、蘋果不是車輛零件")
-check(#D.partsByClass.Trunk == 1 and D.partsByClass.Trunk[1] == "Base.ModRoofrack9" and D.partsByClass.Battery == nil,
+check(#D.partsByClass.Door == 2 and #D.partsByClass.Accessory == 1 and D.partsByClass.Accessory[1] == "Base.ModGizmo2",
+    "拆解清單含原版車門；有 VehicleType 的照收，認不出類別的歸配件；千斤頂、蘋果不是車輛零件")
+check(#D.partsByClass.Trunk == 1 and D.partsByClass.Trunk[1] == "Base.ModRoofrack9"
+    and #D.partsByClass.Battery == 1 and D.partsByClass.Battery[1] == "Base.CarBattery1",
     "沒寫 VehicleType 的：名稱認得出類別才收（車頂架）；機具零件、高壓電池、警示燈、沒寫 ConditionMax 的不收")
 check(#recipeLoads == 1 and recipeLoads[1]:find("Base.FrontCarDoor1;Base.ModDoor2", 1, true) ~= nil, "車門拆解配方加上零件那一列")
 D.registerParts()
@@ -972,8 +977,9 @@ loaded["ISUI/ISInventoryPaneContextMenu"] = true
 function getItemName(full) return full end
 PerkFactory = { getPerk = function(perk) return { getName = function() return perk end } end }
 local windowTape = fakeFixing("AnyCar_Window_Tape", { fakeFixer("Base.DuctTape", 3, { Mechanics = 1 }) })
+local rackScrews = fakeFixing("AnyCar_Trunk_Screws", { fakeFixer("Base.SmallSheetMetal", 2, { Mechanics = 1 }) }, fakeFixer("Base.Screws", 6))
 FixingManager.getFixes = function(item)
-    local list = javaList(item.full == "Base.FrontWindow1" and { windowTape } or {})
+    local list = javaList(item.full == "Base.FrontWindow1" and { windowTape } or item.full == "Base.ModRoofrack2" and { rackScrews } or {})
     function list:isEmpty() return self:size() == 0 end
     return list
 end
@@ -1002,10 +1008,12 @@ check(#todo == 1 and #skipped == 1 and skipped[1].reason == "Base.DuctTape 2/3",
 print("情境十二之二：修理全部零件也排沒有物品的零件")
 local function bareCar()
     local v, parts = garage({ cond = 40 })
+    local door = { isOpen = function() return false end, isLocked = function() return false end }
+    parts.EngineDoor = { getDoor = function() return door end, getInventoryItem = function() return door end }
     local order = { parts.Engine, parts.Heater, parts.RoofLight, parts.Frunk, parts.lightbar, parts.CabinGlass }
     function v:getPartCount() return #order end
     function v:getPartByIndex(i) return order[i + 1] end
-    return v
+    return v, parts
 end
 local function bareKit(scrap, screws)
     local list = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }), fakeItem("Base.ElectricWire"), fakeItem("Base.ElectricWire"),
@@ -1027,6 +1035,111 @@ SB.Repair = false
 todo, skipped = D.planRepairAll(bareKit(4, 4), bareCar(), {})
 check(#todo == 0 and #skipped == 0, "沙盒關掉零件修理：沒有物品的零件不排")
 SB.Repair = nil
+
+do -- 主程式的區域變數有 200 個的上限：這幾個情境的放在區塊裡
+print("情境十二之二之二：有物品的零件和沒有物品的零件搶同一批材料")
+local function mixedCar(first, second)
+    local v, parts = garage({ cond = 40 })
+    local order = { parts[first], parts[second] }
+    function v:getPartCount() return #order end
+    function v:getPartByIndex(i) return order[i + 1] end
+    return v
+end
+local function screwKit()
+    local list = { fakeItem("Base.Screwdriver", { tag = "screwdriver" }) }
+    for _ = 1, 3 do list[#list + 1] = fakeItem("Base.SmallSheetMetal") end
+    for _ = 1, 8 do list[#list + 1] = fakeItem("Base.Screws") end
+    return (mechanic({ Mechanics = 4 }, list))
+end
+todo, skipped = D.planRepairAll(screwKit(), mixedCar("Roofrack", "Frunk"), {})
+check(#todo == 1 and todo[1].part:getId() == "Roofrack" and #skipped == 1 and skipped[1].reason == "Base.Screws 2/4",
+    "螺絲 8 顆、車頂架在前（用 6 顆）：置物槽略過，原因寫剩 2/4（" .. tostring(skipped[1] and skipped[1].reason) .. "）")
+todo, skipped = D.planRepairAll(screwKit(), mixedCar("Frunk", "Roofrack"), {})
+check(#todo == 1 and todo[1].job == "bin" and #skipped == 1 and skipped[1].reason == "Base.Screws 4/6",
+    "置物槽在前（用 4 顆）：車頂架略過，原因寫剩 4/6（" .. tostring(skipped[1] and skipped[1].reason) .. "）")
+
+print("情境十二之二之三：別的 MOD 不讓這台車用修引擎的動作")
+local openValid = ISRepairEngine.isValid
+function ISRepairEngine:isValid() return false end
+todo, skipped = D.planRepairAll(screwKit(), mixedCar("Frunk", "Roofrack"), {})
+check(#todo == 1 and todo[1].part:getId() == "Roofrack" and #skipped == 0, "置物槽不排也不佔材料，後面的車頂架照樣排")
+ISRepairEngine.isValid = openValid
+
+print("情境十二之三：修理全部零件一次排一個沒有物品的零件，結果出現才排下一個")
+ISTimedActionQueue.add = function(action) q.queue[#q.queue + 1] = action end
+ISOpenVehicleDoor = { new = function() return { Type = "ISOpenVehicleDoor" } end }
+ISCloseVehicleDoor = { new = function() return { Type = "ISCloseVehicleDoor" } end }
+-- 佇列裡的動作類型，本 MOD 的修理動作寫成 repair
+local function queuedTypes()
+    local list = {}
+    for _, action in ipairs(q.queue) do list[#list + 1] = action.anycar and "repair" or tostring(action.Type) end
+    return table.concat(list, ",")
+end
+ISPathFindAction = { pathToVehicleArea = function() return { Type = "ISPathFindAction" } end }
+ISVehiclePartMenu.toPlayerInventory = function() end
+local function chainPlayer(scrap, screws)
+    local p = bareKit(scrap, screws)
+    function p:getVehicle() return nil end
+    function p:isDead() return false end
+    return p
+end
+-- 佇列裡本 MOD 的修理動作（走位等其他動作不算）
+local function queuedJobs()
+    local list = {}
+    for _, action in ipairs(q.queue) do if action.anycar then list[#list + 1] = action end end
+    return list
+end
+-- 單人的順序：動作離開佇列並 perform，之後伺服器那一段 complete 才改狀況
+local function finish(action)
+    q.queue = {}
+    action:perform()
+    step(100)
+end
+q.queue = {}
+local chainCar, chainParts = bareCar()
+local fixer = chainPlayer(4, 4)
+D.onRepairAll(fixer, chainCar, {})
+local jobs = queuedJobs()
+check(#jobs == 1 and jobs[1].part == chainParts.Heater and jobs[1].anycar.job == "heater", "先只排加熱器一個")
+check(queuedTypes():find("ISOpenVehicleDoor,repair,ISCloseVehicleDoor", 1, true) ~= nil, "加熱器在引擎區：前後開關引擎蓋（" .. queuedTypes() .. "）")
+finish(jobs[1])
+check(#queuedJobs() == 0, "動作做完但狀況還沒變：不排下一個")
+check(jobs[1]:complete() == true and chainParts.Heater.cond == 85, "伺服器那一段做完：加熱器 40 -> 85")
+settle()
+jobs = queuedJobs()
+check(#jobs == 1 and jobs[1].part == chainParts.RoofLight, "狀況變了才排下一個（車頂燈）")
+check(queuedTypes():find("VehicleDoor", 1, true) == nil, "車頂燈不在引擎區：不開引擎蓋（" .. queuedTypes() .. "）")
+finish(jobs[1])
+jobs[1]:complete()
+settle()
+jobs = queuedJobs()
+check(#jobs == 1 and jobs[1].part == chainParts.Frunk and jobs[1].anycar.job == "bin", "再來是置物槽，用容器那一組")
+finish(jobs[1])
+jobs[1]:complete()
+settle()
+check(#queuedJobs() == 0 and chainParts.RoofLight.cond == 85 and chainParts.Frunk.cond == 85
+    and fixer:getInventory():getCountTypeRecurse("Base.ElectronicsScrap") == 0 and fixer:getInventory():getCountTypeRecurse("Base.Screws") == 0,
+    "三個都修過一次就停：每個零件一輪只修一次，材料照實扣掉")
+
+q.queue = {}
+chainCar, chainParts = bareCar()
+D.onRepairAll(chainPlayer(4, 4), chainCar, {})
+cancelAll()
+step(100)
+step(D.CHAIN_TIMEOUT)
+settle()
+check(#queuedJobs() == 0 and chainParts.Heater.cond == 40, "玩家取消第一個：逾時後停下，不排下一個")
+
+q.queue = {}
+chainCar, chainParts = bareCar()
+D.onRepairAll(chainPlayer(4, 4), chainCar, {})
+jobs = queuedJobs()
+q.queue = {} -- 多人：伺服器的結果先同步到，客戶端的動作沒有 perform 就離開佇列
+chainParts.Heater.cond = 85
+settle()
+check(#queuedJobs() == 1 and queuedJobs()[1].part == chainParts.RoofLight, "沒有 perform 但狀況變了（多人同步先到）：接下一個")
+q.queue = {}
+end
 
 print("情境十三：配鑰匙、拆除短接（包原版熱線動作）")
 local hotwireTries = 0
