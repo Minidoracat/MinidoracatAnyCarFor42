@@ -18,10 +18,11 @@ local function predicateWeldingMask(item)
     return item:hasTag(ItemTag.WELDING_MASK) or item:getType() == "WeldingMask"
 end
 
--- 沒有翻譯的零件：有物品用物品名稱，沒有物品用零件 id
+-- 零件名稱照車輛資訊視窗清單上寫的（別的 MOD 會替自己的車改零件名稱）；清單沒有的：原版翻譯、物品名稱、零件 id
+local shown = {}
 local function partName(part)
     local item = part:getInventoryItem()
-    return getTextOrNull("IGUI_VehiclePart" .. part:getId()) or item and item:getDisplayName() or part:getId()
+    return shown[part:getId()] or getTextOrNull("IGUI_VehiclePart" .. part:getId()) or item and item:getDisplayName() or part:getId()
 end
 
 -- D.engineNeeds 一列條件的名稱
@@ -339,6 +340,14 @@ function ISVehicleMechanics:doPartContextMenu(part, x, y)
     vanillaPartMenu(self, part, x, y)
     local context = self.context
     if not context then return end
+    shown = {}
+    for _, category in pairs(self.vehiclePart) do
+        for _, row in ipairs(category.parts) do
+            local id = row.part:getId()
+            -- 沒有翻譯的零件，清單上寫的是翻譯鍵本身：不拿來用
+            if row.name ~= "IGUI_VehiclePart" .. id then shown[id] = row.name end
+        end
+    end
     local playerObj = getSpecificPlayer(self.playerNum)
     addRepair(context, playerObj, part)
     local job = D.partJob(part)
