@@ -132,12 +132,15 @@ local function fakePlayer(x, y, z, name)
     return { getX = function() return x end, getY = function() return y end, getZ = function() return z or 0 end,
         getUsername = function() return name or "tester" end }
 end
--- 假的袋子與物品：AddItem 建不出名稱不存在的物品（原版清單裡有一個尾巴多空白的名稱）
+-- 假的袋子與物品：建不出名稱不存在的物品（原版清單裡有一個尾巴多空白的名稱）
 local stampLog = {}
 local function fakeLootItem(name)
-    local item = { name = name, stamps = {} }
-    function item:getDisplayName() return "Garbage Bag" end
+    local item = { name = name, stamps = {}, modData = {} }
+    function item:getDisplayName() return self.custom or "Garbage Bag" end
     function item:setName(text) self.custom = text end
+    function item:getModData() return self.modData end
+    function item:hasModData() return next(self.modData) ~= nil end
+    function item:isCustomName() return self.renamed == true end
     return item
 end
 local function fakeBag(full)
@@ -146,17 +149,17 @@ local function fakeBag(full)
     function bag:getInventory()
         local items = self.items
         return {
-            AddItem = function(_, name)
-                if name:match(" $") then return nil end
-                items[#items + 1] = fakeLootItem(name)
-                return items[#items]
-            end,
+            AddItem = function(_, item) items[#items + 1] = item; return item end,
             getItems = function() return { isEmpty = function() return #items == 0 end } end,
         }
     end
     return bag
 end
-instanceItem = fakeBag
+function instanceItem(full)
+    if full == "Base.Garbagebag" then return fakeBag(full) end
+    if full:match(" $") then return nil end
+    return fakeLootItem(full)
+end
 
 -- ===== 測試工具 =====
 local failures = 0
@@ -252,11 +255,30 @@ end
 local dropped = scrap(1)
 check(#dropped == 1 and dropped[1].name == "Base.Garbagebag", "地上只多一個袋子")
 check(names(dropped[1]) == "ScrapMetal,ScrapMetal,SteelBar", "材料都在袋子裡、同種排在一起、建不出的跳過：" .. names(dropped[1]))
-check(dropped[1].custom == "Garbage Bag (tester)", "袋子名稱帶拆車人：" .. tostring(dropped[1].custom))
+check(dropped[1].modData.MinidoracatAnyCar_scrapBy == "tester" and dropped[1].custom == nil, "袋子記下拆車人，伺服器不替它取名")
 check(next(dropped[1].stamps) == nil and next(dropped[1].items[1].stamps) == nil, "沒裝 Item Cleaner：不記")
 check(#scrap(2)[1].items == 6, "倍率 2：六件都在同一個袋子")
 check(#scrap(0) == 0, "倍率 0：沒有產出就沒有袋子")
-check(scrap(1, fakePlayer(101.5, 201.5, 0, "a b=c"))[1].custom == "Garbage Bag (a_b_c)", "袋子名稱裡的帳號照 log 的規則清理")
+check(scrap(1, fakePlayer(101.5, 201.5, 0, "a b=c"))[1].modData.MinidoracatAnyCar_scrapBy == "a_b_c", "袋子上的帳號照 log 的規則清理")
+
+-- 客戶端：物品清單重整前，用這台客戶端的語言替拆車袋子取名
+local refreshed = 0
+ISInventoryPane = { refreshContainer = function() refreshed = refreshed + 1 end }
+loaded["ISUI/ISInventoryPane"] = true
+function getItemName() return "垃圾袋" end
+require "MinidoracatAnyCar/ScrapBag"
+local plain, renamed = fakeBag("Base.Garbagebag"), scrap(1)[1]
+renamed.renamed, renamed.custom = true, "我的袋子"
+local listed = { dropped[1], plain, renamed }
+ISInventoryPane.refreshContainer({ inventory = { getAllTypeRecurse = function() return javaList(listed) end } })
+check(dropped[1].custom == "垃圾袋 (tester)" and refreshed == 1, "拆車袋子：客戶端語言的名稱加拆車人，再照原版重整")
+check(plain.custom == nil and renamed.custom == "我的袋子", "一般垃圾袋與玩家自己改過名字的不動")
+
+local logsBefore = #logLines
+local stuck = fakeVehicle("CarNormal")
+function stuck.square:AddWorldInventoryItem() error("square broke") end
+check(pcall(function() return ISRemoveBurntVehicle:new(near, stuck):complete() end) == false and #logLines == logsBefore + 1,
+    "袋子放不下去：車已經移除，紀錄照樣寫")
 
 local loose = fakeVehicle("CarNormal")
 ISRemoveBurntVehicle:new(near, loose):checkAddItem("ScrapMetal", 12)

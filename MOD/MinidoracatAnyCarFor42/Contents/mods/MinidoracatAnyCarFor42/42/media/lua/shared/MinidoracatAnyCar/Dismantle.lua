@@ -97,6 +97,7 @@ end
 
 -- 拆車的產出收進一個袋子放在車的位置：一台車幾百件材料只佔一個地上物件
 D.BAG = "Base.Garbagebag"
+D.BAG_BY = "MinidoracatAnyCar_scrapBy" -- 袋子 modData：拆車人帳號
 
 -- 收產出的假車：原版 checkAddItem 只對 self.vehicle 呼叫 getSquare():AddWorldInventoryItem(物品, …)
 -- shortcut: 假車只有 getSquare，別的 MOD 在 checkAddItem 裡對車呼叫其他方法會出錯，遇到再把其他方法轉給真的車
@@ -127,7 +128,8 @@ local function stamper(character)
     end
 end
 
--- 同種材料排在一起放進袋子，袋子名稱帶拆車人。紀錄要在袋子落地前寫好：落地後改的不會同步給玩家
+-- 同種材料排在一起放進袋子。袋子只記拆車人，名稱由每台客戶端用自己的語言組（client/…/ScrapBag.lua）。
+-- 紀錄要在袋子落地前寫好：落地後改的不會同步給玩家
 function D.dropBag(character, square, loot)
     if #loot.names == 0 then return end
     local bag = instanceItem(D.BAG)
@@ -142,12 +144,15 @@ function D.dropBag(character, square, loot)
     end
     for _, name in ipairs(loot.names) do
         for _ = 1, loot.count[name] do
-            local item = inventory:AddItem(name)
-            if item then mark(item) end
+            local item = instanceItem(name) -- 和原版落地用同一個建立方式；建不出來的跳過
+            if item then
+                inventory:AddItem(item)
+                mark(item)
+            end
         end
     end
     if inventory:getItems():isEmpty() then return end
-    bag:setName(bag:getDisplayName() .. " (" .. D.who(character) .. ")")
+    bag:getModData()[D.BAG_BY] = D.who(character)
     mark(bag)
     square:AddWorldInventoryItem(bag, 0.5, 0.5, 0)
 end
@@ -172,8 +177,8 @@ function ISRemoveBurntVehicle:complete()
     local ok = vanillaComplete(self)
     local loot = self.anycarLoot
     self.anycarLoot = nil
-    if loot then D.dropBag(character, square, loot) end
     if ok then writeLog("MinidoracatAnyCar", line) end
+    if loot then D.dropBag(character, square, loot) end
     return ok
 end
 
