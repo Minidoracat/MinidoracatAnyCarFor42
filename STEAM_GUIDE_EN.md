@@ -271,6 +271,7 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [h3]A repair option is red?[/h3]
 [list]
 [*] Hover over it. The tooltip marks the missing materials or skills in red. For brakes and suspension it says which tire to remove first.
+[*] If the tooltip says "Another mod does not allow this repair on this vehicle", the mod that adds that vehicle blocks this repair on its vehicles, and this mod does not force it. "Repair All Parts" skips that part and repairs the rest.
 [/list]
 [h3]There is no "Rebuild Engine"?[/h3]
 [list]
