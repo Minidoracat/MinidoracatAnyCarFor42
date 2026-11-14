@@ -1,31 +1,22 @@
-[h1]Minidoracat Repair & Dismantle Any Car MP for B42 42.22.2-0.2.0[/h1]
-[i]2026-11-13[/i]
+[h1]Minidoracat Repair & Dismantle Any Car MP for B42 42.22.2-0.3.0[/h1]
+[i]2026-11-14[/i]
 
 [b]English summary[/b]
 [list]
-[*] First public release.
-[*] Every vehicle part can be repaired, including parts from vehicle mods. Right-click an installed part in Vehicle Mechanics and choose "Repair", or use "Repair All Parts".
-[*] Removed parts can be salvaged into materials from the inventory right-click menu.
-[*] "Rebuild Engine" raises engine quality with Spare Engine Parts, and a new Tire Sealant item repairs a tire in one use.
-[*] Any intact vehicle can be dismantled with a welding mask and a full propane torch. "Remove Parts, Then Dismantle" takes the parts off first.
-[*] Works in single player and multiplayer. The server re-checks every result, and 10 sandbox options let you tune or turn off each feature.
+[*] Make a Key: sit in the driver's seat of a hotwired vehicle and choose "Make a Key" in the vehicle radial menu to get its first key. Needs Welding 3, Mechanics 3, a screwdriver, a file and 1 Steel Sheet - Small.
+[*] Remove Hotwire: once you have the key, choose "Remove Hotwire" in the same menu. From then on the vehicle needs its key to start.
+[*] Copy Vehicle Key: right-click a vehicle key in your inventory to make an identical key for a teammate. Needs Welding 2, a file and 1 Steel Sheet - Small.
+[*] 3 new sandbox options: "Vehicle Keys" turns the feature on or off, and two options set the Welding and Mechanics levels for making a key.
+[*] With Minidoracat Vehicle Manager 0.11.3 or later, only the owner or an admin can make a key for a claimed vehicle.
 [/list]
-
-第一個公開版本。
 
 [h3]✨ 新增[/h3]
 [list]
-[*] [b]零件修理[/b]：車上每個零件都能修了，車輛 MOD 的零件也算。在車輛資訊對裝在車上的零件按右鍵選「修理」，角色會走到零件旁開修，焊接時自動拿起噴燈。材料都是原版物品；煞車、懸吊要先卸下輪胎。
-[*] [b]修理全部零件[/b]：說明框先列出會修哪些、略過哪些與原因，接著一個一個修，每個零件自動挑材料夠、修得最多的修法。
-[*] [b]零件拆解[/b]：卸下來的零件（壞掉的也行）在背包右鍵就能拆成材料；技能越高，拆到的越多。輪胎與車窗沒有拆解。
-[*] [b]翻新引擎[/b]：引擎狀況修到 100 後，用扳手與備用引擎零件把引擎品質每次提高 10，最高 100。
-[*] [b]修理加熱器[/b]：把車輛資訊上加熱器的狀況補回來。加熱器熱不熱照原版。
-[*] [b]補胎劑[/b]：新物品，一罐補一次輪胎。可以在修車廠、汽車用品店、加油站與車庫的容器，以及修車廠車輛裡找到。
-[*] [b]拆解車輛[/b]：完好的車與拖車的右鍵選單多了「拆解車輛」，需要焊接面罩與一支滿的噴燈，產出和原版拆殘骸相同。
-[*] [b]卸下零件後拆解[/b]：先把卸得動的零件一個一個卸下來再拆車，很花時間。
-[*] [b]車內物品提醒[/b]：車內還有物品時先跳確認框，確認後物品和車一起消失。
-[*] [b]多人伺服器可用[/b]：拆車、修理、翻新引擎、修理加熱器與零件拆解的結果都由伺服器重新檢查後才執行。車上有人或拖車上有動物時不能拆。
-[*] [b]10 個沙盒選項[/b]：每項功能都能調整或關閉，多人遊戲由伺服器套用。
-[*] [b]伺服器紀錄[/b]：每次拆車、修理裝在車上的零件、翻新引擎、修理加熱器各記一行，方便管理員查詢。
-[*] [b]12 種介面語言[/b]：翻譯有問題請回報。
+[*] [b]配鑰匙[/b]：短接過的車，坐上駕駛座從車輛輪盤選單選「配鑰匙」，就能替它打出第一把鑰匙。要先熄火，車上和你身上都沒有這台車的鑰匙；需要金工 3、技工 3（沙盒可調），螺絲起子與銼刀（不會用掉）、小金屬片 1 片。做好之後車還是短接的狀態。
+[*] [b]拆除短接[/b]：有了鑰匙之後，在同一個輪盤選單選「拆除短接」，把短接的線拆掉，之後這台車要鑰匙才能發動，儀表板也回到插鑰匙的圖示。需要電工 1、技工 2（和原版短接相同，竊賊特質也行）、螺絲起子，鑰匙要在身上或插在車上。
+[*] [b]複製車鑰匙[/b]：背包對車鑰匙按右鍵選「複製車鑰匙」，用銼刀與小金屬片 1 片打一把一樣的鑰匙，名稱和顏色照原本那把，可以交給隊友。需要金工 2。
+[*] 條件不夠時，輪盤選單的項目照原版短接的樣子顯示成不能選，並寫出缺什麼。「身上」的鑰匙和原版發動引擎一樣，只算主背包與鑰匙圈。
+[*] [b]3 個沙盒選項[/b]：車鑰匙功能開關（關掉後三個入口都不出現）、配鑰匙的金工門檻、配鑰匙的技工門檻。
+[*] [b]伺服器紀錄[/b]：每次配鑰匙、拆除短接、複製鑰匙各記一行。
+[*] [b]搭配 Minidoracat 車輛管理[/b]（0.11.3 以上）：綁定的車只有車主與管理員能配鑰匙；拆除短接要有這台車的駕駛權限。
 [/list]

@@ -178,6 +178,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [*] [b]When it shows up[/b]: the vehicle is hotwired, and there is no key for it in the vehicle (ignition or door) or on you.
 [*] [b]Result[/b]: you get a key for this vehicle, named and colored like a vanilla key. The vehicle stays hotwired, so anyone can still start it; choose "Remove Hotwire" next to make the key matter.
 [/list]
+{{img:09-key-make-en.jpg}}
 [h3]Remove Hotwire[/h3]
 [list]
 [*] [b]Where[/b]: "Remove Hotwire" in the same radial menu.
@@ -189,6 +190,7 @@ A hotwired vehicle can get its first key. Then remove the hotwire, and from then
 [*] [b]Using the crafting window[/b]: the key slot under the needed items starts with the first vehicle key you carry. Check that it is the key you want to copy; if not, press the ⇄ button at the top right of that slot to swap it.
 [*] [b]Result[/b]: one more identical key (same vehicle, name and color). The original stays.
 [/list]
+{{img:10-key-copy-en.jpg}}
 [table]
 [tr][th][/th][th]Make a Key[/th][th]Remove Hotwire[/th][th]Copy Vehicle Key[/th][/tr]
 [tr][td]Needs[/td][td]Engine off, vehicle hotwired, no key for it in the vehicle or on you[/td][td]Engine off, vehicle hotwired, its key on you or in the vehicle[/td][td]The vehicle key in hand (not used up)[/td][/tr]

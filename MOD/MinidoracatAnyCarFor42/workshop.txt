@@ -36,6 +36,7 @@ description=[*] [b]Part salvage[/b]: Break removed parts down into materials
 description=[*] [b]Engine rebuild[/b]: Raise engine quality with spare engine parts
 description=[*] [b]Tire Sealant[/b]: A new item that repairs a tire once per can
 description=[*] [b]Dismantle any vehicle[/b]: Intact cars and trailers can be cut up with a propane torch
+description=[*] [b]Vehicle keys[/b]: Make a key for a hotwired vehicle, remove the hotwire, and copy vehicle keys
 description=[*] [b]Works on multiplayer servers[/b]: The server re-checks every result before applying it
 description=[/list]
 description=📖 [b]Full guide and FAQ: [/b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3838984195]Minidoracat Repair & Dismantle Any Car MP Mod Guide[/url]
