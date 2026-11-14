@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(insuffisant)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Retirer d'abord : %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "Ignoré %1 : %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Un autre mod n'autorise pas cette réparation sur ce véhicule",
     "Tooltip_MinidoracatAnyCar_rebuild": "Qualité du moteur : %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "État : %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Retire une à une toutes les pièces que vous pouvez retirer, puis démonte le véhicule. Cela prend beaucoup de temps.",

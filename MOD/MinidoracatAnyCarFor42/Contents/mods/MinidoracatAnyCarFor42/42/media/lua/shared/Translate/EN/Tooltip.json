@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(not enough)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Remove first: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "Skip %1: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Another mod does not allow this repair on this vehicle",
     "Tooltip_MinidoracatAnyCar_rebuild": "Engine quality: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Condition: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Removes every part you are able to remove, one by one, then dismantles the vehicle. This takes a long time.",

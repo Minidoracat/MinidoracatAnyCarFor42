@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(не хватает)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Сначала снять: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "Пропуск %1: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Другой мод не разрешает этот ремонт на этом транспорте",
     "Tooltip_MinidoracatAnyCar_rebuild": "Качество двигателя: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Состояние: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Снимает по одной все детали, которые вы можете снять, затем разбирает автомобиль. Это занимает много времени.",

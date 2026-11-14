@@ -162,12 +162,12 @@ local function addRepair(context, playerObj, part)
     end
 end
 
--- 修理全部零件：每個零件挑現在材料與技能都夠、修最多的修法；沒有物品的零件用 D.partJob 的那一組。
--- 條件都夠、動作卻不成立：別的 MOD 包住這個原版動作，不讓它用在這台車上。這時選項不能選、「修理全部零件」不排
+-- 條件都夠、動作卻不成立：別的 MOD 包住這個原版動作，不讓它用在這台車上。這時選項不能選、「修理全部零件」略過，都寫出原因
 local function blocked(playerObj, part, job)
     return not ISRepairEngine:new(playerObj, part, nil, 0, { job = job }):isValid()
 end
 
+-- 修理全部零件：每個零件挑現在材料與技能都夠、修最多的修法；沒有物品的零件用 D.partJob 的那一組。
 -- 回傳 todo（每列 { part, label }，加上 fixingNum、fixerNum 或 job）與 skipped（每列 { part, reason }）。tried：這一輪修過的零件 id
 function D.planRepairAll(playerObj, vehicle, tried)
     local todo, skipped, reserved = {}, {}, {}
@@ -185,7 +185,9 @@ function D.planRepairAll(playerObj, vehicle, tried)
                 end
                 if short then
                     table.insert(skipped, { part = part, reason = short.name .. " " .. short.have .. "/" .. short.need })
-                elseif why or not blocked(playerObj, part, job) then
+                elseif not why and blocked(playerObj, part, job) then
+                    table.insert(skipped, { part = part, reason = getText("Tooltip_MinidoracatAnyCar_Blocked") })
+                else
                     for _, row in ipairs(rows) do
                         if row.item and not row.keep then reserved[row.item] = (reserved[row.item] or 0) + row.need end
                     end
@@ -304,6 +306,10 @@ local function addEngineJob(context, playerObj, part, job)
     for _, row in ipairs(rows) do
         description = description .. needLine(rowName(row), row.have, row.need)
     end
+    local stopped = not why and blocked(playerObj, part, job)
+    if stopped then
+        description = description .. " <LINE> " .. ISVehicleMechanics.bhs .. " " .. getText("Tooltip_MinidoracatAnyCar_Blocked")
+    end
     local spec, vehicle = D.ENGINE[job], part:getVehicle()
     if job == "rebuild" then
         local quality = vehicle:getEngineQuality()
@@ -315,7 +321,7 @@ local function addEngineJob(context, playerObj, part, job)
             math.min(100, condition + spec.gain + spec.perLevel * playerObj:getPerkLevel(Perks.Mechanics)))
     end
     newTooltip(option, name, description)
-    if why or blocked(playerObj, part, job) then option.notAvailable = true end
+    if why or stopped then option.notAvailable = true end
 end
 
 local function allOurs(fixes)

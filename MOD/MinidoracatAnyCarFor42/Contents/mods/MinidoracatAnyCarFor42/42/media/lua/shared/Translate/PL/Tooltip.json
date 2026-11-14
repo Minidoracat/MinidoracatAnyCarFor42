@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(za mało)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Najpierw zdejmij: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "Pominięto %1: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Inny mod nie pozwala na tę naprawę w tym pojeździe",
     "Tooltip_MinidoracatAnyCar_rebuild": "Stan techniczny silnika: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Stan: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Zdejmuje po kolei każdą część, którą potrafisz zdjąć, a potem rozmontowuje pojazd. To trwa długo.",

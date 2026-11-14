@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "（不足）",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "先に取り外す：%1",
     "Tooltip_MinidoracatAnyCar_Skipped": "%1をスキップ：%2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "別のMODがこの車両でのこの修理を許可していません",
     "Tooltip_MinidoracatAnyCar_rebuild": "エンジン品質：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "状態：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "取り外せる部品をひとつずつすべて外してから、車両を解体します。とても時間がかかります。",

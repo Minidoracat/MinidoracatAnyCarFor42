@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "（不足）",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "先卸下：%1",
     "Tooltip_MinidoracatAnyCar_Skipped": "跳过 %1：%2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "别的 MOD 不让这辆车进行这项修理",
     "Tooltip_MinidoracatAnyCar_rebuild": "引擎品质：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "状态：%1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "把能卸下的零件逐个卸下，再拆解这辆车。需要很长时间。",

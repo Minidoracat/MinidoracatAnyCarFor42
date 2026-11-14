@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(nicht genug)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Zuerst ausbauen: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "%1 übersprungen: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Eine andere Mod lässt diese Reparatur an diesem Fahrzeug nicht zu",
     "Tooltip_MinidoracatAnyCar_rebuild": "Motorqualität: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Zustand: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Baut nacheinander jedes Teil aus, das du ausbauen kannst, und demontiert dann das Fahrzeug. Das dauert lange.",

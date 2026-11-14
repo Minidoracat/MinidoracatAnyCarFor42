@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(yetersiz)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "Önce çıkarılmalı: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "%1 atlandı: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "Başka bir mod bu araçta bu onarıma izin vermiyor",
     "Tooltip_MinidoracatAnyCar_rebuild": "Motor Kalitesi: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "Durum: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "Çıkarabildiğiniz her parçayı tek tek çıkarır, ardından aracı söker. Bu uzun sürer.",

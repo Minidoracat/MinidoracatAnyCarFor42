@@ -5,6 +5,7 @@
     "Tooltip_MinidoracatAnyCar_Short": "(부족)",
     "Tooltip_MinidoracatAnyCar_RemoveFirst": "먼저 떼어내기: %1",
     "Tooltip_MinidoracatAnyCar_Skipped": "%1 건너뜀: %2",
+    "Tooltip_MinidoracatAnyCar_Blocked": "다른 모드가 이 차량에서 이 수리를 허용하지 않습니다",
     "Tooltip_MinidoracatAnyCar_rebuild": "엔진 품질: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_heater": "상태: %1 -> %2",
     "Tooltip_MinidoracatAnyCar_Strip": "떼어낼 수 있는 부품을 하나씩 모두 떼어낸 뒤 차량을 분해합니다. 시간이 오래 걸립니다.",
