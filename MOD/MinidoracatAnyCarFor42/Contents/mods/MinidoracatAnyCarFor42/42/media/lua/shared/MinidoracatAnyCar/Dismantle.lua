@@ -95,6 +95,55 @@ function ISRemoveBurntVehicle:update()
     end
 end
 
+-- 拆車的產出收進一個袋子放在車的位置：一台車幾百件材料只佔一個地上物件
+D.BAG = "Base.Garbagebag"
+
+-- 收產出的假車：原版 checkAddItem 只對 self.vehicle 呼叫 getSquare():AddWorldInventoryItem(物品, …)
+-- shortcut: 假車只有 getSquare，別的 MOD 在 checkAddItem 裡對車呼叫其他方法會出錯，遇到再把其他方法轉給真的車
+local function newLoot()
+    local loot = { names = {}, count = {} }
+    local square = {}
+    function square:AddWorldInventoryItem(name)
+        if not loot.count[name] then
+            loot.names[#loot.names + 1] = name
+            loot.count[name] = 0
+        end
+        loot.count[name] = loot.count[name] + 1
+    end
+    loot.vehicle = { getSquare = function() return square end }
+    return loot
+end
+
+-- 伺服器有裝 Item Cleaner 而且開著搬移紀錄時，回傳替物品記上拆車人的函式；否則 nil
+local function stamper(character)
+    local C = MinidoracatCleaner
+    if not C or not C.stampDrop or not C.stampMove or not C.getOption then return nil end
+    if C.getOption("TouchTraceEnabled") == false then return nil end
+    local name = character:getUsername()
+    return function(item)
+        C.stampDrop(item, name)
+        C.stampMove(item, name)
+    end
+end
+
+-- 同種材料排在一起放進袋子，袋子名稱帶拆車人。紀錄要在袋子落地前寫好：落地後改的不會同步給玩家
+function D.dropBag(character, square, loot)
+    if #loot.names == 0 then return end
+    local bag = instanceItem(D.BAG)
+    local inventory = bag:getInventory()
+    local stamp = stamper(character)
+    for _, name in ipairs(loot.names) do
+        for _ = 1, loot.count[name] do
+            local item = inventory:AddItem(name)
+            if item and stamp then stamp(item) end
+        end
+    end
+    if inventory:getItems():isEmpty() then return end
+    bag:setName(bag:getDisplayName() .. " (" .. D.who(character) .. ")")
+    if stamp then stamp(bag) end
+    square:AddWorldInventoryItem(bag, 0.5, 0.5, 0)
+end
+
 local vanillaComplete = ISRemoveBurntVehicle.complete
 function ISRemoveBurntVehicle:complete()
     local character, vehicle = self.character, self.vehicle
@@ -110,17 +159,26 @@ function ISRemoveBurntVehicle:complete()
     local line = string.format("SCRAP player=%s vehicle=%s id=%d at=%d,%d,%d parts=%d items=%d",
         who, tostring(vehicle:getScriptName()), vehicle:getSqlId(),
         math.floor(vehicle:getX()), math.floor(vehicle:getY()), math.floor(vehicle:getZ()), parts, items)
+    local square = vehicle:getSquare()
+    if square then self.anycarLoot = newLoot() end
     local ok = vanillaComplete(self)
+    local loot = self.anycarLoot
+    self.anycarLoot = nil
+    if loot then D.dropBag(character, square, loot) end
     if ok then writeLog("MinidoracatAnyCar", line) end
     return ok
 end
 
--- 產出倍率：每次擲骰重複 LootMult 次，小數部分當成多擲一次的機率。只有 complete 會呼叫，所以在伺服器生效
+-- 產出倍率：每次擲骰重複 LootMult 次，小數部分當成多擲一次的機率。只有 complete 會呼叫，所以在伺服器生效。
+-- 經過本 MOD 的 complete 時，擲骰期間把車換成收產出的假車，材料不落地
 local vanillaCheckAddItem = ISRemoveBurntVehicle.checkAddItem
 function ISRemoveBurntVehicle:checkAddItem(item, baseChance)
+    local loot, vehicle = self.anycarLoot, self.vehicle
+    if loot then self.vehicle = loot.vehicle end
     local got = false
     for _ = 1, D.rolls(1, D.sandbox("LootMult", 1)) do
         if vanillaCheckAddItem(self, item, baseChance) then got = true end
     end
+    self.vehicle = vehicle
     return got
 end

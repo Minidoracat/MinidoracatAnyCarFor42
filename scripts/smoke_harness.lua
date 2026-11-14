@@ -86,10 +86,14 @@ function ISRemoveBurntVehicle:new(character, vehicle)
 end
 function ISRemoveBurntVehicle:getDuration() return self.vehicle and 800 or 0 end
 function ISRemoveBurntVehicle:isValid() return self.vehicle ~= nil and not self.vehicle:isRemovedFromWorld() end
-function ISRemoveBurntVehicle:checkAddItem() rolls = rolls + 1; return true end
+function ISRemoveBurntVehicle:checkAddItem(item)
+    rolls = rolls + 1
+    self.vehicle:getSquare():AddWorldInventoryItem(item, 0.1, 0.2, 0)
+    return true
+end
 function ISRemoveBurntVehicle:complete()
     if not self.vehicle then return false end
-    self:checkAddItem("ScrapMetal", 12)
+    for _, item in ipairs({ "ScrapMetal", "SteelBar", "ScrapMetal", "IronScrap " }) do self:checkAddItem(item, 12) end
     self.vehicle.removed = true
     return true
 end
@@ -100,6 +104,11 @@ require "MinidoracatAnyCar/Dismantle"
 local function fakeVehicle(script, opts)
     opts = opts or {}
     local v = { removed = false, x = 100.5, y = 200.5, z = 0, passengers = opts.passengers or 0, animals = opts.animals or {} }
+    if not opts.noSquare then
+        v.square = { dropped = {} }
+        function v.square:AddWorldInventoryItem(item) self.dropped[#self.dropped + 1] = item; return item end
+    end
+    function v:getSquare() return self.square end
     function v:getScript() return { getName = function() return script end } end
     function v:getScriptName() return "Base." .. script end
     function v:isRemovedFromWorld() return self.removed end
@@ -122,6 +131,31 @@ local function fakePlayer(x, y, z, name)
     return { getX = function() return x end, getY = function() return y end, getZ = function() return z or 0 end,
         getUsername = function() return name or "tester" end }
 end
+-- 假的袋子與物品：AddItem 建不出名稱不存在的物品（原版清單裡有一個尾巴多空白的名稱）
+local stampLog = {}
+local function fakeLootItem(name)
+    local item = { name = name, stamps = {} }
+    function item:getDisplayName() return "Garbage Bag" end
+    function item:setName(text) self.custom = text end
+    return item
+end
+local function fakeBag(full)
+    local bag = fakeLootItem(full)
+    bag.items = {}
+    function bag:getInventory()
+        local items = self.items
+        return {
+            AddItem = function(_, name)
+                if name:match(" $") then return nil end
+                items[#items + 1] = fakeLootItem(name)
+                return items[#items]
+            end,
+            getItems = function() return { isEmpty = function() return #items == 0 end } end,
+        }
+    end
+    return bag
+end
+instanceItem = fakeBag
 
 -- ===== 測試工具 =====
 local failures = 0
@@ -200,6 +234,57 @@ check(rollsAt(1.5, 0.4) == 2 and rollsAt(1.5, 0.6) == 1, "1.5：一半機率多�
 SandboxVars.MinidoracatAnyCar = nil
 rolls = 0
 check(ISRemoveBurntVehicle:new(near, fakeVehicle("CarNormal")):checkAddItem("x", 1) == true and rolls == 1, "沒有沙盒值：當成 1.0")
+
+print("情境四之二：拆車的產出收進一個袋子")
+local function scrap(mult, player)
+    SandboxVars.MinidoracatAnyCar = { LootMult = mult }
+    local car = fakeVehicle("CarNormal")
+    local a = ISRemoveBurntVehicle:new(player or near, car)
+    check(a:complete() == true and a.vehicle == car and a.anycarLoot == nil, "倍率 " .. mult .. "：拆掉，動作上的車換回來")
+    return car.square.dropped
+end
+local function names(bag)
+    local list = {}
+    for i, item in ipairs(bag.items) do list[i] = item.name end
+    return table.concat(list, ",")
+end
+local dropped = scrap(1)
+check(#dropped == 1 and dropped[1].name == "Base.Garbagebag", "地上只多一個袋子")
+check(names(dropped[1]) == "ScrapMetal,ScrapMetal,SteelBar", "材料都在袋子裡、同種排在一起、建不出的跳過：" .. names(dropped[1]))
+check(dropped[1].custom == "Garbage Bag (tester)", "袋子名稱帶拆車人：" .. tostring(dropped[1].custom))
+check(next(dropped[1].stamps) == nil and next(dropped[1].items[1].stamps) == nil, "沒裝 Item Cleaner：不記")
+check(#scrap(2)[1].items == 6, "倍率 2：六件都在同一個袋子")
+check(#scrap(0) == 0, "倍率 0：沒有產出就沒有袋子")
+check(scrap(1, fakePlayer(101.5, 201.5, 0, "a b=c"))[1].custom == "Garbage Bag (a_b_c)", "袋子名稱裡的帳號照 log 的規則清理")
+
+local loose = fakeVehicle("CarNormal")
+ISRemoveBurntVehicle:new(near, loose):checkAddItem("ScrapMetal", 12)
+check(#loose.square.dropped == 1 and loose.square.dropped[1] == "ScrapMetal", "沒經過本 MOD 的 complete：照原版落地")
+local noSquare = fakeVehicle("CarNormal", { noSquare = true })
+check(pcall(function() return ISRemoveBurntVehicle:new(near, noSquare):complete() end) == false, "車沒有所在的格子：照原版（出錯、不吞產出）")
+
+-- 有裝 Item Cleaner：袋子與袋內每件都記上拆車人，而且在袋子落地前
+local traceOn = true
+local onGround = 0
+MinidoracatCleaner = {
+    getOption = function(key) if key == "TouchTraceEnabled" then return traceOn end end,
+    stampDrop = function(item, name) item.stamps.drop = name; stampLog[#stampLog + 1] = onGround end,
+    stampMove = function(item, name) item.stamps.move = name end,
+}
+local stampedCar = fakeVehicle("CarNormal")
+local vanillaDrop = stampedCar.square.AddWorldInventoryItem
+function stampedCar.square:AddWorldInventoryItem(item) onGround = onGround + 1; return vanillaDrop(self, item) end
+ISRemoveBurntVehicle:new(fakePlayer(101.5, 201.5, 0, "kenzo"), stampedCar):complete()
+local stamped = stampedCar.square.dropped[1]
+local allStamped = stamped.stamps.drop == "kenzo" and stamped.stamps.move == "kenzo"
+for _, item in ipairs(stamped.items) do allStamped = allStamped and item.stamps.drop == "kenzo" and item.stamps.move == "kenzo" end
+check(allStamped and #stampLog == 4, "袋子與三件材料都記上拆車人")
+local late = false
+for _, at in ipairs(stampLog) do late = late or at > 0 end
+check(onGround == 1 and not late, "都在袋子落地前記好")
+traceOn = false
+check(next(scrap(1)[1].stamps) == nil, "Item Cleaner 關掉搬移紀錄：不記")
+MinidoracatCleaner = nil
 
 -- ===== 修理、零件拆解、引擎：假的原版類別與 Java 物件 =====
 SandboxVars.MinidoracatAnyCar = {}
@@ -357,7 +442,7 @@ loaded["TimedActions/ISFixVehiclePartAction"] = true
 loaded["TimedActions/ISFixAction"] = true
 loaded["Vehicles/TimedActions/ISRepairEngine"] = true
 Actions = { addOrDropItem = function(_, item) rolls = rolls + 1 end }
-function instanceItem(full) return fakeItem(full) end
+function instanceItem(full) return full == "Base.Garbagebag" and fakeBag(full) or fakeItem(full) end
 function ZombRand() return 0 end
 
 require "MinidoracatAnyCar/Repair"
@@ -449,6 +534,7 @@ local scriptItems = {
     scriptItem("Base", "Jack", true, 0), scriptItem("Base", "Apple", false, 0),
 }
 function instanceItem(full)
+    if full == "Base.Garbagebag" then return fakeBag(full) end
     local item = fakeItem(full)
     for _, s in ipairs(scriptItems) do if s.getFullName() == full then item.vehicleType = s.vehicleType end end
     function item:getMechanicType() return self.vehicleType or 0 end
