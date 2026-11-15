@@ -155,7 +155,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3838982743
 [*] [b]Cost[/b]: each vehicle uses 10 torch uses, a whole torch.
 [*] [b]Time[/b]: the same as dismantling a wreck in vanilla. Higher Welding is faster. A sandbox option changes the time for intact vehicles.
 [*] [b]Materials[/b]: the same metal materials and Welding XP as a vanilla wreck. Higher Welding gives more.
-[*] [b]Where they go[/b]: all materials are in one garbage bag where the vehicle stood. The bag name ends with the account name of the player who dismantled the vehicle. With many materials the bag is too heavy to pick up. Stand next to it, open your inventory, click the bag icon and take the materials out.
+[*] [b]Where they go[/b]: all materials are in one garbage bag where the vehicle stood. The bag name ends with the account name of the player who dismantled the vehicle. The Ground list in your inventory shows only the bag; the materials are inside it.
+[*] [b]Why one bag[/b]: one vehicle can give anywhere from a dozen to several hundred materials. Spread on the ground, that many items make the game lag for nearby players. In one bag, the ground gets only one more item.
+[*] [b]Taking them out[/b]: with many materials the bag is too heavy to pick up. Stand next to it, open your inventory, click the bag icon and take the materials out.
 [*] [b]With Minidoracat Cleaner[/b]: if the server runs it with "Track who dropped and handled items" on, the bag and every material in it record that player. Hover over an item to see it. The mod also works without it.
 [/list]
 {{img:11-bag-en.jpg}}
@@ -300,6 +302,11 @@ On the "Repair & Dismantle Any Car" page of the sandbox options. In multiplayer 
 [h3]The action stops halfway?[/h3]
 [list]
 [*] It stops if the torch leaves your hand, you move too far away, someone enters the vehicle, or the vehicle ends up holding more items than you confirmed.
+[/list]
+[h3]I only got a garbage bag and no materials?[/h3]
+[list]
+[*] The materials are inside that bag. Stand next to it, open your inventory and click the bag icon.
+[*] If the bag is empty, or there is no bag at all, report it with your mod list. Another mod may be conflicting.
 [/list]
 [h3]I used Dismantle Any Car before. How do I switch?[/h3]
 [list]
