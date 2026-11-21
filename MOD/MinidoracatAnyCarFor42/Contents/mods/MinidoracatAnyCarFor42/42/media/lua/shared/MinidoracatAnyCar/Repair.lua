@@ -118,6 +118,19 @@ local function bonusXp(character, fixer)
     end
 end
 
+-- 鐵管、鐵棒這類近戰武器當材料時，身上可能帶著地圖生成時加的「已上膛」記號；原版扣材料時會替它退子彈，
+-- 沒有彈藥種類就出錯，修理做不完。扣材料前先清掉記號；有彈藥種類的槍不動
+local function clearChambered(character, fixer)
+    local items, name = character:getInventory():getItems(), fixer:getFixerName()
+    for i = 0, items:size() - 1 do
+        local item = items:get(i)
+        if item:getFullType() == name and instanceof(item, "HandWeapon") and not item:getAmmoType() then
+            item:setRoundChambered(false)
+            item:setCurrentAmmoCount(0)
+        end
+    end
+end
+
 -- ===== 裝在車上的零件 =====
 
 -- 本 MOD 修法的時間（tick）：FIX_TIME 乘沙盒 RepairTimeMult；原版修法與瞬間完成照原版
@@ -193,6 +206,7 @@ function ISFixVehiclePartAction:complete()
         local why = D.repairBlocked(self.character, part, self.fixing, self.fixer)
         if why then return refuse("repair", why, self.character) end
     end
+    clearChambered(self.character, self.fixer)
     local before = item:getCondition()
     if part:isContainer() and not part:getItemContainer() then
         -- 輪胎、油箱：原版這一段讀了沒定義的變數（ISFixVehiclePartAction.lua:41），照它的步驟做完
@@ -231,6 +245,7 @@ function ISFixAction:complete()
     if not D.fixerReady(self.character, self.fixing, self.fixer, self.item) then
         return refuse("repair", "materials", self.character)
     end
+    clearChambered(self.character, self.fixer)
     local before = self.item:getCondition()
     local ok = vanillaItemComplete(self)
     if ok and self.item:getCondition() > before then bonusXp(self.character, self.fixer) end
@@ -287,6 +302,7 @@ function D.engineWork(character, part, job)
         before = vehicle:getEngineQuality()
         after = math.min(100, before + spec.step)
         vehicle:setEngineFeature(after, vehicle:getEngineLoudness(), enginePower(vehicle, after))
+        vehicle:updatePartStats() -- 引擎音量照車輛腳本與消音器重算；上一行會把傳進去的音量再縮一次
         vehicle:transmitEngine()
     else
         before = part:getCondition()

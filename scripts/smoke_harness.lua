@@ -358,7 +358,7 @@ function sendRemoveItemFromContainer() end
 local function fakeItem(full, opts)
     opts = opts or {}
     local item = { full = full, uses = opts.uses, cond = opts.cond or 100, max = 100, tag = opts.tag,
-        class = opts.uses and "DrainableComboItem" or "InventoryItem" }
+        class = opts.class or opts.uses and "DrainableComboItem" or "InventoryItem" }
     function item:getFullType() return self.full end
     function item:getCurrentUses() return self.uses end
     function item:getCondition() return self.cond end
@@ -377,6 +377,9 @@ local function fakeItem(full, opts)
     function item:setCustomColor(custom) self.customColor = custom end
     function item:getWorldItem() return self.worldItem end
     function item:setWorldItem(w) self.worldItem = w end
+    function item:getAmmoType() return self.ammoType end
+    function item:setRoundChambered(on) self.chambered = on end
+    function item:setCurrentAmmoCount(n) self.ammo = n end
     return item
 end
 
@@ -458,9 +461,18 @@ local function fakeFixing(name, fixers, global)
     return f
 end
 
--- 假的 FixingManager：修一次加 10 點，記下被呼叫幾次
+-- 假的 FixingManager：修一次加 10 點，記下被呼叫幾次。
+-- 照原版扣材料那段：當材料的武器帶著上膛記號或子彈、又沒有彈藥種類時丟錯（FixingManager.useFixer）
 local fixCalls = 0
-FixingManager = { fixItem = function(item) fixCalls = fixCalls + 1; item.cond = item.cond + 10 end }
+FixingManager = { fixItem = function(item, character, _, fixer)
+    for _, mat in ipairs(character:getInventory().main) do
+        if mat.full == fixer:getFixerName() and mat.class == "HandWeapon" and not mat.ammoType and (mat.chambered or (mat.ammo or 0) > 0) then
+            error("ammoType is null")
+        end
+    end
+    fixCalls = fixCalls + 1
+    item.cond = item.cond + 10
+end }
 
 local vanillaPartCompletes, vanillaItemCompletes, vanillaEngineCompletes = 0, 0, 0
 local function fakeAction(completeFn)
@@ -476,7 +488,7 @@ local function fakeAction(completeFn)
 end
 ISFixVehiclePartAction = fakeAction(function(self)
     vanillaPartCompletes = vanillaPartCompletes + 1
-    FixingManager.fixItem(self.item)
+    FixingManager.fixItem(self.item, self.character, self.fixing, self.fixer)
     return true
 end)
 function ISFixVehiclePartAction:new(character, vehiclePart, fixing, fixer)
@@ -488,7 +500,7 @@ end
 function ISFixVehiclePartAction:isValid() return self.vanillaValid ~= false end
 ISFixAction = fakeAction(function(self)
     vanillaItemCompletes = vanillaItemCompletes + 1
-    FixingManager.fixItem(self.item)
+    FixingManager.fixItem(self.item, self.character, self.fixing, self.fixer)
     return true
 end)
 ISRepairEngine = fakeAction(function() vanillaEngineCompletes = vanillaEngineCompletes + 1; return true end)
@@ -555,14 +567,15 @@ local function garage(opts)
         return { getName = function() return "CarNormal" end, getEngineRepairLevel = function() return 4 end,
             getEngineForce = function() return 4000 end }
     end
-    v.quality, v.power = opts.quality or 62, 0
+    v.quality, v.power, v.loud = opts.quality or 62, 0, 37
     function v:getEngineQuality() return self.quality end
-    function v:getEngineLoudness() return 100 end
-    function v:setEngineFeature(q, _, power) self.quality, self.power = q, power end
+    function v:getEngineLoudness() return self.loud end
+    -- 照原版：存進去的音量是傳入值除以 2.7（VehicleEngine.setFeatures）；updatePartStats 照車輛腳本重算
+    function v:setEngineFeature(q, loud, power) self.quality, self.power, self.loud = q, power, math.floor(loud / 2.7) end
     function v:transmitEngine() end
     function v:transmitPartCondition() end
     function v:transmitPartItem() end
-    function v:updatePartStats() end
+    function v:updatePartStats() self.loud = 37 end
     function v:updateBulletStats() end
     return v, parts
 end
@@ -714,6 +727,25 @@ ok, fixed, logged = repair(tireGuy, carParts.TireFrontRight, tirePatch)
 check(ok == true and fixed == 1 and logged == 1 and vanillaPartCompletes == before and carParts.TireFrontRight.cond == 60,
     "輪胎：不經原版那一段也修好、零件狀況跟著物品")
 
+-- 鐵管是近戰武器：地圖生成的可能帶著上膛記號，原版扣材料時會丟錯
+local pipeFix = fakeFixing("AnyCar_Muffler_Welding", { fakeFixer("Base.MetalPipe", 1, { MetalWelding = 2, Mechanics = 2 }) },
+    fakeFixer("Base.BlowTorch", 1))
+local function pipe(ammoType)
+    local p = fakeItem("Base.MetalPipe", { class = "HandWeapon" })
+    p.chambered, p.ammo, p.ammoType = true, 1, ammoType
+    return p
+end
+local marked, loadedGun = pipe(nil), pipe("Base.Bullets9mm")
+carParts.DoorFrontLeft:getInventoryItem().cond = 40
+local ran, result = pcall(repair, mechanic({ MetalWelding = 2, Mechanics = 2 }, { marked, loadedGun, torch() }), carParts.DoorFrontLeft, pipeFix)
+check(ran and result == true and marked.chambered == false and marked.ammo == 0 and loadedGun.chambered == true and loadedGun.ammo == 1,
+    "帶上膛記號的鐵管當材料：照樣修好（" .. tostring(result) .. "）；有彈藥種類的武器不動")
+local benchPipe = pipe(nil)
+local bench = setmetatable({ character = mechanic({ MetalWelding = 2, Mechanics = 2 }, { benchPipe, torch() }), fixing = pipeFix,
+    fixer = pipeFix:getFixers():get(0), item = fakeItem("Base.ModMuffler2", { cond = 40 }) }, ISFixAction)
+ran, result = pcall(bench.complete, bench)
+check(ran and result == true and benchPipe.chambered == false, "背包裡修（ISFixAction）也一樣（" .. tostring(result) .. "）")
+
 xpGiven = {}
 SB.RepairXPMult = 2.0
 carParts.DoorFrontLeft:getInventoryItem().cond = 40
@@ -783,7 +815,7 @@ end
 local car2, parts2 = garage()
 local ace, aceInv = mechanic({ Mechanics = 6 }, engineParts(12))
 check(engineJob(ace, parts2.Engine, "rebuild") == true and car2.quality == 72 and aceInv:getCountTypeRecurse("Base.EngineParts") == 2
-    and car2.power == 4000, "翻新：用 10 個引擎零件、品質 62 -> 72、出力照品質重算")
+    and car2.power == 4000 and car2.loud == 37, "翻新：用 10 個引擎零件、品質 62 -> 72、出力照品質重算、引擎音量不變（" .. car2.loud .. "）")
 check(logLines[#logLines] == "REBUILD player=tester vehicle=Base.CarNormal id=48213 value=62>72", "log：" .. tostring(logLines[#logLines]))
 check(engineJob(ace, parts2.Engine, "rebuild") == false and car2.quality == 72, "只剩 2 個引擎零件：拒絕")
 check(engineJob(mechanic({ Mechanics = 4 }, engineParts(12)), parts2.Engine, "rebuild") == false, "機械 4 級不夠")
