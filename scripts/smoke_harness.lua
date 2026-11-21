@@ -461,17 +461,28 @@ local function fakeFixing(name, fixers, global)
     return f
 end
 
--- 假的 FixingManager：修一次加 10 點，記下被呼叫幾次。
--- 照原版扣材料那段：當材料的武器帶著上膛記號或子彈、又沒有彈藥種類時丟錯（FixingManager.useFixer）
-local fixCalls = 0
+-- 假的 FixingManager：照原版的順序，先把狀況加 10 點，再扣當材料的武器（FixingManager.fixItem、useFixer：
+-- 主背包依序、跳過被修的那件、扣滿數量就停；其他種類的材料這裡不扣）。
+-- 要扣的武器帶著上膛記號或子彈、又沒有彈藥種類時原版丟 Java 例外：引擎只記錄、Lua 照常往下跑，
+-- 所以狀況已經加了、材料沒扣。這裡記進 fixErrors
+local fixCalls, fixErrors = 0, 0
 FixingManager = { fixItem = function(item, character, _, fixer)
-    for _, mat in ipairs(character:getInventory().main) do
-        if mat.full == fixer:getFixerName() and mat.class == "HandWeapon" and not mat.ammoType and (mat.chambered or (mat.ammo or 0) > 0) then
-            error("ammoType is null")
-        end
-    end
     fixCalls = fixCalls + 1
     item.cond = item.cond + 10
+    local main, left, i = character:getInventory().main, fixer:getNumberOfUse(), 1
+    while left > 0 and main[i] do
+        local mat = main[i]
+        if mat ~= item and mat.full == fixer:getFixerName() and mat.class == "HandWeapon" then
+            if not mat.ammoType and (mat.chambered or (mat.ammo or 0) > 0) then
+                fixErrors = fixErrors + 1
+                return
+            end
+            table.remove(main, i)
+            left = left - 1
+        else
+            i = i + 1
+        end
+    end
 end }
 
 local vanillaPartCompletes, vanillaItemCompletes, vanillaEngineCompletes = 0, 0, 0
@@ -525,7 +536,7 @@ local function garage(opts)
     local parts = {}
     -- 設計上就沒有物品的零件（車輛腳本沒寫 itemType）；其他零件就算沒裝物品也有 itemType
     local bare = { Engine = true, Heater = true, RoofLight = true, Frunk = true, lightbar = true, CabinGlass = true }
-    local function part(id, item, tables, container)
+    local function part(id, item, tables, container, models)
         local p = { cond = opts.cond or 100 }
         function p:getItemType()
             if bare[id] then return nil end
@@ -537,6 +548,7 @@ local function garage(opts)
         function p:getId() return id end
         function p:getVehicle() return v end
         function p:getInventoryItem() return item end
+        function p:getScriptPart() return { getModelCount = function() return models or 0 end } end
         function p:getTable(name) return tables and tables[name] end
         function p:getArea() return id == "RoofLight" and "SeatFrontLeft" or "Engine" end
         function p:isContainer() return container == true end
@@ -554,7 +566,7 @@ local function garage(opts)
     part("DoorFrontLeft", fakeItem("Base.ModDoor2", { cond = 40 }))
     part("TireFrontRight", opts.noTire == nil and fakeItem("Base.ModTire2", { cond = 50 }) or nil, nil, true)
     part("BrakeFrontRight", fakeItem("Base.ModBrake2", { cond = 30 }), { uninstall = { requireUninstalled = "TireFrontRight" } })
-    part("Engine", nil)
+    part("Engine", nil, nil, nil, opts.engineModels)
     part("Heater", nil)
     part("RoofLight", nil)
     part("Frunk", nil, nil, true)
@@ -574,7 +586,7 @@ local function garage(opts)
     function v:setEngineFeature(q, loud, power) self.quality, self.power, self.loud = q, power, math.floor(loud / 2.7) end
     function v:transmitEngine() end
     function v:transmitPartCondition() end
-    function v:transmitPartItem() end
+    function v:transmitPartItem(p) self.itemSent = p end
     function v:updatePartStats() self.loud = 37 end
     function v:updateBulletStats() end
     return v, parts
@@ -727,24 +739,33 @@ ok, fixed, logged = repair(tireGuy, carParts.TireFrontRight, tirePatch)
 check(ok == true and fixed == 1 and logged == 1 and vanillaPartCompletes == before and carParts.TireFrontRight.cond == 60,
     "輪胎：不經原版那一段也修好、零件狀況跟著物品")
 
--- 鐵管是近戰武器：地圖生成的可能帶著上膛記號，原版扣材料時會丟錯
-local pipeFix = fakeFixing("AnyCar_Muffler_Welding", { fakeFixer("Base.MetalPipe", 1, { MetalWelding = 2, Mechanics = 2 }) },
-    fakeFixer("Base.BlowTorch", 1))
-local function pipe(ammoType)
-    local p = fakeItem("Base.MetalPipe", { class = "HandWeapon" })
-    p.chambered, p.ammo, p.ammoType = true, 1, ammoType
-    return p
+-- 鐵管是近戰武器：地圖生成的可能帶著上膛記號，原版扣它時會出錯。只清這次會扣的那一根
+do -- 主程式的 local 上限是 200 個，這一段自己包起來
+    local pipeFix = fakeFixing("AnyCar_Muffler_Welding", { fakeFixer("Base.MetalPipe", 1, { MetalWelding = 2, Mechanics = 2 }) },
+        fakeFixer("Base.BlowTorch", 1))
+    local function marked(full, ammoType)
+        local p = fakeItem(full, { class = "HandWeapon" })
+        p.chambered, p.ammo, p.ammoType = true, 1, ammoType
+        return p
+    end
+    local crowbar, used, spare, loadedGun = marked("Base.Crowbar"), marked("Base.MetalPipe"), marked("Base.MetalPipe"),
+        marked("Base.MetalPipe", "Base.Bullets9mm")
+    local piper, piperInv = mechanic({ MetalWelding = 2, Mechanics = 2 }, { crowbar, used, spare, loadedGun, torch() })
+    carParts.DoorFrontLeft:getInventoryItem().cond = 40
+    local errorsBefore = fixErrors
+    local done = repair(piper, carParts.DoorFrontLeft, pipeFix)
+    check(done == true and fixErrors == errorsBefore and carParts.DoorFrontLeft:getInventoryItem().cond == 50
+        and piperInv:getCountTypeRecurse("Base.MetalPipe") == 2 and used.chambered == false,
+        "帶上膛記號的鐵管當材料：修好、扣掉一根、原版沒出錯（出錯 " .. (fixErrors - errorsBefore) .. " 次）")
+    check(spare.chambered == true and spare.ammo == 1 and crowbar.chambered == true and loadedGun.chambered == true and loadedGun.ammo == 1,
+        "這次沒扣的鐵管、別種武器、有彈藥種類的武器都不動")
+    local benchPipe, benchPart = marked("Base.MetalPipe"), fakeItem("Base.ModMuffler2", { cond = 40 })
+    local benchMan, benchInv = mechanic({ MetalWelding = 2, Mechanics = 2 }, { benchPipe, torch() })
+    local bench = setmetatable({ character = benchMan, fixing = pipeFix, fixer = pipeFix:getFixers():get(0), item = benchPart }, ISFixAction)
+    errorsBefore = fixErrors
+    check(bench:complete() == true and fixErrors == errorsBefore and benchPart.cond == 50 and benchInv:getCountTypeRecurse("Base.MetalPipe") == 0,
+        "背包裡修（ISFixAction）也一樣（出錯 " .. (fixErrors - errorsBefore) .. " 次）")
 end
-local marked, loadedGun = pipe(nil), pipe("Base.Bullets9mm")
-carParts.DoorFrontLeft:getInventoryItem().cond = 40
-local ran, result = pcall(repair, mechanic({ MetalWelding = 2, Mechanics = 2 }, { marked, loadedGun, torch() }), carParts.DoorFrontLeft, pipeFix)
-check(ran and result == true and marked.chambered == false and marked.ammo == 0 and loadedGun.chambered == true and loadedGun.ammo == 1,
-    "帶上膛記號的鐵管當材料：照樣修好（" .. tostring(result) .. "）；有彈藥種類的武器不動")
-local benchPipe = pipe(nil)
-local bench = setmetatable({ character = mechanic({ MetalWelding = 2, Mechanics = 2 }, { benchPipe, torch() }), fixing = pipeFix,
-    fixer = pipeFix:getFixers():get(0), item = fakeItem("Base.ModMuffler2", { cond = 40 }) }, ISFixAction)
-ran, result = pcall(bench.complete, bench)
-check(ran and result == true and benchPipe.chambered == false, "背包裡修（ISFixAction）也一樣（" .. tostring(result) .. "）")
 
 xpGiven = {}
 SB.RepairXPMult = 2.0
@@ -815,8 +836,14 @@ end
 local car2, parts2 = garage()
 local ace, aceInv = mechanic({ Mechanics = 6 }, engineParts(12))
 check(engineJob(ace, parts2.Engine, "rebuild") == true and car2.quality == 72 and aceInv:getCountTypeRecurse("Base.EngineParts") == 2
-    and car2.power == 4000 and car2.loud == 37, "翻新：用 10 個引擎零件、品質 62 -> 72、出力照品質重算、引擎音量不變（" .. car2.loud .. "）")
+    and car2.power == 4000 and car2.loud == 37 and car2.itemSent == parts2.Engine,
+    "翻新：用 10 個引擎零件、品質 62 -> 72、出力照品質重算、引擎音量不變（" .. car2.loud .. "）、補送零件物品讓客戶端重算")
 check(logLines[#logLines] == "REBUILD player=tester vehicle=Base.CarNormal id=48213 value=62>72", "log：" .. tostring(logLines[#logLines]))
+do
+    local showCar, showParts = garage({ engineModels = 1 })
+    check(engineJob(mechanic({ Mechanics = 6 }, engineParts(12)), showParts.Engine, "rebuild") == true and showCar.itemSent == nil,
+        "引擎零件自己帶模型的車：翻新照做，不補送零件物品")
+end
 check(engineJob(ace, parts2.Engine, "rebuild") == false and car2.quality == 72, "只剩 2 個引擎零件：拒絕")
 check(engineJob(mechanic({ Mechanics = 4 }, engineParts(12)), parts2.Engine, "rebuild") == false, "機械 4 級不夠")
 parts2.Engine.cond = 80

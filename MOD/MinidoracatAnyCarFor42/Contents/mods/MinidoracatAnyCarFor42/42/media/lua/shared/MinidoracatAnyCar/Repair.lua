@@ -119,14 +119,18 @@ local function bonusXp(character, fixer)
 end
 
 -- 鐵管、鐵棒這類近戰武器當材料時，身上可能帶著地圖生成時加的「已上膛」記號；原版扣材料時會替它退子彈，
--- 沒有彈藥種類就出錯，修理做不完。扣材料前先清掉記號；有彈藥種類的槍不動
-local function clearChambered(character, fixer)
-    local items, name = character:getInventory():getItems(), fixer:getFixerName()
+-- 沒有彈藥種類就出錯。扣材料前先清掉記號：只清這次會扣的那幾件（照原版的挑法：主背包依序、跳過被修的那件），
+-- 有彈藥種類的槍不動。車上修理對原版與別的 MOD 的修法也清；背包修理只管本 MOD 的修法。三個參數都要傳
+local function clearChambered(character, fixer, broken)
+    local items, name, left = character:getInventory():getItems(), fixer:getFixerName(), fixer:getNumberOfUse()
     for i = 0, items:size() - 1 do
         local item = items:get(i)
-        if item:getFullType() == name and instanceof(item, "HandWeapon") and not item:getAmmoType() then
-            item:setRoundChambered(false)
-            item:setCurrentAmmoCount(0)
+        if left > 0 and item ~= broken and item:getFullType() == name then
+            left = left - 1
+            if instanceof(item, "HandWeapon") and not item:getAmmoType() then
+                item:setRoundChambered(false)
+                item:setCurrentAmmoCount(0)
+            end
         end
     end
 end
@@ -206,7 +210,7 @@ function ISFixVehiclePartAction:complete()
         local why = D.repairBlocked(self.character, part, self.fixing, self.fixer)
         if why then return refuse("repair", why, self.character) end
     end
-    clearChambered(self.character, self.fixer)
+    clearChambered(self.character, self.fixer, item)
     local before = item:getCondition()
     if part:isContainer() and not part:getItemContainer() then
         -- 輪胎、油箱：原版這一段讀了沒定義的變數（ISFixVehiclePartAction.lua:41），照它的步驟做完
@@ -245,7 +249,7 @@ function ISFixAction:complete()
     if not D.fixerReady(self.character, self.fixing, self.fixer, self.item) then
         return refuse("repair", "materials", self.character)
     end
-    clearChambered(self.character, self.fixer)
+    clearChambered(self.character, self.fixer, self.item)
     local before = self.item:getCondition()
     local ok = vanillaItemComplete(self)
     if ok and self.item:getCondition() > before then bonusXp(self.character, self.fixer) end
@@ -304,6 +308,9 @@ function D.engineWork(character, part, job)
         vehicle:setEngineFeature(after, vehicle:getEngineLoudness(), enginePower(vehicle, after))
         vehicle:updatePartStats() -- 引擎音量照車輛腳本與消音器重算；上一行會把傳進去的音量再縮一次
         vehicle:transmitEngine()
+        -- 客戶端收到引擎封包也會把音量縮一次；同一包補送零件物品，客戶端才會重算。
+        -- 有物品的零件不送（客戶端會把零件狀況改成物品的）；有模型的也不送（沒有物品時客戶端會把模型藏起來）
+        if not part:getInventoryItem() and part:getScriptPart():getModelCount() == 0 then vehicle:transmitPartItem(part) end
     else
         before = part:getCondition()
         after = math.min(100, before + spec.gain + spec.perLevel * character:getPerkLevel(Perks.Mechanics))
