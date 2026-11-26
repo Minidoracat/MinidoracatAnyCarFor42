@@ -3,8 +3,6 @@
 # 或把選用參數改成 ... 接。只有確定呼叫的是 Java 方法，或最後一個引數的呼叫確定每條路都回夠多個值
 # （key 裡是 ~，後面是那個呼叫的函式名）才加進來。
 # 原版N<M 的 3 筆是計時動作的 new：多人只送 new 的固定參數（NetTimedAction.java:41-51），不能改成 ...，刻意保留（2026-11-27）。
-2	client/MinidoracatAnyCar/Menu.lua|new|0<2
-1	client/MinidoracatAnyCar/RepairMenu.lua|new|0<2
 1	shared/MinidoracatAnyCar/Dismantle.lua|ISRemoveBurntVehicle:new|原版2<3
 1	shared/MinidoracatAnyCar/Keys.lua|ISHotwireVehicle:new|原版1<2
 1	shared/MinidoracatAnyCar/Repair.lua|ISRepairEngine:new|原版4<5
