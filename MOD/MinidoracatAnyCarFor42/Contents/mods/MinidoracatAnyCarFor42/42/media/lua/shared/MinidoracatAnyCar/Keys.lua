@@ -92,6 +92,7 @@ end
 
 -- 參數名要和動作表的欄位同名（多人照參數名送值）。anycar 是 { job = "make" | "unwire" }；
 -- 原版與別的 MOD 只傳一個參數，這時不是表，照原版熱線
+-- anycar 不能改成 ... 接：多人只把 new 的固定參數送到伺服器（NetTimedAction.java:41-51），少傳時靠下面的型別檢查擋殘值
 local vanillaNew = ISHotwireVehicle.new
 function ISHotwireVehicle:new(character, anycar)
     local o = vanillaNew(self, character)

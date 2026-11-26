@@ -336,6 +336,7 @@ end
 
 -- 參數名要和動作表的欄位同名（多人照參數名送值）。anycar 是 { job = "rebuild" | "heater" | "bin" }；
 -- 原版與別的 MOD 只傳四個參數，這時不是表，照原版修引擎
+-- anycar 不能改成 ... 接：多人只把 new 的固定參數送到伺服器（NetTimedAction.java:41-51），少傳時靠下面的型別檢查擋殘值
 local vanillaEngineNew = ISRepairEngine.new
 function ISRepairEngine:new(character, part, item, maxTimeInit, anycar)
     local o = vanillaEngineNew(self, character, part, item, maxTimeInit)

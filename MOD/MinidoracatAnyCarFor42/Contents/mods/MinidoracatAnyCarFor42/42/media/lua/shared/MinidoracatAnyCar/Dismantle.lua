@@ -68,6 +68,7 @@ end
 
 -- 參數名要和動作表的欄位同名：引擎照 new 的參數名從動作表取值送到伺服器，再用它們重建動作。
 -- confirmed 是 { dismantleItems = n }，不是裸數字：別人只傳兩個參數時，Kahlua 可能留下別的值，表加欄位名才認得出來
+-- confirmed 不能改成 ... 接：多人只把 new 的固定參數送到伺服器（NetTimedAction.java:41-51）
 local vanillaNew = ISRemoveBurntVehicle.new
 function ISRemoveBurntVehicle:new(character, vehicle, confirmed)
     local o = vanillaNew(self, character, vehicle)

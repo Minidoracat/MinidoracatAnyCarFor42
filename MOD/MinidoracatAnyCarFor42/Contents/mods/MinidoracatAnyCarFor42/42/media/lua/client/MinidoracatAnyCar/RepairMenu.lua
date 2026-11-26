@@ -378,11 +378,12 @@ function ISVehicleMechanics:doPartContextMenu(part, x, y)
     end
 end
 
--- 沙盒關掉零件修理時，背包的修理選單不列本 MOD 的修法
+-- 沙盒關掉零件修理時，背包的修理選單不列本 MOD 的修法。
+-- 原版有呼叫點只傳 6 個參數（ISInventoryPaneContextMenu.lua:910），vehiclePart 用 ... 原樣轉，不讀 Kahlua 留下的殘值
 local vanillaFixingMenu = ISInventoryPaneContextMenu.buildFixingMenu
-ISInventoryPaneContextMenu.buildFixingMenu = function(brokenObject, player, fixing, fixingNum, fixOption, subMenuFix, vehiclePart)
+ISInventoryPaneContextMenu.buildFixingMenu = function(brokenObject, player, fixing, fixingNum, fixOption, subMenuFix, ...)
     if D.fixName(fixing) and not D.sandbox("Repair", true) then return end
-    return vanillaFixingMenu(brokenObject, player, fixing, fixingNum, fixOption, subMenuFix, vehiclePart)
+    return vanillaFixingMenu(brokenObject, player, fixing, fixingNum, fixOption, subMenuFix, ...)
 end
 
 -- 背包右鍵：關掉零件修理時，只有本 MOD 修法的零件會剩一個空的「修理 <物品>」（ISInventoryPaneContextMenu.lua:903-911），拿掉
